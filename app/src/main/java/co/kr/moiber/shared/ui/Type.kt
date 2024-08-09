@@ -1,4 +1,4 @@
-package co.kr.moiber.ui.theme
+package co.kr.moiber.shared.ui
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
