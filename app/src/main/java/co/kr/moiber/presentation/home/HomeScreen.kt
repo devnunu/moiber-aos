@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import co.kr.moiber.shared.ui.MoiberTheme
 
 @Composable
 fun HomeScreen(
@@ -25,7 +24,5 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    MoiberTheme {
-        Greeting("Android")
-    }
+    Greeting("Android")
 }
