@@ -21,7 +21,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import co.kr.moiber.model.FakeHomeWeatherSummary
 import co.kr.moiber.model.WeatherMessage
 import co.kr.moiber.presentation.home.components.card.WeatherCard
+import co.kr.moiber.presentation.home.components.header.TopHeaderView
 import co.kr.moiber.presentation.home.components.message.WeatherMessageView
+import co.kr.moiber.shared.components.DayNightText
 import co.kr.moiber.shared.ext.toFormatString
 import co.kr.moiber.shared.ui.Body04
 import co.kr.moiber.shared.ui.black
@@ -63,6 +65,9 @@ private fun HomeScreen(
                 )
             }
             Column {
+                TopHeaderView(
+                    isDay = weatherSummary.isDay
+                )
                 WeatherCard(
                     modifier = Modifier.padding(horizontal = 16.dp),
                     weatherSummary = state.weatherSummary
@@ -71,10 +76,10 @@ private fun HomeScreen(
                 Column(
                     modifier = Modifier.padding(horizontal = 22.dp)
                 ) {
-                    Text(
+                    DayNightText(
                         style = Body04,
                         text = Date().toFormatString("M월 d일(E)") ?: "-",
-                        color = if (weatherSummary.isDay) black else white01
+                        isDay = weatherSummary.isDay
                     )
                     Spacer(modifier = Modifier.size(6.dp))
                     weatherSummary.weatherMessageList.forEach { weatherMessage ->
