@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-open class BaseViewModel<STATE : ViewState, VIEW_EVENT : ViewEvent>(
+abstract class BaseViewModel<STATE : ViewState, VIEW_EVENT : ViewEvent>(
     initialState: STATE
 ): ViewModel() {
     private val _stateFlow = MutableStateFlow(initialState)
@@ -24,4 +24,6 @@ open class BaseViewModel<STATE : ViewState, VIEW_EVENT : ViewEvent>(
     fun postSideEffect(sideEffect: SideEffect) {
         _sideEffects.trySend(sideEffect)
     }
+
+    abstract fun onEvent(event: VIEW_EVENT)
 }

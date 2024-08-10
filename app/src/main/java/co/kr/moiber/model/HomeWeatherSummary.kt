@@ -1,5 +1,8 @@
 package co.kr.moiber.model
 
+import androidx.annotation.DrawableRes
+import co.kr.moiber.R
+
 data class HomeWeatherSummary(
     val currentWeather: Weather? = null,    // 날씨
     val currentTemp: Int? = null,           // 현재온도
@@ -11,7 +14,8 @@ data class HomeWeatherSummary(
     val humidityIndex: Int? = null,         // 습도 지수
     val windSpeedIndex: Int? = null,        // 풍속 지수
     val rainIndex: Int? = null,        // 강수확률
-    val weatherInfoList: List<WeatherInfo> = listOf()
+    val isDay: Boolean = true,        // 낮/밤 여부
+    val weatherMessageList: List<WeatherMessage> = listOf()
 ) {
 
     val dustTxt: String
@@ -42,5 +46,84 @@ data class HomeWeatherSummary(
             in 7..8 -> "쌩쌩"
             else -> "-"
         }
+
+    @get:DrawableRes
+    val weatherIconResId: Int
+        get() = when (currentWeather) {
+            Weather.SUNNY -> {
+                if (isDay) R.drawable.icn_sun_l else R.drawable.icn_moon_l
+            }
+
+            Weather.SOME_CLOUDY -> {
+                if (isDay) R.drawable.icn_cloud1_l else R.drawable.icn_cloud3_l
+            }
+
+            Weather.CLOUDY -> R.drawable.icn_cloud2_l
+            Weather.RAINY -> R.drawable.icn_rain_l
+            Weather.THUNDER -> R.drawable.icn_thunder_l
+            else -> R.drawable.icn_snow_l
+        }
+
+    @get:DrawableRes
+    val weatherBgResId: Int
+        get() = when (currentWeather) {
+            Weather.SUNNY -> {
+                if (isDay) {
+                    val currentTemp = currentTemp ?: Int.MIN_VALUE
+                    if (currentTemp > 30) R.drawable.back1_sun1 else R.drawable.back1_sun2
+                } else {
+                    R.drawable.back1_moon
+                }
+            }
+
+            Weather.SOME_CLOUDY -> {
+                if (isDay) R.drawable.back1_cloud1 else R.drawable.back2_cloud1
+            }
+
+            Weather.CLOUDY -> {
+                if (isDay) R.drawable.back1_cloud2 else R.drawable.back2_cloud2
+            }
+
+            Weather.RAINY -> {
+                if (isDay) R.drawable.back1_rain else R.drawable.back2_rain
+            }
+
+            Weather.THUNDER -> {
+                if (isDay) R.drawable.back1_thunder else R.drawable.back2_thunder
+            }
+
+            else -> {
+                if (isDay) R.drawable.back1_snow else R.drawable.back2_snow
+            }
+        }
 }
 
+object FakeHomeWeatherSummary {
+    fun getFakeModel() =
+        HomeWeatherSummary(
+            currentWeather = Weather.SUNNY,
+            currentTemp = 32,
+            maxTemp = 32,
+            minTemp = 23,
+            apparentTemp = 28,
+            diffTemp = 3,
+            dustIndex = 81,
+            windSpeedIndex = 2,
+            humidityIndex = 81,
+            rainIndex = 60,
+            weatherMessageList = listOf(
+                WeatherMessage(
+                    type = WeatherMessageType.CAUTION,
+                    message = " 태풍경보 발령! 실내에 들어가 있어!"
+                ),
+                WeatherMessage(
+                    type = WeatherMessageType.WARNING,
+                    message = " 호우주의보 발령! 침수에 대비해!"
+                ),
+                WeatherMessage(
+                    type = WeatherMessageType.NORMAL,
+                    message = "오늘 기온이 정말 높은 하루야"
+                )
+            )
+        )
+}

@@ -9,5 +9,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor() : BaseViewModel<HomeState, HomeViewEvent>(
     HomeState()
 ) {
-
+    override fun onEvent(event: HomeViewEvent) {
+        when (event) {
+            else -> Unit
+        }
+    }
 }
