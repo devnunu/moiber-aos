@@ -96,7 +96,35 @@ data class HomeWeatherSummary(
                 if (isDay) R.drawable.back1_snow else R.drawable.back2_snow
             }
         }
+
+    @get:DrawableRes
+    val characterResId: Int
+        get() {
+            val currentTemp = this.currentTemp ?: 0
+            return when (currentWeather) {
+                Weather.SNOWY -> R.drawable.clothes_snow_a
+                Weather.RAINY -> when {
+                    currentTemp > 23 -> R.drawable.clothes_rain_c
+                    currentTemp in -3..22 -> R.drawable.clothes_rain_b
+                    else -> R.drawable.clothes_rain_a
+                }
+                else -> when {
+                    currentTemp > 31 -> R.drawable.clothes_i
+                    currentTemp in 27..31 -> R.drawable.clothes_h
+                    currentTemp in 23..26 -> R.drawable.clothes_g
+                    currentTemp in 17..22 -> R.drawable.clothes_f
+                    currentTemp in 13..16 -> R.drawable.clothes_e
+                    currentTemp in 6..12 -> R.drawable.clothes_d
+                    currentTemp in -3..5 -> R.drawable.clothes_c
+                    currentTemp in -16..-4 -> R.drawable.clothes_b
+                    else -> R.drawable.clothes_a
+                }
+            }
+        }
+
 }
+
+fun Int.isMoreThan(value: Int) = this > value
 
 object FakeHomeWeatherSummary {
     fun getFakeModel() =

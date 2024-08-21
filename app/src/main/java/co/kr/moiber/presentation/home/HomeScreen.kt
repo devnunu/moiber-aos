@@ -55,15 +55,16 @@ private fun HomeScreen(
                 .fillMaxSize()
                 .background(bgColor)
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Image(
-                    painter = painterResource(id = weatherSummary.weatherBgResId),
-                    contentDescription = null
-                )
-            }
+            Image(
+                modifier = Modifier.align(Alignment.CenterStart),
+                painter = painterResource(id = weatherSummary.weatherBgResId),
+                contentDescription = null
+            )
+            Image(
+                modifier = Modifier.align(Alignment.BottomEnd),
+                painter = painterResource(id = weatherSummary.characterResId),
+                contentDescription = null
+            )
             Column {
                 TopHeaderView(
                     isDay = weatherSummary.isDay
