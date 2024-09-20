@@ -1,4 +1,4 @@
-package co.kr.moiber.presentation.home.components.animation
+package co.kr.moiber.presentation.home.summary.components.animation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition

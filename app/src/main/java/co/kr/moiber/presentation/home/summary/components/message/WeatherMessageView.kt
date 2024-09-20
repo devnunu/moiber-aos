@@ -1,4 +1,4 @@
-package co.kr.moiber.presentation.home.components.message
+package co.kr.moiber.presentation.home.summary.components.message
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package co.kr.moiber.presentation.home.components.card
+package co.kr.moiber.presentation.home.summary.components.card
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Row

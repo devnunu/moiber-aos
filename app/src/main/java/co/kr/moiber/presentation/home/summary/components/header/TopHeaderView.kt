@@ -1,4 +1,4 @@
-package co.kr.moiber.presentation.home.components.header
+package co.kr.moiber.presentation.home.summary.components.header
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
