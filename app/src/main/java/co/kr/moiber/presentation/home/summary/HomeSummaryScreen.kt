@@ -1,11 +1,11 @@
 package co.kr.moiber.presentation.home.summary
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -20,37 +20,28 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.model.FakeHomeWeatherSummary
-import co.kr.moiber.presentation.home.HomeScreen
+import co.kr.moiber.presentation.home.HomeState
+import co.kr.moiber.presentation.home.HomeViewEvent
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
 import co.kr.moiber.presentation.home.summary.components.card.WeatherCard
-import co.kr.moiber.presentation.home.summary.components.header.TopHeaderView
 import co.kr.moiber.presentation.home.summary.components.message.WeatherMessageView
 import co.kr.moiber.shared.components.DayNightText
 import co.kr.moiber.shared.ext.toFormatString
 import co.kr.moiber.shared.ui.Body04
-import co.kr.moiber.shared.ui.black02
-import co.kr.moiber.shared.ui.yellow02
 import kotlinx.coroutines.delay
 import java.util.Date
 
 @Composable
 fun HomeSummaryScreen(
-    state: HomeSummaryState,
-    onEvent: (HomeSummaryViewEvent) -> Unit
+    isVisible:Boolean,
+    state: HomeState,
+    onEvent: (HomeViewEvent) -> Unit
 ) {
-    var isVisible by remember { mutableStateOf(false) }
     val weatherSummary = state.weatherSummary
-    val bgColor = if (weatherSummary?.isDay == true) yellow02 else black02
 
-    LaunchedEffect(Unit) {
-        delay(150)
-        isVisible = true
-    }
     weatherSummary?.let {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(bgColor)
+            modifier = Modifier.fillMaxSize()
         ) {
             Column(
                 modifier = Modifier.align(Alignment.CenterStart),
@@ -82,15 +73,6 @@ fun HomeSummaryScreen(
                 }
             }
             Column {
-                HomeAnimationVisibility(
-                    visible = isVisible,
-                    duration = 400,
-                    delay = 150
-                ) {
-                    TopHeaderView(
-                        isDay = weatherSummary.isDay
-                    )
-                }
                 HomeAnimationVisibility(
                     visible = isVisible,
                     duration = 1200,
@@ -139,7 +121,8 @@ fun HomeSummaryScreen(
 @Composable
 fun HomeScreenPreview() {
     HomeSummaryScreen(
-        state = HomeSummaryState(
+        isVisible = true,
+        state = HomeState(
             weatherSummary = FakeHomeWeatherSummary.getFakeModel()
         ),
         onEvent = {}

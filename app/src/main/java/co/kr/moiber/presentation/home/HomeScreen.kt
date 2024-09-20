@@ -1,17 +1,90 @@
 package co.kr.moiber.presentation.home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import co.kr.moiber.presentation.home.community.HomeCommunityScreen
+import co.kr.moiber.presentation.home.components.header.TopHeaderView
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
-import co.kr.moiber.presentation.home.summary.HomeSummaryViewModel
+import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
+import co.kr.moiber.shared.ui.black02
+import co.kr.moiber.shared.ui.yellow02
+import kotlinx.coroutines.delay
 
 @Composable
 fun HomeScreen(
-    summaryViewModel: HomeSummaryViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    HomeSummaryScreen(
-        state = summaryViewModel.stateFlow.collectAsState().value,
-        onEvent = summaryViewModel::onEvent
+    HomeScreen(
+        state = viewModel.stateFlow.collectAsState().value,
+        onEvent = viewModel::onEvent
     )
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun HomeScreen(
+    state: HomeState,
+    onEvent: (HomeViewEvent) -> Unit
+) {
+    var isVisible by remember { mutableStateOf(false) }
+    val bgColor = if (state.weatherSummary?.isDay == true) yellow02 else black02
+    val pagerState = rememberPagerState(pageCount = { 2 })
+
+    LaunchedEffect(Unit) {
+        delay(150)
+        isVisible = true
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(bgColor)
+    ) {
+        HomeAnimationVisibility(
+            visible = isVisible,
+            duration = 400,
+            delay = 150
+        ) {
+            TopHeaderView(
+                isDay = state.weatherSummary?.isDay ?: true
+            )
+        }
+        HorizontalPager(
+            modifier = Modifier.fillMaxWidth(),
+            state = pagerState,
+            verticalAlignment = Alignment.Top
+        ) { index ->
+            when (index) {
+                0 -> {
+                    HomeSummaryScreen(
+                        isVisible = isVisible,
+                        state = state,
+                        onEvent = onEvent
+                    )
+                }
+
+                1 -> {
+                    HomeCommunityScreen(
+                        state = state,
+                        onEvent = onEvent
+                    )
+                }
+            }
+        }
+
+    }
 }
