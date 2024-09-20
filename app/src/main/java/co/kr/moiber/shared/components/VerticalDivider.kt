@@ -8,13 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import co.kr.moiber.shared.ui.gray
+import co.kr.moiber.shared.ui.gray01
 
 @Composable
 fun VerticalDivider(
     width: Dp,
     height: Dp,
-    backgroundColor: Color = gray
+    backgroundColor: Color = gray01
 ) {
     Box(
         modifier = Modifier

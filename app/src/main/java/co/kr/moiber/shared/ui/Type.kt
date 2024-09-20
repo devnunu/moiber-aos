@@ -28,7 +28,7 @@ val Body01 = TextStyle(
 )
 
 val Body02 = TextStyle(
-    fontSize = 16.sp,
+    fontSize = 18.sp,
     fontWeight = FontWeight.Medium,
     letterSpacing = (-0.6).sp,
     color = black

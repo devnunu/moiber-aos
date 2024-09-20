@@ -24,8 +24,8 @@ import co.kr.moiber.shared.components.VerticalDivider
 import co.kr.moiber.shared.ui.Body01
 import co.kr.moiber.shared.ui.Body06
 import co.kr.moiber.shared.ui.Title01
-import co.kr.moiber.shared.ui.blue
-import co.kr.moiber.shared.ui.red
+import co.kr.moiber.shared.ui.blue01
+import co.kr.moiber.shared.ui.red01
 import co.kr.moiber.shared.ui.white01
 import kotlin.math.abs
 
@@ -59,25 +59,27 @@ fun WeatherCard(
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
-            Column {
+            Column(
+                horizontalAlignment = Alignment.End
+            ) {
                 Row(
                     horizontalArrangement = Arrangement.End
                 ) {
                     Text(
                         style = Body06,
                         text = "↓ ${weatherSummary.minTemp ?: "-"}°",
-                        color = blue
+                        color = blue01
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                     Text(
                         style = Body06,
                         text = "↓ ${weatherSummary.maxTemp ?: "-"}°",
-                        color = red
+                        color = red01
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                     Text(
                         style = Body06,
-                        text = "체감 ${weatherSummary.apparentTemp ?: "-"}°C",
+                        text = "체감 ${weatherSummary.apparentTemp ?: "-"}°",
                     )
                 }
                 Spacer(modifier = Modifier.size(4.dp))
@@ -97,33 +99,32 @@ fun WeatherCard(
         ) {
             WeatherIndexDetailItem(
                 iconResId = R.drawable.icn_dust,
-                text = weatherSummary?.dustTxt ?: "-"
+                text = weatherSummary.dustTxt
             )
             Spacer(modifier = Modifier.weight(1f))
             VerticalDivider(width = 1.dp, height = 22.dp)
             Spacer(modifier = Modifier.weight(1f))
             WeatherIndexDetailItem(
                 iconResId = R.drawable.icn_wind,
-                text = weatherSummary?.windSpeedTxt ?: "-"
+                text = weatherSummary.windSpeedTxt
             )
             Spacer(modifier = Modifier.weight(1f))
             VerticalDivider(width = 1.dp, height = 22.dp)
             Spacer(modifier = Modifier.weight(1f))
             WeatherIndexDetailItem(
                 iconResId = R.drawable.icn_humidity,
-                text = weatherSummary?.humidityTxt ?: "-"
+                text = weatherSummary.humidityTxt
             )
             Spacer(modifier = Modifier.weight(1f))
             VerticalDivider(width = 1.dp, height = 22.dp)
             Spacer(modifier = Modifier.weight(1f))
             WeatherIndexDetailItem(
                 iconResId = R.drawable.icn_rain,
-                text = "${weatherSummary?.rainIndex ?: "-"}%"
+                text = "${weatherSummary.rainIndex}%"
             )
         }
     }
 }
-
 
 
 @Preview
