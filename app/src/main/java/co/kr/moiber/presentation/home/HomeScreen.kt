@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import co.kr.moiber.presentation.home.community.HomeCommunityScreen
 import co.kr.moiber.presentation.home.components.header.TopHeaderView
+import co.kr.moiber.presentation.home.components.indicator.PageIndicator
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
 import co.kr.moiber.shared.ui.black02
@@ -41,9 +42,10 @@ private fun HomeScreen(
     state: HomeState,
     onEvent: (HomeViewEvent) -> Unit
 ) {
+    val numberOfPage = 2
     var isVisible by remember { mutableStateOf(false) }
     val bgColor = if (state.weatherSummary?.isDay == true) yellow02 else black02
-    val pagerState = rememberPagerState(pageCount = { 2 })
+    val pagerState = rememberPagerState(pageCount = { numberOfPage })
 
     LaunchedEffect(Unit) {
         delay(150)
@@ -63,6 +65,10 @@ private fun HomeScreen(
                 isDay = state.weatherSummary?.isDay ?: true
             )
         }
+        PageIndicator(
+            numberOfPages = numberOfPage,
+            selectedPage = pagerState.currentPage,
+        )
         HorizontalPager(
             modifier = Modifier.fillMaxWidth(),
             state = pagerState,
