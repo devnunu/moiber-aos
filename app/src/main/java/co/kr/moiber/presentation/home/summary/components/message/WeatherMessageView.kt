@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import co.kr.moiber.model.WeatherMessage
-import co.kr.moiber.model.WeatherMessageType
+import co.kr.moiber.model.weather.WeatherMessage
+import co.kr.moiber.model.weather.WeatherMessageType
 import co.kr.moiber.shared.ui.Body02
 import co.kr.moiber.shared.ui.white02
 

@@ -1,4 +1,4 @@
-package co.kr.moiber.model
+package co.kr.moiber.model.weather
 
 enum class Weather {
     SUNNY,      // 맑음

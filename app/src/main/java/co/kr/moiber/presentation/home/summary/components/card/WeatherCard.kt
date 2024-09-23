@@ -18,8 +18,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
-import co.kr.moiber.model.FakeHomeWeatherSummary
-import co.kr.moiber.model.HomeWeatherSummary
+import co.kr.moiber.model.weather.FakeHomeWeatherSummary
+import co.kr.moiber.model.weather.HomeWeatherSummary
 import co.kr.moiber.shared.components.VerticalDivider
 import co.kr.moiber.shared.ui.Body01
 import co.kr.moiber.shared.ui.Body06

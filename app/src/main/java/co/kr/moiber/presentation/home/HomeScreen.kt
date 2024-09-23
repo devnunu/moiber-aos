@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import co.kr.moiber.presentation.home.community.HomeCommunityScreen
 import co.kr.moiber.presentation.home.components.header.TopHeaderView
@@ -55,6 +57,8 @@ private fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(bgColor)
+            .padding(bottom = 41.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HomeAnimationVisibility(
             visible = isVisible,
@@ -65,12 +69,10 @@ private fun HomeScreen(
                 isDay = state.weatherSummary?.isDay ?: true
             )
         }
-        PageIndicator(
-            numberOfPages = numberOfPage,
-            selectedPage = pagerState.currentPage,
-        )
         HorizontalPager(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
             state = pagerState,
             verticalAlignment = Alignment.Top
         ) { index ->
@@ -91,6 +93,9 @@ private fun HomeScreen(
                 }
             }
         }
-
+        PageIndicator(
+            numberOfPages = numberOfPage,
+            selectedPage = pagerState.currentPage,
+        )
     }
 }

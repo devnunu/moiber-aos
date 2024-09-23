@@ -1,4 +1,4 @@
-package co.kr.moiber.model
+package co.kr.moiber.model.weather
 
 import androidx.annotation.DrawableRes
 import co.kr.moiber.R
