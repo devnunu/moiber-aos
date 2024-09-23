@@ -13,7 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.presentation.home.HomeState
 import co.kr.moiber.presentation.home.HomeViewEvent
+import co.kr.moiber.presentation.home.community.components.CommunityHeader
 import co.kr.moiber.presentation.home.community.components.EditFloatingButton
+import co.kr.moiber.shared.ui.yellow01
 
 @Composable
 fun HomeCommunityScreen(
@@ -22,8 +24,15 @@ fun HomeCommunityScreen(
 ) {
     Box {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 18.dp)
         ) {
+            CommunityHeader(
+                modifier = Modifier.padding(vertical = 7.dp),
+                checked = true,
+                onCheckedChange = {}
+            )
             Text(text = "커뮤니티")
         }
         EditFloatingButton(
@@ -36,7 +45,10 @@ fun HomeCommunityScreen(
 
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFFFFFAEF
+)
 @Composable
 fun HomeCommunityScreenPreview() {
     HomeCommunityScreen(
