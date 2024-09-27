@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import co.kr.moiber.R
 import co.kr.moiber.model.weather.FakeHomeWeatherSummary
+import co.kr.moiber.model.weather.Weather
 import co.kr.moiber.presentation.home.HomeState
 import co.kr.moiber.presentation.home.HomeViewEvent
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
@@ -45,7 +47,13 @@ fun HomeSummaryScreen(
                     duration = 300,
                     delay = 350 + (200 * weatherSummary.weatherMessageList.size) + 500
                 ) {
+                    val bottomPadding = when(weatherSummary.currentWeather) {
+                        Weather.SNOWY,
+                        Weather.RAINY-> 8.dp
+                        else -> 20.dp
+                    }
                     Image(
+                        modifier = Modifier.padding(bottom = bottomPadding),
                         painter = painterResource(id = weatherSummary.characterResId),
                         contentDescription = null
                     )
