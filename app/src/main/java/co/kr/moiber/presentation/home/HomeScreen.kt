@@ -10,6 +10,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import co.kr.moiber.presentation.home.community.HomeCommunityScreen
@@ -26,6 +28,7 @@ import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
 import co.kr.moiber.shared.ui.black02
 import co.kr.moiber.shared.ui.yellow03
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.delay
 
 @Composable
@@ -53,6 +56,7 @@ private fun HomeScreen(
         delay(150)
         isVisible = true
     }
+    SetStatusBarColor(color = bgColor)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -97,5 +101,13 @@ private fun HomeScreen(
             numberOfPages = numberOfPage,
             selectedPage = pagerState.currentPage,
         )
+    }
+}
+
+@Composable
+fun SetStatusBarColor(color: Color) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        systemUiController.setSystemBarsColor(color)
     }
 }
