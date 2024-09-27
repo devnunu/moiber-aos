@@ -20,7 +20,7 @@ import co.kr.moiber.shared.ui.red02
 import co.kr.moiber.shared.ui.white01
 
 @Composable
-fun LikeTag(
+fun MessageLikeTag(
     like: CommunityLike?
 ) {
     val isMyLike = like?.isMyLike ?: false

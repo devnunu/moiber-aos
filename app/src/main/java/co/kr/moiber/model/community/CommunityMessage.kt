@@ -81,6 +81,15 @@ object FakeCommunityContent {
                 bottomWear = "청바지",
             ),
             getFakeModel(
+                userId = 0,
+                feelGood = false,
+                van = CommunityVan(count = 5),
+                message = "",
+                outerwear = "가디건",
+                upperWear = "반소매 티",
+                bottomWear = "청바지",
+            ),
+            getFakeModel(
                 van = CommunityVan(count = 1, isMyVan = true)
             ),
             getFakeModel(

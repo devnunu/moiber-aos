@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import co.kr.moiber.presentation.home.HomeState
 import co.kr.moiber.presentation.home.HomeViewEvent
 import co.kr.moiber.presentation.home.community.components.CommunityHeader
-import co.kr.moiber.presentation.home.community.components.message.ContentMessageItem
+import co.kr.moiber.presentation.home.community.components.message.MessageItem
 import co.kr.moiber.presentation.home.community.components.EditFloatingButton
 import co.kr.moiber.shared.ext.fadingEdge
 
@@ -59,7 +59,7 @@ fun HomeCommunityScreen(
                     }
                     else state.communityContentList
                 items(filteredContentList) { communityContent ->
-                    ContentMessageItem(
+                    MessageItem(
                         isDay = isDay,
                         communityContent = communityContent
                     )

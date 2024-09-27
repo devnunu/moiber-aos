@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,14 +43,14 @@ fun ContentMessageHeader(
                 text = "나"
             )
             Spacer(modifier = Modifier.size(4.dp))
-            ContentMessageFeelIcon(communityContent.feelGood)
+            MessageFeelIcon(communityContent.feelGood)
         }
     } else {
         Row(
             modifier = modifier,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ContentMessageFeelIcon(communityContent.feelGood)
+            MessageFeelIcon(communityContent.feelGood)
             Spacer(modifier = Modifier.size(4.dp))
             DayNightText(
                 style = Body08,
@@ -71,7 +70,7 @@ fun ContentMessageHeader(
 }
 
 @Composable
-fun ContentMessageFeelIcon(feelGood: Boolean) {
+fun MessageFeelIcon(feelGood: Boolean) {
     Image(
         modifier = Modifier.size(28.dp),
         painter = painterResource(
