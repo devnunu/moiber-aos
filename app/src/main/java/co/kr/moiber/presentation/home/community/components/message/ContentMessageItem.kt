@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -64,6 +65,7 @@ fun ContentMessageItem(
                             Modifier.padding(start = 10.dp)
                         }
                     }
+                    .widthIn(max = 308.dp)
                     .background(
                         color = if (isMyContent) yellow02 else white01,
                         shape = radius

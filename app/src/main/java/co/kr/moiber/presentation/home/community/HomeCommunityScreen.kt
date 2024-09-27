@@ -53,7 +53,12 @@ fun HomeCommunityScreen(
                     .fadingEdge()
                     .padding(horizontal = 18.dp)
             ) {
-                items(state.communityContentList) { communityContent ->
+                val filteredContentList =
+                    if (state.isOnMyHistory) state.communityContentList.filter {
+                        it.isMyContent(userId = 0)
+                    }
+                    else state.communityContentList
+                items(filteredContentList) { communityContent ->
                     ContentMessageItem(
                         isDay = isDay,
                         communityContent = communityContent
