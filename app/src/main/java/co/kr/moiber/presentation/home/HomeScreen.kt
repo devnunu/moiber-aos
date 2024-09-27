@@ -25,7 +25,7 @@ import co.kr.moiber.presentation.home.components.indicator.PageIndicator
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
 import co.kr.moiber.shared.ui.black02
-import co.kr.moiber.shared.ui.yellow02
+import co.kr.moiber.shared.ui.yellow03
 import kotlinx.coroutines.delay
 
 @Composable
@@ -46,7 +46,7 @@ private fun HomeScreen(
 ) {
     val numberOfPage = 2
     var isVisible by remember { mutableStateOf(false) }
-    val bgColor = if (state.weatherSummary?.isDay == true) yellow02 else black02
+    val bgColor = if (state.weatherSummary?.isDay == true) yellow03 else black02
     val pagerState = rememberPagerState(pageCount = { numberOfPage })
 
     LaunchedEffect(Unit) {

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import co.kr.moiber.presentation.home.HomeState
 import co.kr.moiber.presentation.home.HomeViewEvent
 import co.kr.moiber.presentation.home.community.components.CommunityHeader
-import co.kr.moiber.presentation.home.community.components.ContentMessageItem
+import co.kr.moiber.presentation.home.community.components.message.ContentMessageItem
 import co.kr.moiber.presentation.home.community.components.EditFloatingButton
 import co.kr.moiber.shared.ext.fadingEdge
 
