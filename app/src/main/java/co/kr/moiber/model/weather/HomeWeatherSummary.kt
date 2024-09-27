@@ -72,7 +72,7 @@ data class HomeWeatherSummary(
                     val currentTemp = currentTemp ?: Int.MIN_VALUE
                     if (currentTemp > 30) R.drawable.back1_sun1 else R.drawable.back1_sun2
                 } else {
-                    R.drawable.back1_moon
+                    R.drawable.back2_moon
                 }
             }
 

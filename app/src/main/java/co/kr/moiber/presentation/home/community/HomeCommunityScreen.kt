@@ -1,6 +1,7 @@
 package co.kr.moiber.presentation.home.community
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -25,25 +26,25 @@ fun HomeCommunityScreen(
     onEvent: (HomeViewEvent) -> Unit
 ) {
     Box {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .fadingEdge()
-                .padding(horizontal = 18.dp)
-        ) {
-            item {
-                CommunityHeader(
-                    modifier = Modifier.padding(vertical = 7.dp),
-                    checked = true,
-                    onCheckedChange = {}
-                )
-                Spacer(modifier = Modifier.size(12.dp))
-            }
-            items(state.communityContentList) { communityContent ->
-                ContentMessageItem(
-                    communityContent = communityContent
-                )
-                Spacer(modifier = Modifier.size(20.dp))
+        Column {
+            CommunityHeader(
+                modifier = Modifier.padding(vertical = 7.dp),
+                checked = true,
+                onCheckedChange = {}
+            )
+            Spacer(modifier = Modifier.size(12.dp))
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .fadingEdge()
+                    .padding(horizontal = 18.dp)
+            ) {
+                items(state.communityContentList) { communityContent ->
+                    ContentMessageItem(
+                        communityContent = communityContent
+                    )
+                    Spacer(modifier = Modifier.size(20.dp))
+                }
             }
         }
         EditFloatingButton(
