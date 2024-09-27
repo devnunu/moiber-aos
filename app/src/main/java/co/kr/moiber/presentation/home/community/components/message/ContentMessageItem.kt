@@ -20,6 +20,7 @@ import co.kr.moiber.model.community.CommunityContent
 import co.kr.moiber.model.community.FakeCommunityContent
 import co.kr.moiber.shared.ui.Body06
 import co.kr.moiber.shared.ui.Body09
+import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.white01
 import co.kr.moiber.shared.ui.yellow02
 
@@ -72,63 +73,75 @@ fun ContentMessageItem(
                     )
                     .padding(vertical = 10.dp, horizontal = 14.dp),
             ) {
-                val hasMessage = communityContent.message?.isNotBlank() ?: false
-                if (hasMessage) {
+                if (communityContent.isVan) {
+                    val message = if (communityContent.van?.isMyVan == true) {
+                        "※ 회원님이 신고한 게시글이에요."
+                    } else {
+                        "※ 다수에게 신고된 게시글이에요."
+                    }
                     Text(
                         style = Body06,
-                        text = "${communityContent.message}"
+                        text = message,
+                        color = gray01
                     )
-                    Spacer(modifier = Modifier.size(8.dp))
-                }
-                Row {
-                    Row(
-                        modifier = Modifier.padding(4.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                } else {
+                    val hasMessage = communityContent.message?.isNotBlank() ?: false
+                    if (hasMessage) {
                         Text(
-                            text = "\uD83E\uDD7C"
+                            style = Body06,
+                            text = "${communityContent.message}"
                         )
-                        Spacer(modifier = Modifier.size(4.dp))
-                        Text(
-                            style = Body09,
-                            text = "${communityContent.outerwear}"
-                        )
+                        Spacer(modifier = Modifier.size(8.dp))
                     }
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Row(
-                        modifier = Modifier.padding(4.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "\uD83D\uDC55"
-                        )
+                    Row {
+                        Row(
+                            modifier = Modifier.padding(4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "\uD83E\uDD7C"
+                            )
+                            Spacer(modifier = Modifier.size(4.dp))
+                            Text(
+                                style = Body09,
+                                text = "${communityContent.outerwear}"
+                            )
+                        }
                         Spacer(modifier = Modifier.size(4.dp))
-                        Text(
-                            style = Body09,
-                            text = "${communityContent.upperWear}"
-                        )
-                    }
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Row(
-                        modifier = Modifier.padding(4.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "\uD83D\uDC55"
-                        )
+                        Row(
+                            modifier = Modifier.padding(4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "\uD83D\uDC55"
+                            )
+                            Spacer(modifier = Modifier.size(4.dp))
+                            Text(
+                                style = Body09,
+                                text = "${communityContent.upperWear}"
+                            )
+                        }
                         Spacer(modifier = Modifier.size(4.dp))
-                        Text(
-                            style = Body09,
-                            text = "${communityContent.bottomWear}"
-                        )
+                        Row(
+                            modifier = Modifier.padding(4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "\uD83D\uDC55"
+                            )
+                            Spacer(modifier = Modifier.size(4.dp))
+                            Text(
+                                style = Body09,
+                                text = "${communityContent.bottomWear}"
+                            )
+                        }
                     }
                 }
             }
             if (communityContent.like != null) {
                 Spacer(modifier = Modifier.size(5.dp))
                 LikeTag(
-                    like = communityContent.like,
-                    isMyLike = communityContent.isMyLike
+                    like = communityContent.like
                 )
             }
         }

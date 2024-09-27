@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
+import co.kr.moiber.model.community.CommunityLike
 import co.kr.moiber.shared.ui.Body09
 import co.kr.moiber.shared.ui.black02
 import co.kr.moiber.shared.ui.red02
@@ -20,9 +21,9 @@ import co.kr.moiber.shared.ui.white01
 
 @Composable
 fun LikeTag(
-    like: Int?,
-    isMyLike: Boolean
+    like: CommunityLike?
 ) {
+    val isMyLike = like?.isMyLike ?: false
     Row(
         modifier = Modifier
             .background(if (isMyLike) red02 else white01, RoundedCornerShape(100.dp))
@@ -36,7 +37,7 @@ fun LikeTag(
         )
         Text(
             style = Body09,
-            text = like?.toString().orEmpty(),
+            text = like?.count?.toString().orEmpty(),
             color = black02
         )
     }
