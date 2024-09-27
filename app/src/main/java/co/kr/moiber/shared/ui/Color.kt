@@ -2,7 +2,7 @@ package co.kr.moiber.shared.ui
 
 import androidx.compose.ui.graphics.Color
 
-val black = Color(0xFF4F4F4F)
+val black01 = Color(0xFF4F4F4F)
 val black02 = Color(0xFF5E5B65)
 val gray01 = Color(0xFF9DA3A2)
 val white01 = Color(0xFFFFFFFF)

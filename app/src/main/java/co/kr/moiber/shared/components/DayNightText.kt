@@ -3,7 +3,7 @@ package co.kr.moiber.shared.components
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
-import co.kr.moiber.shared.ui.black
+import co.kr.moiber.shared.ui.black01
 import co.kr.moiber.shared.ui.white01
 
 @Composable
@@ -12,7 +12,7 @@ fun DayNightText(
     isDay: Boolean,
     text: String
 ) {
-    val color = if (isDay) black else white01
+    val color = if (isDay) black01 else white01
     Text(
         style = style,
         text = text,

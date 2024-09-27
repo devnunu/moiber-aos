@@ -49,7 +49,7 @@ fun MoiberSwitch(
     ) {
 
         drawRoundRect(
-            color = if (checked) blue01 else black02.copy(alpha = 0.4f),
+            color = if (checked) black02 else black02.copy(alpha = 0.5f),
             cornerRadius = CornerRadius(x = 10.dp.toPx(), y = 10.dp.toPx()),
         )
 

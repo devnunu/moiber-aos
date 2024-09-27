@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,16 +27,24 @@ fun HomeCommunityScreen(
     onEvent: (HomeViewEvent) -> Unit
 ) {
     Box {
-        Column {
-            CommunityHeader(
-                modifier = Modifier.padding(vertical = 7.dp),
-                checked = true,
-                onCheckedChange = {}
-            )
-            Spacer(modifier = Modifier.size(12.dp))
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp)
+            ) {
+                CommunityHeader(
+                    modifier = Modifier.padding(vertical = 7.dp),
+                    checked = true,
+                    onCheckedChange = {}
+                )
+                Spacer(modifier = Modifier.size(12.dp))
+            }
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .weight(1f)
                     .fadingEdge()
                     .padding(horizontal = 18.dp)
             ) {
