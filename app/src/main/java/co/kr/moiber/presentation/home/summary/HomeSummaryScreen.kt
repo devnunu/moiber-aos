@@ -36,7 +36,9 @@ fun HomeSummaryScreen(
 
     weatherSummary?.let {
         Box(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 41.dp)
         ) {
             Column(
                 modifier = Modifier.align(Alignment.BottomEnd),
@@ -47,9 +49,10 @@ fun HomeSummaryScreen(
                     duration = 300,
                     delay = 350 + (200 * weatherSummary.weatherMessageList.size) + 500
                 ) {
-                    val bottomPadding = when(weatherSummary.currentWeather) {
+                    val bottomPadding = when (weatherSummary.currentWeather) {
                         Weather.SNOWY,
-                        Weather.RAINY-> 8.dp
+                        Weather.RAINY -> 8.dp
+
                         else -> 20.dp
                     }
                     Image(

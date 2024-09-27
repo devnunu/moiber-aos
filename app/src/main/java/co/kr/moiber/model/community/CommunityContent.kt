@@ -54,7 +54,9 @@ object FakeCommunityContent {
 
     fun getFakeModelList() =
         listOf(
-            getFakeModel(),
+            getFakeModel(
+                like = 1,
+            ),
             getFakeModel(
                 userName = "쌀쌀 부추전",
                 feelGood = false,
@@ -72,6 +74,17 @@ object FakeCommunityContent {
             getFakeModel(
                 userId = 0,
                 feelGood = false,
+                message = "",
+                outerwear = "가디건",
+                upperWear = "반소매 티",
+                bottomWear = "청바지",
+            ),
+            getFakeModel(),
+            getFakeModel(
+                userName = "쌀쌀 부추전",
+                feelGood = false,
+                like = 2,
+                isMyLike = true,
                 message = "",
                 outerwear = "가디건",
                 upperWear = "반소매 티",

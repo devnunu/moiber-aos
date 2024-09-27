@@ -61,12 +61,15 @@ fun HomeCommunityScreen(
                     val space = if (communityContent.like != null) 10.dp else 20.dp
                     Spacer(modifier = Modifier.size(space))
                 }
+                item {
+                    Spacer(modifier = Modifier.size(40.dp))
+                }
             }
         }
         EditFloatingButton(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(bottom = 40.dp, end = 22.dp),
+                .padding(bottom = 80.dp, end = 22.dp),
             onClick = {
                 onEvent(HomeViewEvent.OnClickEditFloatingBtn)
             }

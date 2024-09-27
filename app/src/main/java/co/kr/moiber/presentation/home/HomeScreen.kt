@@ -2,6 +2,7 @@ package co.kr.moiber.presentation.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -60,8 +61,7 @@ private fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(bgColor)
-            .padding(bottom = 41.dp),
+            .background(bgColor),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HomeAnimationVisibility(
@@ -73,34 +73,42 @@ private fun HomeScreen(
                 isDay = state.weatherSummary?.isDay ?: true
             )
         }
-        HorizontalPager(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
-            state = pagerState,
-            verticalAlignment = Alignment.Top
-        ) { index ->
-            when (index) {
-                0 -> {
-                    HomeSummaryScreen(
-                        isVisible = isVisible,
-                        state = state,
-                        onEvent = onEvent
-                    )
-                }
+        ) {
+            HorizontalPager(
+                modifier = Modifier
+                    .fillMaxSize(),
+                state = pagerState,
+                verticalAlignment = Alignment.Top
+            ) { index ->
+                when (index) {
+                    0 -> {
+                        HomeSummaryScreen(
+                            isVisible = isVisible,
+                            state = state,
+                            onEvent = onEvent
+                        )
+                    }
 
-                1 -> {
-                    HomeCommunityScreen(
-                        state = state,
-                        onEvent = onEvent
-                    )
+                    1 -> {
+                        HomeCommunityScreen(
+                            state = state,
+                            onEvent = onEvent
+                        )
+                    }
                 }
             }
+            PageIndicator(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 41.dp),
+                numberOfPages = numberOfPage,
+                selectedPage = pagerState.currentPage,
+            )
         }
-        PageIndicator(
-            numberOfPages = numberOfPage,
-            selectedPage = pagerState.currentPage,
-        )
     }
 }
 

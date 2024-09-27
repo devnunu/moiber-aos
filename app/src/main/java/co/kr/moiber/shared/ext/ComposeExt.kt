@@ -15,7 +15,7 @@ fun Modifier.fadingEdge(): Modifier = this.then(
             drawContent()
             val bottomColors = listOf(Color.Black, Color.Transparent)
             val bottomEndY = size.height
-            val bottomGradientHeight = 26.dp.toPx()
+            val bottomGradientHeight = 93.dp.toPx()
             drawRect(
                 brush = Brush.verticalGradient(
                     colors = bottomColors,
