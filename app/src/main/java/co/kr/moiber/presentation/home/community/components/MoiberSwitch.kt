@@ -19,6 +19,7 @@ import co.kr.moiber.shared.ui.white01
 
 @Composable
 fun MoiberSwitch(
+    isDay: Boolean = true,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     width: Dp = 32.dp,
@@ -47,14 +48,19 @@ fun MoiberSwitch(
                 )
             }
     ) {
-
+        val backColor = if (isDay) {
+            if (checked) black02 else black02.copy(alpha = 0.5f)
+        } else {
+            if (checked) white01 else white01
+        }
         drawRoundRect(
-            color = if (checked) black02 else black02.copy(alpha = 0.5f),
+            color = backColor,
             cornerRadius = CornerRadius(x = 10.dp.toPx(), y = 10.dp.toPx()),
         )
 
+        val thumbColor = if (isDay) white01 else black02
         drawCircle(
-            color = white01,
+            color = thumbColor,
             radius = thumbRadius.toPx(),
             center = Offset(
                 x = animatePosition.value,

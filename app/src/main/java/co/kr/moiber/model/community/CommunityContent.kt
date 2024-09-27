@@ -4,6 +4,7 @@ import java.util.Date
 
 data class CommunityContent(
     val id: Long,
+    val feelGood: Boolean = true,
     val userId: Long,
     val userName: String? = null,
     val location: String? = null,

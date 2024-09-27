@@ -26,6 +26,8 @@ fun HomeCommunityScreen(
     state: HomeState,
     onEvent: (HomeViewEvent) -> Unit
 ) {
+    val weatherSummary = state.weatherSummary
+    val isDay = weatherSummary?.isDay ?: true
     Box {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -37,8 +39,11 @@ fun HomeCommunityScreen(
             ) {
                 CommunityHeader(
                     modifier = Modifier.padding(vertical = 7.dp),
-                    checked = true,
-                    onCheckedChange = {}
+                    isDay = isDay,
+                    checked = state.isOnMyHistory,
+                    onCheckedChange = { checked ->
+                        onEvent(HomeViewEvent.OnChangeCommunityMyHistory(checked))
+                    }
                 )
                 Spacer(modifier = Modifier.size(12.dp))
             }
@@ -50,6 +55,7 @@ fun HomeCommunityScreen(
             ) {
                 items(state.communityContentList) { communityContent ->
                     ContentMessageItem(
+                        isDay = isDay,
                         communityContent = communityContent
                     )
                     Spacer(modifier = Modifier.size(20.dp))
@@ -60,7 +66,9 @@ fun HomeCommunityScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 40.dp, end = 22.dp),
-            onClick = {}
+            onClick = {
+                onEvent(HomeViewEvent.OnClickEditFloatingBtn)
+            }
         )
     }
 
