@@ -26,7 +26,7 @@ import java.util.Date
 
 @Composable
 fun HomeSummaryScreen(
-    isVisible:Boolean,
+    isVisible: Boolean,
     state: HomeState,
     onEvent: (HomeViewEvent) -> Unit
 ) {
@@ -36,20 +36,6 @@ fun HomeSummaryScreen(
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            Column(
-                modifier = Modifier.align(Alignment.CenterStart),
-            ) {
-                HomeAnimationVisibility(
-                    visible = isVisible,
-                    duration = 400,
-                    delay = 150
-                ) {
-                    Image(
-                        painter = painterResource(id = weatherSummary.weatherBgResId),
-                        contentDescription = null
-                    )
-                }
-            }
             Column(
                 modifier = Modifier.align(Alignment.BottomEnd),
             ) {
@@ -76,33 +62,46 @@ fun HomeSummaryScreen(
                         weatherSummary = state.weatherSummary
                     )
                 }
-                Spacer(modifier = Modifier.size(16.dp))
-                Column(
-                    modifier = Modifier.padding(horizontal = 22.dp)
-                ) {
+                Box {
                     HomeAnimationVisibility(
                         visible = isVisible,
-                        duration = 250,
-                        delay = 350
+                        duration = 400,
+                        delay = 150
                     ) {
-                        DayNightText(
-                            style = Body04,
-                            text = Date().toFormatString("M월 d일(E)") ?: "-",
-                            isDay = weatherSummary.isDay
+                        Image(
+                            modifier = Modifier.padding(top = 8.dp),
+                            painter = painterResource(id = weatherSummary.weatherBgResId),
+                            contentDescription = null
                         )
                     }
-                    Spacer(modifier = Modifier.size(6.dp))
-                    weatherSummary.weatherMessageList.forEachIndexed { index, weatherMessage ->
+                    Column(
+                        modifier = Modifier.padding(horizontal = 22.dp)
+                    ) {
+                        Spacer(modifier = Modifier.size(20.dp))
                         HomeAnimationVisibility(
                             visible = isVisible,
-                            duration = 200,
-                            delay = 350 + (200 * index)
+                            duration = 250,
+                            delay = 350
                         ) {
-                            WeatherMessageView(
-                                weatherMessage = weatherMessage
+                            DayNightText(
+                                style = Body04,
+                                text = Date().toFormatString("M월 d일(E)") ?: "-",
+                                isDay = weatherSummary.isDay
                             )
                         }
-                        Spacer(modifier = Modifier.size(14.dp))
+                        Spacer(modifier = Modifier.size(6.dp))
+                        weatherSummary.weatherMessageList.forEachIndexed { index, weatherMessage ->
+                            HomeAnimationVisibility(
+                                visible = isVisible,
+                                duration = 200,
+                                delay = 350 + (200 * index)
+                            ) {
+                                WeatherMessageView(
+                                    weatherMessage = weatherMessage
+                                )
+                            }
+                            Spacer(modifier = Modifier.size(14.dp))
+                        }
                     }
                 }
             }
