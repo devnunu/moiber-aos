@@ -58,7 +58,8 @@ fun HomeCommunityScreen(
                         isDay = isDay,
                         communityContent = communityContent
                     )
-                    Spacer(modifier = Modifier.size(20.dp))
+                    val space = if (communityContent.like != null) 10.dp else 20.dp
+                    Spacer(modifier = Modifier.size(space))
                 }
             }
         }

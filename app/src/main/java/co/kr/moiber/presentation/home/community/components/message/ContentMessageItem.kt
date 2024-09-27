@@ -53,70 +53,81 @@ fun ContentMessageItem(
             )
         }
         Column(
-            modifier = Modifier
-                .composed {
-                    if (isMyContent) {
-                        Modifier.padding(end = 10.dp)
-                    } else {
-                        Modifier.padding(start = 10.dp)
+            horizontalAlignment = if (isMyContent) Alignment.Start else Alignment.End
+        ) {
+            Column(
+                modifier = Modifier
+                    .composed {
+                        if (isMyContent) {
+                            Modifier.padding(end = 10.dp)
+                        } else {
+                            Modifier.padding(start = 10.dp)
+                        }
+                    }
+                    .background(
+                        color = if (isMyContent) yellow02 else white01,
+                        shape = radius
+                    )
+                    .padding(vertical = 10.dp, horizontal = 14.dp),
+            ) {
+                val hasMessage = communityContent.message?.isNotBlank() ?: false
+                if (hasMessage) {
+                    Text(
+                        style = Body06,
+                        text = "${communityContent.message}"
+                    )
+                    Spacer(modifier = Modifier.size(8.dp))
+                }
+                Row {
+                    Row(
+                        modifier = Modifier.padding(4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "\uD83E\uDD7C"
+                        )
+                        Spacer(modifier = Modifier.size(4.dp))
+                        Text(
+                            style = Body09,
+                            text = "${communityContent.outerwear}"
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(4.dp))
+                    Row(
+                        modifier = Modifier.padding(4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "\uD83D\uDC55"
+                        )
+                        Spacer(modifier = Modifier.size(4.dp))
+                        Text(
+                            style = Body09,
+                            text = "${communityContent.upperWear}"
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(4.dp))
+                    Row(
+                        modifier = Modifier.padding(4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "\uD83D\uDC55"
+                        )
+                        Spacer(modifier = Modifier.size(4.dp))
+                        Text(
+                            style = Body09,
+                            text = "${communityContent.bottomWear}"
+                        )
                     }
                 }
-                .background(
-                    color = if (isMyContent) yellow02 else white01,
-                    shape = radius
-                )
-                .padding(vertical = 10.dp, horizontal = 14.dp),
-        ) {
-            val hasMessage = communityContent.message?.isNotBlank() ?: false
-            if (hasMessage) {
-                Text(
-                    style = Body06,
-                    text = "${communityContent.message}"
-                )
-                Spacer(modifier = Modifier.size(8.dp))
             }
-            Row {
-                Row(
-                    modifier = Modifier.padding(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "\uD83E\uDD7C"
-                    )
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Text(
-                        style = Body09,
-                        text = "${communityContent.outerwear}"
-                    )
-                }
-                Spacer(modifier = Modifier.size(4.dp))
-                Row(
-                    modifier = Modifier.padding(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "\uD83D\uDC55"
-                    )
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Text(
-                        style = Body09,
-                        text = "${communityContent.upperWear}"
-                    )
-                }
-                Spacer(modifier = Modifier.size(4.dp))
-                Row(
-                    modifier = Modifier.padding(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "\uD83D\uDC55"
-                    )
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Text(
-                        style = Body09,
-                        text = "${communityContent.bottomWear}"
-                    )
-                }
+            if (communityContent.like != null) {
+                Spacer(modifier = Modifier.size(5.dp))
+                LikeTag(
+                    like = communityContent.like,
+                    isMyLike = communityContent.isMyLike
+                )
             }
         }
     }
