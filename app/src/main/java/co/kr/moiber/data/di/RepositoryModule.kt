@@ -1,5 +1,7 @@
 package co.kr.moiber.data.di
 
+import co.kr.moiber.data.community.repository.CommunityRepository
+import co.kr.moiber.data.community.repository.CommunityRepositoryImpl
 import co.kr.moiber.data.weather.datasource.WeatherDataSource
 import co.kr.moiber.data.weather.datasource.WeatherDataSourceImpl
 import co.kr.moiber.data.weather.repository.WeatherRepository
@@ -18,4 +20,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindWeatherRepository(repositoryImpl: WeatherRepositoryImpl): WeatherRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindCommunityRepository(repositoryImpl: CommunityRepositoryImpl): CommunityRepository
 }

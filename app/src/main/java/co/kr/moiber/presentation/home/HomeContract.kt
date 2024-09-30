@@ -20,6 +20,6 @@ sealed interface HomeViewEvent : ViewEvent {
 data class HomeState(
     val isOnMyHistory: Boolean = false,
     val weatherSummary: HomeWeatherSummary? = null,
-    val communityContentList: List<CommunityContent> = FakeCommunityContent.getFakeModelList()
+    val communityContentList: List<CommunityContent> = emptyList()
 ) : ViewState {
 }

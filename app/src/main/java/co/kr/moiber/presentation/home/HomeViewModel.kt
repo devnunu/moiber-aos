@@ -1,6 +1,7 @@
 package co.kr.moiber.presentation.home
 
 import androidx.lifecycle.viewModelScope
+import co.kr.moiber.data.community.repository.CommunityRepository
 import co.kr.moiber.data.weather.repository.WeatherRepository
 import co.kr.moiber.model.network.onSuccess
 import co.kr.moiber.shared.base.BaseViewModel
@@ -12,17 +13,27 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository,
+    private val communityRepository: CommunityRepository,
 ) : BaseViewModel<HomeState, HomeViewEvent, HomeSideEffect>(
     initialState = HomeState()
 ) {
     init {
         requestWeatherSummary()
+        requestCommunityContentList()
     }
 
     private fun requestWeatherSummary() = viewModelScope.launch {
         weatherRepository.getWeatherSummary().collectLatest { result ->
             result.onSuccess { weatherSummary ->
                 setState { copy(weatherSummary = weatherSummary) }
+            }
+        }
+    }
+
+    private fun requestCommunityContentList() = viewModelScope.launch {
+        communityRepository.getCommunityContentList().collectLatest { result ->
+            result.onSuccess { communityContentList ->
+                setState { copy(communityContentList = communityContentList ?: emptyList()) }
             }
         }
     }
@@ -39,7 +50,6 @@ class HomeViewModel @Inject constructor(
                 )
                 setState { copy(weatherSummary = weatherSummary) }
             }
-
         }
     }
 }
