@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,7 +54,7 @@ private fun HomeScreen(
     navController: NavController
 ) {
     val numberOfPage = 2
-    var isVisible by remember { mutableStateOf(false) }
+    var isVisible by rememberSaveable { mutableStateOf(false) }
     val bgColor = if (state.weatherSummary?.isDay == true) yellow03 else black02
     val pagerState = rememberPagerState(pageCount = { numberOfPage })
 
