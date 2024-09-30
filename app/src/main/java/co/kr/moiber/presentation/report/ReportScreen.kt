@@ -108,7 +108,7 @@ fun ReportScreen(
     }
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 22.dp),
     ) {
@@ -242,6 +242,7 @@ fun ReportScreen(
             color = gray01,
             textAlign = TextAlign.Center
         )
+        Spacer(modifier = Modifier.size(40.dp))
     }
 }
 
