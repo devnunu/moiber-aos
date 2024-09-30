@@ -50,6 +50,14 @@ class HomeViewModel @Inject constructor(
                 )
                 setState { copy(weatherSummary = weatherSummary) }
             }
+
+            is HomeViewEvent.OnClickMessageItem -> {
+
+            }
+
+            is HomeViewEvent.OnLongClickMessageItem -> {
+
+            }
         }
     }
 }

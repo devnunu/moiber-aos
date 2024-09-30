@@ -1,6 +1,8 @@
 package co.kr.moiber.presentation.home.community.components.message
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,9 +25,12 @@ import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.white01
 import co.kr.moiber.shared.ui.yellow02
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MessageContentView(
-    communityContent: CommunityContent
+    communityContent: CommunityContent,
+    onClickMessage: (CommunityContent) -> Unit,
+    onLongClickMessage: (CommunityContent) -> Unit
 ) {
     val isMyContent = communityContent.isMyContent(userId = 0)
     val radius = if (isMyContent) {
@@ -53,6 +58,18 @@ fun MessageContentView(
                 }
             }
             .widthIn(max = 308.dp)
+            .combinedClickable(
+                onClick = {
+                    if (!communityContent.isVan) {
+                        onClickMessage(communityContent)
+                    }
+                },
+                onLongClick = {
+                    if (!communityContent.isVan) {
+                        onLongClickMessage(communityContent)
+                    }
+                },
+            )
             .background(
                 color = if (isMyContent) yellow02 else white01,
                 shape = radius
@@ -130,6 +147,8 @@ fun MessageContentView(
 @Composable
 private fun MessageContentViewPreview() {
     MessageContentView(
-        communityContent = FakeCommunityContent.getFakeModel()
+        communityContent = FakeCommunityContent.getFakeModel(),
+        onClickMessage = {},
+        onLongClickMessage = {}
     )
 }

@@ -1,29 +1,32 @@
 package co.kr.moiber.presentation.home.summary
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import co.kr.moiber.R
 import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.model.weather.Weather
 import co.kr.moiber.presentation.home.HomeState
 import co.kr.moiber.presentation.home.HomeViewEvent
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
-import co.kr.moiber.presentation.home.summary.components.card.WeatherCard
+import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.home.summary.components.message.WeatherMessageView
 import co.kr.moiber.shared.components.DayNightText
 import co.kr.moiber.shared.ext.toFormatString
 import co.kr.moiber.shared.ui.Body04
+import co.kr.moiber.shared.ui.white01
 import java.util.Date
 
 @Composable
@@ -68,10 +71,17 @@ fun HomeSummaryScreen(
                     duration = 1200,
                     delay = 250
                 ) {
-                    WeatherCard(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        weatherSummary = state.weatherSummary
-                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(white01, RoundedCornerShape(8.dp))
+                            .padding(horizontal = 16.dp, vertical = 20.dp)
+                    ) {
+                        WeatherContent(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            weatherSummary = state.weatherSummary
+                        )
+                    }
                 }
                 Box {
                     HomeAnimationVisibility(

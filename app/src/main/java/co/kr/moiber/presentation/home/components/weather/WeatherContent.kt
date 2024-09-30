@@ -1,4 +1,4 @@
-package co.kr.moiber.presentation.home.summary.components.card
+package co.kr.moiber.presentation.home.components.weather
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
 import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.model.weather.HomeWeatherSummary
+import co.kr.moiber.presentation.home.summary.components.card.WeatherIndexDetailItem
 import co.kr.moiber.shared.components.VerticalDivider
 import co.kr.moiber.shared.ui.Body01
 import co.kr.moiber.shared.ui.Body06
@@ -30,16 +31,11 @@ import co.kr.moiber.shared.ui.white01
 import kotlin.math.abs
 
 @Composable
-fun WeatherCard(
+fun WeatherContent(
     modifier: Modifier = Modifier,
     weatherSummary: HomeWeatherSummary,
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(white01, RoundedCornerShape(8.dp))
-            .padding(horizontal = 16.dp, vertical = 20.dp)
-    ) {
+    Column(modifier = modifier) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -130,7 +126,7 @@ fun WeatherCard(
 @Preview
 @Composable
 fun WeatherCardPreview() {
-    WeatherCard(
+    WeatherContent(
         weatherSummary = FakeHomeWeatherSummary.getFakeModel()
     )
 }

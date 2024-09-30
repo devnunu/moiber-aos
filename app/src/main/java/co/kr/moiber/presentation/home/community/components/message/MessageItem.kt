@@ -28,7 +28,9 @@ import co.kr.moiber.shared.ui.yellow02
 fun MessageItem(
     isDay: Boolean,
     communityContent: CommunityContent,
-    onClickMyVanMessage: () -> Unit
+    onClickMyVanMessage: () -> Unit,
+    onClickMessage: (CommunityContent) -> Unit,
+    onLongClickMessage: (CommunityContent) -> Unit
 ) {
     val isMyContent = communityContent.isMyContent(userId = 0)
     Column(
@@ -49,7 +51,9 @@ fun MessageItem(
                 )
             } else {
                 MessageContentView(
-                    communityContent = communityContent
+                    communityContent = communityContent,
+                    onClickMessage = onClickMessage,
+                    onLongClickMessage = onLongClickMessage,
                 )
 
                 if (communityContent.like != null) {
@@ -69,6 +73,8 @@ private fun MessageItemPreview() {
     MessageItem(
         isDay = true,
         communityContent = FakeCommunityContent.getFakeModel(),
-        onClickMyVanMessage = {}
+        onClickMyVanMessage = {},
+        onClickMessage = {},
+        onLongClickMessage = {}
     )
 }

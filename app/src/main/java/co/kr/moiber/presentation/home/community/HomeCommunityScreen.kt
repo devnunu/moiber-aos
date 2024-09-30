@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import co.kr.moiber.model.community.CommunityContent
 import co.kr.moiber.presentation.home.HomeState
 import co.kr.moiber.presentation.home.HomeViewEvent
 import co.kr.moiber.presentation.home.community.components.CommunityHeader
@@ -66,8 +67,12 @@ fun HomeCommunityScreen(
                     MessageItem(
                         isDay = isDay,
                         communityContent = communityContent,
-                        onClickMyVanMessage = {
-                            navController.navigate(NavRoute.Report)
+                        onClickMyVanMessage = { navController.navigate(NavRoute.Report) },
+                        onClickMessage = { message ->
+                            onEvent(HomeViewEvent.OnClickMessageItem(message))
+                        },
+                        onLongClickMessage = { message ->
+                            onEvent(HomeViewEvent.OnLongClickMessageItem(message))
                         }
                     )
                     val space = if (communityContent.like != null) 10.dp else 20.dp

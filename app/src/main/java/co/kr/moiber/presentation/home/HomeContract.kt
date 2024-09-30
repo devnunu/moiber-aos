@@ -8,14 +8,19 @@ import co.kr.moiber.shared.base.SideEffect
 import co.kr.moiber.shared.base.ViewEvent
 import co.kr.moiber.shared.base.ViewState
 
-sealed interface HomeSideEffect : SideEffect {
-
-}
 
 sealed interface HomeViewEvent : ViewEvent {
     data class OnChangeCommunityMyHistory(val checked: Boolean) : HomeViewEvent
     object OnClickEditFloatingBtn : HomeViewEvent
+    data class OnClickMessageItem(val message: CommunityContent) : HomeViewEvent
+    data class OnLongClickMessageItem(val message: CommunityContent) : HomeViewEvent
 }
+
+sealed interface HomeSideEffect : SideEffect {
+
+}
+
+
 
 data class HomeState(
     val isOnMyHistory: Boolean = false,
