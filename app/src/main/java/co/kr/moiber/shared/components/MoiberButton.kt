@@ -15,6 +15,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.shared.ext.clickableRipple
+import co.kr.moiber.shared.ui.gray01
+import co.kr.moiber.shared.ui.white01
 
 enum class ButtonSize {
     SMALL,
@@ -24,6 +26,7 @@ enum class ButtonSize {
 @Composable
 fun MoiberButton(
     modifier: Modifier = Modifier,
+    enable: Boolean = true,
     shape: Shape = RoundedCornerShape(4.dp),
     backgroundColor: Color,
     fontColor: Color,
@@ -31,10 +34,12 @@ fun MoiberButton(
     buttonSize: ButtonSize,
     text: String,
 ) {
+    val bgColor = if(enable) backgroundColor else gray01
+    val textColor = if(enable) fontColor else white01
     Surface(
         modifier = modifier,
         shape = shape,
-        color = backgroundColor,
+        color = bgColor,
     ) {
         val padding = if (buttonSize == ButtonSize.LARGE) 16.5.dp else 6.dp
         Row(
@@ -44,7 +49,7 @@ fun MoiberButton(
         ) {
             Text(
                 style = fontStyle,
-                color = fontColor,
+                color = textColor,
                 text = text,
                 textAlign = TextAlign.Center,
             )

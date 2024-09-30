@@ -22,11 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import co.kr.moiber.presentation.home.community.HomeCommunityScreen
 import co.kr.moiber.presentation.home.components.header.TopHeaderView
 import co.kr.moiber.presentation.home.components.indicator.PageIndicator
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
+import co.kr.moiber.shared.ext.LaunchedEffectOnce
 import co.kr.moiber.shared.ui.black02
 import co.kr.moiber.shared.ui.yellow03
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -35,25 +37,27 @@ import kotlinx.coroutines.delay
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     HomeScreen(
         state = viewModel.stateFlow.collectAsState().value,
-        onEvent = viewModel::onEvent
+        onEvent = viewModel::onEvent,
+        navController = navController,
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun HomeScreen(
     state: HomeState,
-    onEvent: (HomeViewEvent) -> Unit
+    onEvent: (HomeViewEvent) -> Unit,
+    navController: NavController
 ) {
     val numberOfPage = 2
     var isVisible by remember { mutableStateOf(false) }
     val bgColor = if (state.weatherSummary?.isDay == true) yellow03 else black02
     val pagerState = rememberPagerState(pageCount = { numberOfPage })
 
-    LaunchedEffect(Unit) {
+    LaunchedEffectOnce {
         delay(150)
         isVisible = true
     }
@@ -96,7 +100,8 @@ private fun HomeScreen(
                     1 -> {
                         HomeCommunityScreen(
                             state = state,
-                            onEvent = onEvent
+                            onEvent = onEvent,
+                            navController = navController
                         )
                     }
                 }

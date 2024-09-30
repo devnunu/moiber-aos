@@ -27,7 +27,8 @@ import co.kr.moiber.shared.ui.yellow02
 @Composable
 fun MessageItem(
     isDay: Boolean,
-    communityContent: CommunityContent
+    communityContent: CommunityContent,
+    onClickMyVanMessage: () -> Unit
 ) {
     val isMyContent = communityContent.isMyContent(userId = 0)
     Column(
@@ -43,7 +44,9 @@ fun MessageItem(
             horizontalAlignment = if (isMyContent) Alignment.Start else Alignment.End
         ) {
             if (communityContent.isVan && isMyContent) {
-                MyMessageVanView()
+                MyMessageVanView(
+                    onClickMyVanMessage = onClickMyVanMessage
+                )
             } else {
                 MessageContentView(
                     communityContent = communityContent
@@ -65,6 +68,7 @@ fun MessageItem(
 private fun MessageItemPreview() {
     MessageItem(
         isDay = true,
-        communityContent = FakeCommunityContent.getFakeModel()
+        communityContent = FakeCommunityContent.getFakeModel(),
+        onClickMyVanMessage = {}
     )
 }

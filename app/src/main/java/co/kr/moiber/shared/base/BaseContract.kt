@@ -4,6 +4,4 @@ interface ViewState
 
 interface ViewEvent
 
-sealed class SideEffect {
-
-}
+interface SideEffect

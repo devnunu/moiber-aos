@@ -3,17 +3,17 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.hiltAndroid) // Hilt 플러그인 적용
     id("kotlin-kapt")
-
+    kotlin("plugin.serialization") version "1.7.10"
 }
 
 android {
     namespace = "co.kr.moiber"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "co.kr.moiber"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -58,12 +58,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.navigation)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.kotlinx.serialization)
 
     // hilt
     implementation(libs.hilt.android)

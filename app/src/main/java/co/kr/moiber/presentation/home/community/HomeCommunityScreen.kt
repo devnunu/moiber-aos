@@ -14,17 +14,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import co.kr.moiber.presentation.home.HomeState
 import co.kr.moiber.presentation.home.HomeViewEvent
 import co.kr.moiber.presentation.home.community.components.CommunityHeader
 import co.kr.moiber.presentation.home.community.components.message.MessageItem
 import co.kr.moiber.presentation.home.community.components.EditFloatingButton
+import co.kr.moiber.presentation.navigation.NavRoute
 import co.kr.moiber.shared.ext.fadingEdge
 
 @Composable
 fun HomeCommunityScreen(
     state: HomeState,
-    onEvent: (HomeViewEvent) -> Unit
+    onEvent: (HomeViewEvent) -> Unit,
+    navController: NavController
 ) {
     val weatherSummary = state.weatherSummary
     val isDay = weatherSummary?.isDay ?: true
@@ -61,7 +65,10 @@ fun HomeCommunityScreen(
                 items(filteredContentList) { communityContent ->
                     MessageItem(
                         isDay = isDay,
-                        communityContent = communityContent
+                        communityContent = communityContent,
+                        onClickMyVanMessage = {
+                            navController.navigate(NavRoute.Report)
+                        }
                     )
                     val space = if (communityContent.like != null) 10.dp else 20.dp
                     Spacer(modifier = Modifier.size(space))
@@ -91,6 +98,7 @@ fun HomeCommunityScreen(
 fun HomeCommunityScreenPreview() {
     HomeCommunityScreen(
         state = HomeState(),
-        onEvent = {}
+        onEvent = {},
+        navController = rememberNavController()
     )
 }

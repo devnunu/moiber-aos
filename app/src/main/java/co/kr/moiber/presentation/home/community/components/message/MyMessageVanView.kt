@@ -33,7 +33,9 @@ import co.kr.moiber.shared.ui.gray02
 import co.kr.moiber.shared.ui.white01
 
 @Composable
-fun MyMessageVanView() {
+fun MyMessageVanView(
+    onClickMyVanMessage: () -> Unit
+) {
     Column(
         modifier = Modifier
             .width(224.dp)
@@ -72,7 +74,7 @@ fun MyMessageVanView() {
         MoiberButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickableRipple(onClick = {}, bounded = true),
+                .clickableRipple(onClick = { onClickMyVanMessage() }, bounded = true),
             backgroundColor = black02,
             fontColor = white01,
             fontStyle = Body05,
