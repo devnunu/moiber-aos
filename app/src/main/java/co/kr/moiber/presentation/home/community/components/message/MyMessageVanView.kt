@@ -72,14 +72,13 @@ fun MyMessageVanView(
         )
         Spacer(modifier = Modifier.size(12.dp))
         MoiberButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickableRipple(onClick = { onClickMyVanMessage() }, bounded = true),
+            modifier = Modifier.fillMaxWidth(),
             backgroundColor = black02,
             fontColor = white01,
             fontStyle = Body05,
             buttonSize = ButtonSize.SMALL,
             text = "신고 철회 요청하기",
+            onClick = onClickMyVanMessage
         )
     }
 }

@@ -17,7 +17,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -27,15 +26,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import co.kr.moiber.R
-import co.kr.moiber.presentation.home.HomeViewModel
 import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
+import co.kr.moiber.shared.components.modal.MoiberPopUp
+import co.kr.moiber.shared.components.modal.PopUpWrapper
 import co.kr.moiber.shared.ext.clickableRipple
+import co.kr.moiber.shared.ext.collectSideEffect
 import co.kr.moiber.shared.ui.Body02
+import co.kr.moiber.shared.ui.Body03
 import co.kr.moiber.shared.ui.Body05
 import co.kr.moiber.shared.ui.Body06
 import co.kr.moiber.shared.ui.Body07
+import co.kr.moiber.shared.ui.Body08
 import co.kr.moiber.shared.ui.Body09
 import co.kr.moiber.shared.ui.Title02
 import co.kr.moiber.shared.ui.black02
@@ -46,7 +50,15 @@ import co.kr.moiber.shared.ui.white01
 @Composable
 fun ReportScreen(
     viewModel: ReportViewModel = hiltViewModel(),
+    navController: NavController
 ) {
+    viewModel.collectSideEffect { sideEffect ->
+        when (sideEffect) {
+            is ReportSideEffect.PopBackStack -> {
+                navController.popBackStack()
+            }
+        }
+    }
     ReportScreen(
         state = viewModel.stateFlow.collectAsState().value,
         onEvent = viewModel::onEvent
@@ -58,6 +70,42 @@ fun ReportScreen(
     state: ReportState,
     onEvent: (ReportViewEvent) -> Unit
 ) {
+    PopUpWrapper(dialogState = state.dialogState) { tag ->
+        when (tag) {
+            is ReportDialogTag.Complete -> {
+                MoiberPopUp {
+                    Column(
+                        modifier = Modifier.padding(vertical = 30.dp, horizontal = 24.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            style = Body03,
+                            text = "신고 철회 요청 완료",
+                            color = black02
+                        )
+                        Spacer(modifier = Modifier.size(12.dp))
+                        Text(
+                            style = Body08,
+                            text = "신고 철회 요청은 운영 정책에 따라 \n검토 후 필요한 조치가 진행될 예정이에요.",
+                            color = black02
+                        )
+                        Spacer(modifier = Modifier.size(18.dp))
+                        MoiberButton(
+                            modifier = Modifier.fillMaxWidth(),
+                            backgroundColor = black02,
+                            fontColor = white01,
+                            fontStyle = Body02,
+                            buttonSize = ButtonSize.MEDIUM,
+                            onClick = {
+                                onEvent(ReportViewEvent.OnClickCompleteDialogBtn)
+                            },
+                            text = "확인",
+                        )
+                    }
+                }
+            }
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -146,6 +194,7 @@ fun ReportScreen(
             )
         }
         Spacer(modifier = Modifier.size(25.dp))
+        val value = state.reportTxt
         BasicTextField(
             modifier = Modifier
                 .fillMaxWidth()
@@ -153,14 +202,20 @@ fun ReportScreen(
                 .background(white01, RoundedCornerShape(4.dp))
                 .border(1.dp, gray02, RoundedCornerShape(4.dp))
                 .padding(12.dp),
-            value = "",
-            onValueChange = {},
+            value = value.orEmpty(),
+            onValueChange = { text ->
+                onEvent(ReportViewEvent.OnChangeReportTxt(text))
+            },
             decorationBox = { innerTextField ->
-                Text(
-                    style = Body07,
-                    text = "직접 입력하기(공백 포함 최대 150자)",
-                    color = gray01
-                )
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    if (value.isNullOrBlank()) {
+                        Text(
+                            style = Body07,
+                            text = "직접 입력하기(공백 포함 최대 150자)",
+                            color = gray01
+                        )
+                    }
+                }
                 innerTextField()
             }
         )
@@ -169,12 +224,15 @@ fun ReportScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickableRipple(onClick = {}, bounded = true),
-            enable = false,
+            enable = state.isBottomCtaEnable,
             backgroundColor = black02,
             fontColor = white01,
             fontStyle = Body02,
             buttonSize = ButtonSize.LARGE,
             text = "신고 철회 요청하기",
+            onClick = {
+                onEvent(ReportViewEvent.OnClickCompleteBtn)
+            }
         )
         Spacer(modifier = Modifier.size(18.dp))
         Text(
@@ -191,7 +249,8 @@ fun ReportScreen(
 @Composable
 fun ReportScreenPreview() {
     ReportScreen(
-        state = ReportState(),
+        state = ReportState(
+        ),
         onEvent = {}
     )
 }

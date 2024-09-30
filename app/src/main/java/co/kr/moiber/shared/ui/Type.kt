@@ -34,7 +34,7 @@ val Body02 = TextStyle(
 
 val Body03 = TextStyle(
     fontSize = 16.sp,
-    fontWeight = FontWeight.Medium,
+    fontWeight = FontWeight.SemiBold,
     letterSpacing = (-0.6).sp,
     color = black01
 )
@@ -68,13 +68,20 @@ val Body07 = TextStyle(
 )
 
 val Body08 = TextStyle(
-    fontSize = 12.sp,
-    fontWeight = FontWeight.SemiBold,
+    fontSize = 14.sp,
+    fontWeight = FontWeight.Normal,
     letterSpacing = (-0.6).sp,
     color = black01
 )
 
 val Body09 = TextStyle(
+    fontSize = 12.sp,
+    fontWeight = FontWeight.Normal,
+    letterSpacing = (-0.6).sp,
+    color = black01
+)
+
+val Body10 = TextStyle(
     fontSize = 12.sp,
     fontWeight = FontWeight.Normal,
     letterSpacing = (-0.6).sp,

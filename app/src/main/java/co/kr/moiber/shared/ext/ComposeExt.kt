@@ -1,5 +1,6 @@
 package co.kr.moiber.shared.ext
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
@@ -13,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -23,11 +25,21 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import co.kr.moiber.shared.base.BaseViewModel
+import co.kr.moiber.shared.base.SideEffect
+import co.kr.moiber.shared.base.ViewEvent
+import co.kr.moiber.shared.base.ViewState
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.launch
 import kotlin.reflect.KType
 
 private const val DEFAULT_THROTTLE_DURATION = 300L
@@ -87,6 +99,26 @@ fun Modifier.clickableNonIndication(
             }
         }
     )
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun <STATE : ViewState, VIEW_EVENT : ViewEvent, SIDE_EFFECT : SideEffect> BaseViewModel<STATE, VIEW_EVENT, SIDE_EFFECT>.collectSideEffect(
+    lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
+    sideEffect: (suspend (sideEffect: SIDE_EFFECT) -> Unit)? = null
+) {
+    val sideEffectFlow: Flow<SIDE_EFFECT?> = this.sideEffect
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    val callback by rememberUpdatedState(newValue = sideEffect)
+
+    LaunchedEffect(sideEffectFlow, lifecycleOwner) {
+        lifecycleOwner.lifecycle.repeatOnLifecycle(lifecycleState) {
+            launch {
+                sideEffectFlow.mapNotNull { it }.collect { callback?.invoke(it) }
+            }
+        }
+    }
 }
 
 enum class MoiberScreenAnim {

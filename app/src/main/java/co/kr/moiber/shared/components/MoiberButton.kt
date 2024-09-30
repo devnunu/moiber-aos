@@ -20,6 +20,7 @@ import co.kr.moiber.shared.ui.white01
 
 enum class ButtonSize {
     SMALL,
+    MEDIUM,
     LARGE
 }
 
@@ -32,18 +33,28 @@ fun MoiberButton(
     fontColor: Color,
     fontStyle: TextStyle,
     buttonSize: ButtonSize,
+    onClick: () -> Unit,
     text: String,
 ) {
-    val bgColor = if(enable) backgroundColor else gray01
-    val textColor = if(enable) fontColor else white01
+    val bgColor = if (enable) backgroundColor else gray01
+    val textColor = if (enable) fontColor else white01
     Surface(
         modifier = modifier,
         shape = shape,
         color = bgColor,
     ) {
-        val padding = if (buttonSize == ButtonSize.LARGE) 16.5.dp else 6.dp
+        val padding = when (buttonSize) {
+            ButtonSize.LARGE -> 16.5.dp
+            ButtonSize.MEDIUM -> 9.dp
+            else -> 6.dp
+        }
         Row(
-            modifier = Modifier.padding(padding),
+            modifier = Modifier
+                .padding(padding)
+                .clickableRipple(
+                    onClick = onClick,
+                    bounded = true
+                ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {

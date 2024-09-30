@@ -5,7 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : BaseViewModel<HomeState, HomeViewEvent>(
+class HomeViewModel @Inject constructor() : BaseViewModel<HomeState, HomeViewEvent, HomeSideEffect>(
     initialState = HomeState()
 ) {
     override fun onEvent(event: HomeViewEvent) {
@@ -21,7 +21,6 @@ class HomeViewModel @Inject constructor() : BaseViewModel<HomeState, HomeViewEve
                 setState { copy(weatherSummary = weatherSummary) }
             }
 
-            else -> Unit
         }
     }
 }

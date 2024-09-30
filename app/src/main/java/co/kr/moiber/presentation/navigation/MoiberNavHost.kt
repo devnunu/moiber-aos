@@ -27,7 +27,9 @@ fun MoiberNavHost() {
         moiberComposable<NavRoute.Report>(
             screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
         ) {
-            ReportScreen()
+            ReportScreen(
+                navController = navController
+            )
         }
     }
 }
