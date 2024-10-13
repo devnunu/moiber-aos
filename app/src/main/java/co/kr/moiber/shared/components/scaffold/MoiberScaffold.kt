@@ -1,5 +1,6 @@
 package co.kr.moiber.shared.components.scaffold
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -47,34 +48,27 @@ fun MoiberScaffold(
             containerColor = backgroundColor,
             contentColor = contentColor,
         ) { paddingValues ->
-                content(paddingValues)
+            content(paddingValues)
         }
     }
 
-    val keyboardController = LocalSoftwareKeyboardController.current
-    if (bottomSheetView != null) {
-        LaunchedEffect(bottomSheetView.viewModelSheetState) {
-            if (keyboardController != null) {
-                // 키보드가 켜져있는 경우 타이밍 이슈로 바텀시트가 노출되지 않으므로 딜레이를 줌
-                keyboardController.hide()
-                delay(200)
+    Column {
+        val keyboardController = LocalSoftwareKeyboardController.current
+        if (bottomSheetView != null) {
+            LaunchedEffect(bottomSheetView.viewModelSheetState) {
+                if (keyboardController != null) {
+                    // 키보드가 켜져있는 경우 타이밍 이슈로 바텀시트가 노출되지 않으므로 딜레이를 줌
+                    keyboardController.hide()
+                    delay(200)
+                }
+                when (bottomSheetView.viewModelSheetState) {
+                    is ModalState.Closed -> bottomSheetView.sheetState.hide()
+                    is ModalState.Opened -> bottomSheetView.sheetState.show()
+                }
             }
-            when (bottomSheetView.viewModelSheetState) {
-                is ModalState.Closed -> bottomSheetView.sheetState.hide()
-                is ModalState.Opened -> bottomSheetView.sheetState.show()
-            }
+            val sheetContent = bottomSheetView.sheetContent
+            sheetContent()
         }
-        ModalBottomSheet(
-            modifier = Modifier
-                .statusBarsPadding()
-                .navigationBarsPadding(),
-            sheetState = bottomSheetView.sheetState,
-            onDismissRequest = {},
-            content = {
-                child(modifier)
-            }
-        )
-    } else {
         child(modifier)
     }
 }

@@ -6,7 +6,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,8 +29,8 @@ import androidx.navigation.NavController
 import co.kr.moiber.R
 import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
-import co.kr.moiber.shared.components.modal.MoiberPopUp
-import co.kr.moiber.shared.components.modal.PopUpWrapper
+import co.kr.moiber.shared.components.popup.MoiberPopUp
+import co.kr.moiber.shared.components.popup.PopUpWrapper
 import co.kr.moiber.shared.ext.clickableRipple
 import co.kr.moiber.shared.ext.collectSideEffect
 import co.kr.moiber.shared.ui.Body02

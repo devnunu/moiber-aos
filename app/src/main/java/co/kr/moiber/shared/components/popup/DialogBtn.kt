@@ -1,4 +1,4 @@
-package co.kr.moiber.shared.components.modal
+package co.kr.moiber.shared.components.popup
 
 enum class DialogBtn {
     POSITIVE,

@@ -24,11 +24,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.presentation.home.community.HomeCommunityScreen
 import co.kr.moiber.presentation.home.components.header.TopHeaderView
 import co.kr.moiber.presentation.home.components.indicator.PageIndicator
+import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
+import co.kr.moiber.shared.components.bottomsheet.rememberScaffoldBottomSheetView
+import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.LaunchedEffectOnce
 import co.kr.moiber.shared.ui.black02
 import co.kr.moiber.shared.ui.yellow03
@@ -63,57 +67,78 @@ private fun HomeScreen(
         isVisible = true
     }
     SetStatusBarColor(color = bgColor)
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(bgColor),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        HomeAnimationVisibility(
-            visible = isVisible,
-            duration = 400,
-            delay = 150
+    MoiberScaffold(
+        bottomSheetView = rememberScaffoldBottomSheetView(
+            viewModelSheetState = state.bottomSheetState,
+            onCloseBottomSheet = { onEvent(HomeViewEvent.OnCloseBottomSheet) }
         ) {
-            TopHeaderView(
-                isDay = state.weatherSummary?.isDay ?: true
-            )
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-        ) {
-            HorizontalPager(
-                modifier = Modifier
-                    .fillMaxSize(),
-                state = pagerState,
-                verticalAlignment = Alignment.Top
-            ) { index ->
-                when (index) {
-                    0 -> {
-                        HomeSummaryScreen(
-                            isVisible = isVisible,
-                            state = state,
-                            onEvent = onEvent
-                        )
-                    }
-
-                    1 -> {
-                        HomeCommunityScreen(
-                            state = state,
-                            onEvent = onEvent,
-                            navController = navController
+            when (state.bottomSheetState.tag) {
+                is HomeViewBottomSheetTag.CommunityWeatherDetail -> {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        WeatherContent(
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(start = 28.dp, end = 28.dp, bottom = 30.dp),
+                            weatherSummary = FakeHomeWeatherSummary.getFakeModel()
                         )
                     }
                 }
             }
-            PageIndicator(
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(bgColor),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            HomeAnimationVisibility(
+                visible = isVisible,
+                duration = 400,
+                delay = 150
+            ) {
+                TopHeaderView(
+                    isDay = state.weatherSummary?.isDay ?: true
+                )
+            }
+            Box(
                 modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 41.dp),
-                numberOfPages = numberOfPage,
-                selectedPage = pagerState.currentPage,
-            )
+                    .fillMaxWidth()
+                    .weight(1f),
+            ) {
+                HorizontalPager(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    state = pagerState,
+                    verticalAlignment = Alignment.Top
+                ) { index ->
+                    when (index) {
+                        0 -> {
+                            HomeSummaryScreen(
+                                isVisible = isVisible,
+                                state = state,
+                                onEvent = onEvent
+                            )
+                        }
+
+                        1 -> {
+                            HomeCommunityScreen(
+                                state = state,
+                                onEvent = onEvent,
+                                navController = navController
+                            )
+                        }
+                    }
+                }
+                PageIndicator(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 41.dp),
+                    numberOfPages = numberOfPage,
+                    selectedPage = pagerState.currentPage,
+                )
+            }
         }
     }
 }

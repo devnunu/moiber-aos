@@ -1,4 +1,4 @@
-package co.kr.moiber.shared.components.modal
+package co.kr.moiber.shared.components.popup
 
 import androidx.compose.runtime.Composable
 import co.kr.moiber.shared.components.model.ModalState

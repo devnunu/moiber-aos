@@ -52,12 +52,27 @@ class HomeViewModel @Inject constructor(
             }
 
             is HomeViewEvent.OnClickMessageItem -> {
-
+                openBottomSheet(HomeViewBottomSheetTag.CommunityWeatherDetail)
             }
 
             is HomeViewEvent.OnLongClickMessageItem -> {
 
             }
+
+            is HomeViewEvent.OnCloseBottomSheet -> {
+                closeBottomSheet()
+            }
         }
+    }
+
+    /**
+     * Modal
+     * */
+    private fun openBottomSheet(tag: HomeViewBottomSheetTag) {
+        setState { copy(bottomSheetState = bottomSheetState.open(tag)) }
+    }
+
+    private fun closeBottomSheet() {
+        setState { copy(bottomSheetState = bottomSheetState.close()) }
     }
 }
