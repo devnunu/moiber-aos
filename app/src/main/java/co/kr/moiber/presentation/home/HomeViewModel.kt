@@ -56,11 +56,27 @@ class HomeViewModel @Inject constructor(
             }
 
             is HomeViewEvent.OnLongClickMessageItem -> {
-
+                openDialog(HomeViewDialogTag.CommunityLongPress)
             }
 
             is HomeViewEvent.OnCloseBottomSheet -> {
                 closeBottomSheet()
+            }
+
+            is HomeViewEvent.OnCloseDialog -> {
+                closeDialog()
+            }
+
+            is HomeViewEvent.OnClickDialogReportBtn -> {
+                openDialog(HomeViewDialogTag.CommunityReport)
+            }
+
+            is HomeViewEvent.OnClickDialogCompleteReportBtn -> {
+                closeDialog()
+            }
+
+            is HomeViewEvent.OnSelectReportReason -> {
+                setState { copy(selectedReportReason = event.reportReason) }
             }
         }
     }
@@ -68,6 +84,14 @@ class HomeViewModel @Inject constructor(
     /**
      * Modal
      * */
+    private fun openDialog(tag: HomeViewDialogTag) {
+        setState { copy(dialogState = dialogState.open(tag)) }
+    }
+
+    private fun closeDialog() {
+        setState { copy(dialogState = dialogState.close()) }
+    }
+
     private fun openBottomSheet(tag: HomeViewBottomSheetTag) {
         setState { copy(bottomSheetState = bottomSheetState.open(tag)) }
     }

@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -28,13 +30,19 @@ import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.presentation.home.community.HomeCommunityScreen
 import co.kr.moiber.presentation.home.components.header.TopHeaderView
 import co.kr.moiber.presentation.home.components.indicator.PageIndicator
+import co.kr.moiber.presentation.home.components.popup.HomeLongPressPopUp
+import co.kr.moiber.presentation.home.components.popup.HomeReportPopUp
 import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
 import co.kr.moiber.shared.components.bottomsheet.rememberScaffoldBottomSheetView
+import co.kr.moiber.shared.components.popup.DialogBtn
+import co.kr.moiber.shared.components.popup.MoiberPopUp
+import co.kr.moiber.shared.components.popup.PopUpWrapper
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.LaunchedEffectOnce
 import co.kr.moiber.shared.ui.black02
+import co.kr.moiber.shared.ui.gray02
 import co.kr.moiber.shared.ui.yellow03
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.delay
@@ -67,6 +75,23 @@ private fun HomeScreen(
         isVisible = true
     }
     SetStatusBarColor(color = bgColor)
+
+    PopUpWrapper(dialogState = state.dialogState) { tag ->
+        when (tag) {
+            is HomeViewDialogTag.CommunityLongPress -> {
+                HomeLongPressPopUp(
+                    onEvent = onEvent
+                )
+            }
+
+            is HomeViewDialogTag.CommunityReport -> {
+                HomeReportPopUp(
+                    state = state,
+                    onEvent = onEvent
+                )
+            }
+        }
+    }
     MoiberScaffold(
         bottomSheetView = rememberScaffoldBottomSheetView(
             viewModelSheetState = state.bottomSheetState,
@@ -78,7 +103,8 @@ private fun HomeScreen(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         WeatherContent(
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
                                 .padding(start = 28.dp, end = 28.dp, bottom = 30.dp),
                             weatherSummary = FakeHomeWeatherSummary.getFakeModel()
                         )
