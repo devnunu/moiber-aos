@@ -1,10 +1,7 @@
 package co.kr.moiber.shared.components.bottomsheet
 
-import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.shared.components.model.ModalState
 import co.kr.moiber.shared.components.scaffold.ScaffoldBottomSheetView
+import co.kr.moiber.shared.ui.white01
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,11 +38,10 @@ fun rememberScaffoldBottomSheetView(
                 modifier = Modifier
                     .statusBarsPadding()
                     .navigationBarsPadding(),
+                containerColor = white01,
                 sheetState = modalBottomSheetState,
                 onDismissRequest = {},
-                content = {
-                    content()
-                }
+                content = content
             )
         }
     }
@@ -68,22 +65,3 @@ fun rememberBottomSheetState(
         true
     },
 )
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun BottomSheetWrapper(
-    modalBottomSheetState: SheetState,
-    onClickBack: () -> Unit,
-    content: @Composable () -> Unit
-) {
-    // bottomSheet 내부 영역이 없으면 앵커를 잡지 못해서 에러 발생하므로 padding 으로 일정 영역을 확보해줌
-    // https://stackoverflow.com/questions/69346646/jetpack-compose-bottomsheet-with-empty-sheet-content-is-always-expnaded
-    Box(
-        modifier = Modifier.padding(bottom = 1.dp)
-    ) {
-        content()
-        BackHandler(
-            enabled = modalBottomSheetState.isVisible,
-            onBack = onClickBack
-        )
-    }
-}

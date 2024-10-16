@@ -21,9 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            WindowCompat.setDecorFitsSystemWindows(window, false)
             MoiberNavHost()
         }
     }

@@ -72,7 +72,7 @@ class HomeViewModel @Inject constructor(
             }
 
             is HomeViewEvent.OnClickDialogCompleteReportBtn -> {
-                closeDialog()
+                openDialog(HomeViewDialogTag.CommunityReportComplete)
             }
 
             is HomeViewEvent.OnSelectReportReason -> {

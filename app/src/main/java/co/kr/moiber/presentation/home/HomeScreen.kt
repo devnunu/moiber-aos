@@ -31,6 +31,7 @@ import co.kr.moiber.presentation.home.community.HomeCommunityScreen
 import co.kr.moiber.presentation.home.components.header.TopHeaderView
 import co.kr.moiber.presentation.home.components.indicator.PageIndicator
 import co.kr.moiber.presentation.home.components.popup.HomeLongPressPopUp
+import co.kr.moiber.presentation.home.components.popup.HomeReportCompletePopUp
 import co.kr.moiber.presentation.home.components.popup.HomeReportPopUp
 import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
@@ -87,6 +88,12 @@ private fun HomeScreen(
             is HomeViewDialogTag.CommunityReport -> {
                 HomeReportPopUp(
                     state = state,
+                    onEvent = onEvent
+                )
+            }
+
+            is HomeViewDialogTag.CommunityReportComplete -> {
+                HomeReportCompletePopUp(
                     onEvent = onEvent
                 )
             }

@@ -13,6 +13,7 @@ import co.kr.moiber.shared.components.model.ModalState
 sealed interface HomeViewDialogTag {
     data object CommunityLongPress : HomeViewDialogTag
     data object CommunityReport : HomeViewDialogTag
+    data object CommunityReportComplete : HomeViewDialogTag
 }
 
 sealed interface HomeViewBottomSheetTag {
