@@ -62,6 +62,7 @@ private fun HomeCommunityScreen(
 
             is HomeCommunityDialogTag.Report -> {
                 HomeReportPopUp(
+                    message = tag.message,
                     state = state,
                     onEvent = onEvent
                 )

@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
+import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.presentation.home.community.HomeCommunityState
 import co.kr.moiber.presentation.home.community.HomeCommunityViewEvent
 import co.kr.moiber.presentation.report.ReportViewEvent
@@ -48,6 +49,7 @@ enum class ReportCase(val reason: String) {
 
 @Composable
 fun HomeReportPopUp(
+    message: CommunityMessage,
     state: HomeCommunityState,
     onEvent: (HomeCommunityViewEvent) -> Unit
 ) {
@@ -99,13 +101,25 @@ fun HomeReportPopUp(
                     )
                 }
                 Spacer(modifier = Modifier.size(if (etcSelected) 16.dp else 26.dp))
+                val isBtnEnable = if (state.selectedReportCaseList.contains(ReportCase.CASE7)) {
+                    !state.reportReason.isNullOrBlank()
+                } else {
+                    state.selectedReportCaseList.isNotEmpty()
+                }
                 MoiberButton(
                     modifier = Modifier.fillMaxWidth(),
                     backgroundColor = red01,
                     fontColor = white01,
                     fontStyle = Body07,
                     buttonSize = ButtonSize.LARGE,
-                    onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogCompleteReportBtn) },
+                    enable = isBtnEnable,
+                    onClick = {
+                        onEvent(
+                            HomeCommunityViewEvent.OnClickDialogCompleteReportBtn(
+                                message = message
+                            )
+                        )
+                    },
                     text = "신고하기"
                 )
                 Spacer(modifier = Modifier.size(13.dp))
@@ -168,6 +182,7 @@ fun ReportSelectText(
 @Composable
 fun HomeReportPopUpPreview() {
     HomeReportPopUp(
+        message = CommunityMessage(id = 0, userId = 0),
         state = HomeCommunityState(),
         onEvent = {}
     )

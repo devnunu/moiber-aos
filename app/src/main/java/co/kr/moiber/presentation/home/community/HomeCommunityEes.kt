@@ -9,7 +9,7 @@ import co.kr.moiber.shared.components.model.ModalState
 
 sealed interface HomeCommunityDialogTag {
     data class LongPress(val message: CommunityMessage) : HomeCommunityDialogTag
-    data object Report : HomeCommunityDialogTag
+    data class Report(val message: CommunityMessage) : HomeCommunityDialogTag
     data object ReportComplete : HomeCommunityDialogTag
 }
 
@@ -25,10 +25,10 @@ sealed interface HomeCommunityViewEvent : ViewEvent {
 
     /** LongPressPopUp */
     data class OnClickDialogLikeBtn(val message: CommunityMessage) : HomeCommunityViewEvent
-    data object OnClickDialogReportBtn : HomeCommunityViewEvent
+    data class OnClickDialogReportBtn(val message: CommunityMessage) : HomeCommunityViewEvent
 
     /** ReportPopUp */
-    data object OnClickDialogCompleteReportBtn : HomeCommunityViewEvent
+    data class OnClickDialogCompleteReportBtn(val message: CommunityMessage) : HomeCommunityViewEvent
     data class OnSelectReportCase(val reportCase: ReportCase) : HomeCommunityViewEvent
     data class OnChangeReportReasonText(val text: String) : HomeCommunityViewEvent
 
@@ -50,7 +50,7 @@ data class HomeCommunityState(
     val reportReason: String? = null,
     /** Modal */
     val dialogState: ModalState<HomeCommunityDialogTag> =
-        ModalState.Closed(HomeCommunityDialogTag.Report),
+        ModalState.Closed(HomeCommunityDialogTag.ReportComplete),
     val bottomSheetState: ModalState<HomeCommunityBottomSheetTag> =
         ModalState.Closed(HomeCommunityBottomSheetTag.WeatherDetail)
 ) : ViewState {

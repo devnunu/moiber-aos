@@ -3,6 +3,7 @@ package co.kr.moiber.presentation.home.community
 import androidx.lifecycle.viewModelScope
 import co.kr.moiber.data.community.repository.CommunityRepository
 import co.kr.moiber.model.community.CommunityMessage
+import co.kr.moiber.model.community.ReportRequest
 import co.kr.moiber.model.network.onSuccess
 import co.kr.moiber.shared.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -52,19 +53,15 @@ class HomeCommunityViewModel @Inject constructor(
 
             /** LongPressPopUp */
             is HomeCommunityViewEvent.OnClickDialogReportBtn -> {
-                openDialog(HomeCommunityDialogTag.Report)
+                openDialog(HomeCommunityDialogTag.Report(event.message))
             }
 
             is HomeCommunityViewEvent.OnClickDialogLikeBtn -> {
-                postMessageLike(contentMessage = event.message)
+                postMessageLike(message = event.message)
                 closeDialog()
             }
 
             /** ReportPopUp */
-            is HomeCommunityViewEvent.OnClickDialogCompleteReportBtn -> {
-                openDialog(HomeCommunityDialogTag.ReportComplete)
-            }
-
             is HomeCommunityViewEvent.OnSelectReportCase -> {
                 val reportCase = event.reportCase
                 val selectedReportCaseList = state.selectedReportCaseList.toMutableList()
@@ -80,6 +77,11 @@ class HomeCommunityViewModel @Inject constructor(
                 setState { copy(reportReason = event.text) }
             }
 
+            is HomeCommunityViewEvent.OnClickDialogCompleteReportBtn -> {
+                portMessageReport(event.message)
+                openDialog(HomeCommunityDialogTag.ReportComplete)
+            }
+
             /** Common Modal */
             is HomeCommunityViewEvent.OnCloseBottomSheet -> {
                 closeBottomSheet()
@@ -91,8 +93,24 @@ class HomeCommunityViewModel @Inject constructor(
         }
     }
 
-    private fun postMessageLike(contentMessage: CommunityMessage) = viewModelScope.launch {
-        communityRepository.postMessageLike(contentMessage).collectLatest { result -> }
+    private fun postMessageLike(message: CommunityMessage) = viewModelScope.launch {
+        communityRepository.postMessageLike(message).collectLatest { result -> }
+    }
+
+    private fun portMessageReport(message: CommunityMessage) = viewModelScope.launch {
+        val reportRequest = ReportRequest(
+            reportCaseList = state.selectedReportCaseList,
+            reportReason = state.reportReason
+        )
+        communityRepository.postMessageReport(
+            message = message,
+            reportRequest = reportRequest
+        ).collectLatest { result ->
+            result.onSuccess {
+                // clear
+                setState { copy(selectedReportCaseList = listOf(), reportReason = null) }
+            }
+        }
     }
 
     /**

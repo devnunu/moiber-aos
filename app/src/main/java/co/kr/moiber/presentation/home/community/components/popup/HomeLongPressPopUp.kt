@@ -43,7 +43,7 @@ fun HomeLongPressPopUp(
             LongPressTextWithIcon(
                 drawableResId = R.drawable.icn_heart,
                 text = if (isMyLike) "공감 취소" else "공감하기",
-                onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogLikeBtn(message)) }
+                onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogLikeBtn(message = message)) }
             )
             if (hasMessage) {
                 Divider(
@@ -53,7 +53,7 @@ fun HomeLongPressPopUp(
                 LongPressTextWithIcon(
                     drawableResId = R.drawable.icn_report,
                     text = "신고하기",
-                    onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogReportBtn) }
+                    onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogReportBtn(message = message)) }
                 )
             }
         }

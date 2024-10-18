@@ -3,6 +3,7 @@ package co.kr.moiber.data.community.repository
 import co.kr.moiber.data.community.datasource.MemoryCommunityDataSource
 import co.kr.moiber.data.community.datasource.RemoteCommunityDataSource
 import co.kr.moiber.model.community.CommunityMessage
+import co.kr.moiber.model.community.ReportRequest
 import co.kr.moiber.model.network.ResResult
 import co.kr.moiber.model.network.asResult
 import kotlinx.coroutines.flow.Flow
@@ -31,7 +32,24 @@ class CommunityRepositoryImpl @Inject constructor(
 
     override suspend fun postMessageLike(message: CommunityMessage): Flow<ResResult<Unit>> = flow {
         // 추후 memory datasource 코드는 삭제, 결과값을 local에 업데이트 하도록 로직 변경
-        remoteRemoteCommunityDataSource.postMessageLike(message)
-        memoryMemoryCommunityDataSource.postMessageLike(message)
-    }
+        remoteRemoteCommunityDataSource.postMessageLike(communityMessage = message)
+        memoryMemoryCommunityDataSource.postMessageLike(communityMessage = message)
+        emit(Unit)
+    }.asResult()
+
+    override suspend fun postMessageReport(
+        message: CommunityMessage,
+        reportRequest: ReportRequest
+    ): Flow<ResResult<Unit>> = flow {
+        // 추후 memory datasource 코드는 삭제, 결과값을 local에 업데이트 하도록 로직 변경
+        remoteRemoteCommunityDataSource.postMessageReport(
+            communityMessage = message,
+            reportRequest = reportRequest
+        )
+        memoryMemoryCommunityDataSource.postMessageReport(
+            communityMessage = message,
+            reportRequest = reportRequest
+        )
+        emit(Unit)
+    }.asResult()
 }
