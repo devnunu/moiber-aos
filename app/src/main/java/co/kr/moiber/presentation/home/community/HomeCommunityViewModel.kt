@@ -15,13 +15,13 @@ class HomeCommunityViewModel @Inject constructor(
 ) : BaseViewModel<HomeCommunityState, HomeCommunityViewEvent, HomeCommunitySideEffect>(
     initialState = HomeCommunityState()
 ) {
-    
+
     init {
         requestCommunityContentList()
     }
 
     private fun requestCommunityContentList() = viewModelScope.launch {
-        communityRepository.getCommunityContentList().collectLatest { result ->
+        communityRepository.getCommunityContentList(forcedUpdate = true).collectLatest { result ->
             result.onSuccess { communityContentList ->
                 setState { copy(communityContentList = communityContentList ?: emptyList()) }
             }

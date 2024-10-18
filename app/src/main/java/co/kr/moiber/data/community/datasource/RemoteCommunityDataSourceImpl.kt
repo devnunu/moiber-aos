@@ -4,7 +4,7 @@ import co.kr.moiber.model.community.CommunityContent
 import co.kr.moiber.model.community.FakeCommunityContent
 import javax.inject.Inject
 
-class CommunityDataSourceImpl @Inject constructor() : CommunityDataSource {
+class RemoteCommunityDataSourceImpl @Inject constructor() : RemoteCommunityDataSource {
 
     override fun getCommunityContentList(): List<CommunityContent>? =
         FakeCommunityContent.getFakeModelList()

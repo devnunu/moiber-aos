@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CommunityRepository {
 
-    fun getCommunityContentList(): Flow<ResResult<List<CommunityContent>>>
+    fun getCommunityContentList(forcedUpdate: Boolean): Flow<ResResult<List<CommunityContent>>>
 }
