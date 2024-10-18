@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import co.kr.moiber.model.weather.WeatherMessage
 import co.kr.moiber.model.weather.WeatherMessageType
 import co.kr.moiber.shared.ui.Body02
+import co.kr.moiber.shared.ui.Body05
 import co.kr.moiber.shared.ui.white02
 
 @Composable
@@ -42,7 +43,7 @@ fun WeatherMessageView(
         }
         Spacer(modifier = Modifier.size(4.dp))
         Text(
-            style = Body02,
+            style = Body05,
             text = weatherMessage.message ?: "-"
         )
     }

@@ -24,6 +24,7 @@ import co.kr.moiber.presentation.home.summary.components.card.WeatherIndexDetail
 import co.kr.moiber.shared.components.VerticalDivider
 import co.kr.moiber.shared.ui.Body01
 import co.kr.moiber.shared.ui.Body06
+import co.kr.moiber.shared.ui.Body09
 import co.kr.moiber.shared.ui.Title01
 import co.kr.moiber.shared.ui.blue01
 import co.kr.moiber.shared.ui.red01
@@ -48,7 +49,7 @@ fun WeatherContent(
                         contentDescription = null
                     )
                 }
-                Spacer(modifier = Modifier.size(6.dp))
+                Spacer(modifier = Modifier.size(10.dp))
                 Text(
                     style = Title01,
                     text = "${weatherSummary.currentTemp ?: "-"}°"
@@ -62,19 +63,19 @@ fun WeatherContent(
                     horizontalArrangement = Arrangement.End
                 ) {
                     Text(
-                        style = Body06,
+                        style = Body09,
                         text = "↓ ${weatherSummary.minTemp ?: "-"}°",
                         color = blue01
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                     Text(
-                        style = Body06,
+                        style = Body09,
                         text = "↓ ${weatherSummary.maxTemp ?: "-"}°",
                         color = red01
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                     Text(
-                        style = Body06,
+                        style = Body09,
                         text = "체감 ${weatherSummary.apparentTemp ?: "-"}°",
                     )
                 }
@@ -123,7 +124,7 @@ fun WeatherContent(
 }
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun WeatherCardPreview() {
     WeatherContent(

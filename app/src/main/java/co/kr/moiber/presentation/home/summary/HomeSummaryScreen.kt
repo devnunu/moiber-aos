@@ -26,6 +26,7 @@ import co.kr.moiber.presentation.home.summary.components.message.WeatherMessageV
 import co.kr.moiber.shared.components.DayNightText
 import co.kr.moiber.shared.ext.toFormatString
 import co.kr.moiber.shared.ui.Body04
+import co.kr.moiber.shared.ui.Body07
 import co.kr.moiber.shared.ui.white01
 import java.util.Date
 
@@ -117,7 +118,7 @@ fun HomeSummaryScreen(
                             delay = 350
                         ) {
                             DayNightText(
-                                style = Body04,
+                                style = Body07,
                                 text = Date().toFormatString("M월 d일(E)") ?: "-",
                                 isDay = weatherSummary.isDay
                             )

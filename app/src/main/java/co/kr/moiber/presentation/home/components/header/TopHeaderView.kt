@@ -16,6 +16,7 @@ import co.kr.moiber.R
 import co.kr.moiber.shared.components.DayNightIcon
 import co.kr.moiber.shared.components.DayNightText
 import co.kr.moiber.shared.ui.Title02
+import co.kr.moiber.shared.ui.Title03
 
 @Composable
 fun TopHeaderView(
@@ -33,7 +34,7 @@ fun TopHeaderView(
         )
         Spacer(modifier = Modifier.size(3.dp))
         DayNightText(
-            style = Title02,
+            style = Title03,
             isDay = isDay,
             text = "서울 성북구"
         )

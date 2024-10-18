@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
 import co.kr.moiber.shared.ui.Body03
+import co.kr.moiber.shared.ui.Body06
 import co.kr.moiber.shared.ui.black01
 
 @Composable
@@ -33,7 +34,7 @@ fun WeatherIndexDetailItem(
         )
         Spacer(modifier = Modifier.size(4.dp))
         Text(
-            style = Body03,
+            style = Body06,
             text = text
         )
     }
