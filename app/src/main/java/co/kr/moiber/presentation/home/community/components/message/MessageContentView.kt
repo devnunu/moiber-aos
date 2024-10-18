@@ -1,6 +1,9 @@
 package co.kr.moiber.presentation.home.community.components.message
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
@@ -15,8 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import co.kr.moiber.R
 import co.kr.moiber.model.community.CommunityContent
 import co.kr.moiber.model.community.FakeCommunityContent
 import co.kr.moiber.shared.ui.Body06
@@ -99,49 +104,45 @@ fun MessageContentView(
                 Spacer(modifier = Modifier.size(8.dp))
             }
             Row {
-                Row(
-                    modifier = Modifier.padding(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "\uD83E\uDD7C"
-                    )
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Text(
-                        style = Body11,
-                        text = "${communityContent.outerwear}"
-                    )
-                }
+                TextWithClothIcon(
+                    resId = R.drawable.icn_outerwear,
+                    text = "${communityContent.outerwear}"
+                )
                 Spacer(modifier = Modifier.size(4.dp))
-                Row(
-                    modifier = Modifier.padding(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "\uD83D\uDC55"
-                    )
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Text(
-                        style = Body11,
-                        text = "${communityContent.upperWear}"
-                    )
-                }
+                TextWithClothIcon(
+                    resId = R.drawable.icn_top,
+                    text = "${communityContent.upperWear}"
+                )
                 Spacer(modifier = Modifier.size(4.dp))
-                Row(
-                    modifier = Modifier.padding(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "\uD83D\uDC55"
-                    )
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Text(
-                        style = Body11,
-                        text = "${communityContent.bottomWear}"
-                    )
-                }
+                TextWithClothIcon(
+                    resId = R.drawable.icn_pants,
+                    text = "${communityContent.bottomWear}"
+                )
             }
         }
+    }
+}
+
+@Composable
+fun TextWithClothIcon(
+    resId: Int,
+    text: String,
+) {
+    Row(
+        modifier = Modifier
+            .padding(4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            modifier = Modifier.size(18.dp),
+            painter = painterResource(id = resId),
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.size(4.dp))
+        Text(
+            style = Body11,
+            text = text
+        )
     }
 }
 
