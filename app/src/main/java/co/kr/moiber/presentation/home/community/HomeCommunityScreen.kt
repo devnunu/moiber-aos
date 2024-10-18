@@ -55,6 +55,7 @@ private fun HomeCommunityScreen(
         when (tag) {
             is HomeCommunityDialogTag.LongPress -> {
                 HomeLongPressPopUp(
+                    message = tag.message,
                     onEvent = onEvent
                 )
             }

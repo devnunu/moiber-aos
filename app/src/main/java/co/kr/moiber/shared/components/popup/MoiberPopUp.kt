@@ -7,6 +7,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -15,6 +16,7 @@ import androidx.compose.ui.window.DialogProperties
 fun MoiberPopUp(
     properties: DialogProperties = DialogProperties(usePlatformDefaultWidth = false),
     onDismissRequest: (DialogBtn) -> Unit = {},
+    horizontalPadding: Dp = 20.dp,
     content: @Composable () -> Unit
 ) {
     Dialog(
@@ -22,7 +24,7 @@ fun MoiberPopUp(
         properties = properties
     ) {
         Surface(
-            modifier = Modifier.padding(horizontal = 20.dp),
+            modifier = Modifier.padding(horizontal = horizontalPadding),
             color = Color.White,
             shape = RoundedCornerShape(12.dp)
         ) {

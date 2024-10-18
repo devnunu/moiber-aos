@@ -46,7 +46,7 @@ class HomeCommunityViewModel @Inject constructor(
             }
 
             is HomeCommunityViewEvent.OnLongClickMessageItem -> {
-                openDialog(HomeCommunityDialogTag.LongPress)
+                openDialog(HomeCommunityDialogTag.LongPress(message = event.message))
             }
 
             is HomeCommunityViewEvent.OnCloseBottomSheet -> {
