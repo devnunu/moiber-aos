@@ -53,7 +53,7 @@ fun HomeLongPressPopUp(
                 LongPressTextWithIcon(
                     drawableResId = R.drawable.icn_delete,
                     text = "삭제하기",
-                    onClick = { }
+                    onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogDeleteBtn(message = message)) }
                 )
             } else {
                 LongPressTextWithIcon(

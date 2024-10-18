@@ -52,4 +52,11 @@ class CommunityRepositoryImpl @Inject constructor(
         )
         emit(Unit)
     }.asResult()
+
+    override suspend fun deleteMessage(message: CommunityMessage): Flow<ResResult<Unit>> = flow {
+        // 추후 memory datasource 코드는 삭제, 결과값을 local에 업데이트 하도록 로직 변경
+        remoteRemoteCommunityDataSource.deleteMessage(message = message)
+        memoryMemoryCommunityDataSource.deleteMessage(message = message)
+        emit(Unit)
+    }.asResult()
 }

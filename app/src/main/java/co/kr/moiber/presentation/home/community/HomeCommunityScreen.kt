@@ -22,6 +22,7 @@ import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.presentation.home.community.components.CommunityHeader
 import co.kr.moiber.presentation.home.community.components.message.MessageItem
 import co.kr.moiber.presentation.home.community.components.EditFloatingButton
+import co.kr.moiber.presentation.home.community.components.popup.HomeDeleteMessagePopUp
 import co.kr.moiber.presentation.home.community.components.popup.HomeLongPressPopUp
 import co.kr.moiber.presentation.home.community.components.popup.HomeReportCompletePopUp
 import co.kr.moiber.presentation.home.community.components.popup.HomeReportPopUp
@@ -55,6 +56,13 @@ private fun HomeCommunityScreen(
         when (tag) {
             is HomeCommunityDialogTag.LongPress -> {
                 HomeLongPressPopUp(
+                    message = tag.message,
+                    onEvent = onEvent
+                )
+            }
+
+            is HomeCommunityDialogTag.DeleteMessage -> {
+                HomeDeleteMessagePopUp(
                     message = tag.message,
                     onEvent = onEvent
                 )

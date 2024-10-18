@@ -50,4 +50,10 @@ class MemoryCommunityDataSourceImpl @Inject constructor() : MemoryCommunityDataS
         }
         _communityMessageList.update { messageList }
     }
+
+    override suspend fun deleteMessage(message: CommunityMessage) {
+        val messageList = _communityMessageList.value.toMutableList()
+        messageList.remove(message)
+        _communityMessageList.update { messageList }
+    }
 }

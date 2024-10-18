@@ -9,6 +9,7 @@ import co.kr.moiber.shared.components.model.ModalState
 
 sealed interface HomeCommunityDialogTag {
     data class LongPress(val message: CommunityMessage) : HomeCommunityDialogTag
+    data class DeleteMessage(val message: CommunityMessage) : HomeCommunityDialogTag
     data class Report(val message: CommunityMessage) : HomeCommunityDialogTag
     data object ReportComplete : HomeCommunityDialogTag
 }
@@ -26,9 +27,12 @@ sealed interface HomeCommunityViewEvent : ViewEvent {
     /** LongPressPopUp */
     data class OnClickDialogLikeBtn(val message: CommunityMessage) : HomeCommunityViewEvent
     data class OnClickDialogReportBtn(val message: CommunityMessage) : HomeCommunityViewEvent
+    data class OnClickDialogDeleteBtn(val message: CommunityMessage) : HomeCommunityViewEvent
 
     /** ReportPopUp */
-    data class OnClickDialogCompleteReportBtn(val message: CommunityMessage) : HomeCommunityViewEvent
+    data class OnClickDialogCompleteReportBtn(val message: CommunityMessage) :
+        HomeCommunityViewEvent
+
     data class OnSelectReportCase(val reportCase: ReportCase) : HomeCommunityViewEvent
     data class OnChangeReportReasonText(val text: String) : HomeCommunityViewEvent
 

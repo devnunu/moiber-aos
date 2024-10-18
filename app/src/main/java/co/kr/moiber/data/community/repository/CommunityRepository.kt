@@ -11,5 +11,10 @@ interface CommunityRepository {
 
     suspend fun postMessageLike(message: CommunityMessage): Flow<ResResult<Unit>>
 
-    suspend fun postMessageReport(message: CommunityMessage, reportRequest: ReportRequest): Flow<ResResult<Unit>>
+    suspend fun postMessageReport(
+        message: CommunityMessage,
+        reportRequest: ReportRequest
+    ): Flow<ResResult<Unit>>
+
+    suspend fun deleteMessage(message: CommunityMessage): Flow<ResResult<Unit>>
 }

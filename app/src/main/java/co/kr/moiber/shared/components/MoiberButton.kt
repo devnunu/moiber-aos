@@ -50,11 +50,11 @@ fun MoiberButton(
         }
         Row(
             modifier = Modifier
-                .padding(padding)
                 .clickableRipple(
                     onClick = onClick,
                     bounded = true
-                ),
+                )
+                .padding(padding),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {

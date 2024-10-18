@@ -13,4 +13,5 @@ interface MemoryCommunityDataSource {
     fun postMessageLike(communityMessage: CommunityMessage)
 
     fun postMessageReport(communityMessage: CommunityMessage, reportRequest: ReportRequest)
+    suspend fun deleteMessage(message: CommunityMessage)
 }

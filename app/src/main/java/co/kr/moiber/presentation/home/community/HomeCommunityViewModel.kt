@@ -61,6 +61,10 @@ class HomeCommunityViewModel @Inject constructor(
                 closeDialog()
             }
 
+            is HomeCommunityViewEvent.OnClickDialogDeleteBtn -> {
+                openDialog(HomeCommunityDialogTag.DeleteMessage(event.message))
+            }
+
             /** ReportPopUp */
             is HomeCommunityViewEvent.OnSelectReportCase -> {
                 val reportCase = event.reportCase

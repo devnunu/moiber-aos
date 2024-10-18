@@ -16,6 +16,8 @@ class RemoteCommunityDataSourceImpl @Inject constructor() : RemoteCommunityDataS
         communityMessage: CommunityMessage,
         reportRequest: ReportRequest
     ) {
-        Unit
+    }
+
+    override suspend fun deleteMessage(message: CommunityMessage) {
     }
 }
