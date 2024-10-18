@@ -1,6 +1,5 @@
 package co.kr.moiber.presentation.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,15 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Divider
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -27,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import co.kr.moiber.model.weather.FakeHomeWeatherSummary
+import co.kr.moiber.presentation.home.HomeVariable.NUMBER_OF_PAGE
 import co.kr.moiber.presentation.home.community.HomeCommunityScreen
 import co.kr.moiber.presentation.home.components.header.TopHeaderView
 import co.kr.moiber.presentation.home.components.indicator.PageIndicator
@@ -37,16 +33,17 @@ import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
 import co.kr.moiber.shared.components.bottomsheet.rememberScaffoldBottomSheetView
-import co.kr.moiber.shared.components.popup.DialogBtn
-import co.kr.moiber.shared.components.popup.MoiberPopUp
 import co.kr.moiber.shared.components.popup.PopUpWrapper
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.LaunchedEffectOnce
 import co.kr.moiber.shared.ui.black02
-import co.kr.moiber.shared.ui.gray02
 import co.kr.moiber.shared.ui.yellow03
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.delay
+
+object HomeVariable {
+    const val NUMBER_OF_PAGE = 2
+}
 
 @Composable
 fun HomeScreen(
@@ -66,10 +63,9 @@ private fun HomeScreen(
     onEvent: (HomeViewEvent) -> Unit,
     navController: NavController
 ) {
-    val numberOfPage = 2
     var isVisible by rememberSaveable { mutableStateOf(false) }
     val bgColor = if (state.weatherSummary?.isDay == true) yellow03 else black02
-    val pagerState = rememberPagerState(pageCount = { numberOfPage })
+    val pagerState = rememberPagerState(pageCount = { NUMBER_OF_PAGE })
 
     LaunchedEffectOnce {
         delay(150)
@@ -168,7 +164,7 @@ private fun HomeScreen(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 41.dp),
-                    numberOfPages = numberOfPage,
+                    numberOfPages = NUMBER_OF_PAGE,
                     selectedPage = pagerState.currentPage,
                 )
             }

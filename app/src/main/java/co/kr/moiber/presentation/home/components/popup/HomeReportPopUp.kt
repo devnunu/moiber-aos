@@ -1,13 +1,11 @@
 package co.kr.moiber.presentation.home.components.popup
 
-import android.widget.RadioGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Divider
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +23,6 @@ import co.kr.moiber.shared.ui.Body06
 import co.kr.moiber.shared.ui.Body07
 import co.kr.moiber.shared.ui.Body10
 import co.kr.moiber.shared.ui.gray01
-import co.kr.moiber.shared.ui.gray02
 import co.kr.moiber.shared.ui.red01
 import co.kr.moiber.shared.ui.white01
 

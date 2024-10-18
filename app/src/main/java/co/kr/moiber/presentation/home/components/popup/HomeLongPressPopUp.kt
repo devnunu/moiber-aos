@@ -12,8 +12,7 @@ import androidx.compose.ui.unit.dp
 import co.kr.moiber.presentation.home.HomeViewEvent
 import co.kr.moiber.shared.components.popup.MoiberPopUp
 import co.kr.moiber.shared.ext.clickableNonIndication
-import co.kr.moiber.shared.ext.clickableRipple
-import co.kr.moiber.shared.ui.gray02
+import co.kr.moiber.shared.ui.gray01
 
 @Composable
 fun HomeLongPressPopUp(
@@ -33,7 +32,7 @@ fun HomeLongPressPopUp(
             )
             Divider(
                 modifier = Modifier.fillMaxWidth(),
-                color = gray02
+                color = gray01
             )
             Text(
                 modifier = Modifier

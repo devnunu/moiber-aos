@@ -7,11 +7,18 @@ import androidx.compose.ui.unit.sp
 val Title01 = TextStyle(
     fontSize = 48.sp,
     fontWeight = FontWeight.Bold,
-    letterSpacing = (-0.6).sp,
+    letterSpacing = -2.sp,
     color = black01
 )
 
 val Title02 = TextStyle(
+    fontSize = 36.sp,
+    fontWeight = FontWeight.SemiBold,
+    letterSpacing = (-0.6).sp,
+    color = black01
+)
+
+val Title03 = TextStyle(
     fontSize = 20.sp,
     fontWeight = FontWeight.SemiBold,
     letterSpacing = (-0.6).sp,
@@ -27,61 +34,68 @@ val Body01 = TextStyle(
 
 val Body02 = TextStyle(
     fontSize = 18.sp,
-    fontWeight = FontWeight.Medium,
+    fontWeight = FontWeight.SemiBold,
     letterSpacing = (-0.6).sp,
     color = black01
 )
 
 val Body03 = TextStyle(
-    fontSize = 16.sp,
-    fontWeight = FontWeight.SemiBold,
+    fontSize = 18.sp,
+    fontWeight = FontWeight.Medium,
     letterSpacing = (-0.6).sp,
     color = black01
 )
 
 val Body04 = TextStyle(
     fontSize = 16.sp,
-    fontWeight = FontWeight.Normal,
+    fontWeight = FontWeight.SemiBold,
     letterSpacing = (-0.6).sp,
     color = black01
 )
 
 val Body05 = TextStyle(
-    fontSize = 14.sp,
-    fontWeight = FontWeight.SemiBold,
+    fontSize = 16.sp,
+    fontWeight = FontWeight.Medium,
     letterSpacing = (-0.6).sp,
     color = black01
 )
 
 val Body06 = TextStyle(
     fontSize = 14.sp,
-    fontWeight = FontWeight.Medium,
+    fontWeight = FontWeight.Normal,
     letterSpacing = (-0.6).sp,
     color = black01
 )
 
 val Body07 = TextStyle(
     fontSize = 14.sp,
-    fontWeight = FontWeight.Normal,
+    fontWeight = FontWeight.SemiBold,
     letterSpacing = (-0.6).sp,
     color = black01
 )
 
 val Body08 = TextStyle(
     fontSize = 14.sp,
-    fontWeight = FontWeight.Normal,
+    fontWeight = FontWeight.Medium,
     letterSpacing = (-0.6).sp,
     color = black01
 )
 
 val Body09 = TextStyle(
-    fontSize = 12.sp,
+    fontSize = 14.sp,
     fontWeight = FontWeight.Normal,
     letterSpacing = (-0.6).sp,
     color = black01
 )
 
 val Body10 = TextStyle(
+    fontSize = 12.sp,
+    fontWeight = FontWeight.SemiBold,
+    letterSpacing = (-0.6).sp,
+    color = black01
+)
+
+val Body11 = TextStyle(
     fontSize = 12.sp,
     fontWeight = FontWeight.Normal,
     letterSpacing = (-0.6).sp,

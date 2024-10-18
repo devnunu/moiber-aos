@@ -1,21 +1,15 @@
 package co.kr.moiber.presentation.home.community.components.message
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,11 +19,10 @@ import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
 import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
-import co.kr.moiber.shared.ext.clickableRipple
 import co.kr.moiber.shared.ui.Body05
 import co.kr.moiber.shared.ui.Body06
 import co.kr.moiber.shared.ui.black02
-import co.kr.moiber.shared.ui.gray02
+import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.white01
 
 @Composable
@@ -40,7 +33,7 @@ fun MyMessageVanView(
         modifier = Modifier
             .width(224.dp)
             .background(
-                color = gray02,
+                color = gray01,
                 shape = RoundedCornerShape(
                     topStart = 12.dp,
                     topEnd = 4.dp,
