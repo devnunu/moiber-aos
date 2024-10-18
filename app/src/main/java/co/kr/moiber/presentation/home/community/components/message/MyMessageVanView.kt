@@ -34,7 +34,7 @@ fun MyMessageVanView(
         modifier = Modifier
             .width(224.dp)
             .background(
-                color = gray01,
+                color = gray02,
                 shape = RoundedCornerShape(
                     topStart = 12.dp,
                     topEnd = 4.dp,
@@ -55,7 +55,7 @@ fun MyMessageVanView(
             Text(
                 style = Body05,
                 text = "신고된 게시글",
-                color = gray02
+                color = black02
             )
         }
         Spacer(modifier = Modifier.size(12.dp))

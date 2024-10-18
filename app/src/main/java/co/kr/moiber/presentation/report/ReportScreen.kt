@@ -29,6 +29,7 @@ import androidx.navigation.NavController
 import co.kr.moiber.R
 import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
+import co.kr.moiber.shared.components.input.MoiberTextField
 import co.kr.moiber.shared.components.popup.MoiberPopUp
 import co.kr.moiber.shared.components.popup.PopUpWrapper
 import co.kr.moiber.shared.ext.clickableRipple
@@ -41,6 +42,7 @@ import co.kr.moiber.shared.ui.Body07
 import co.kr.moiber.shared.ui.Body08
 import co.kr.moiber.shared.ui.Body09
 import co.kr.moiber.shared.ui.Title02
+import co.kr.moiber.shared.ui.Title03
 import co.kr.moiber.shared.ui.black02
 import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.gray02
@@ -132,7 +134,7 @@ fun ReportScreen(
             )
             Spacer(modifier = Modifier.size(6.dp))
             Text(
-                style = Title02,
+                style = Title03,
                 text = "신고 철회 요청",
             )
         }
@@ -194,29 +196,11 @@ fun ReportScreen(
         }
         Spacer(modifier = Modifier.size(25.dp))
         val value = state.reportTxt
-        BasicTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(124.dp)
-                .background(white01, RoundedCornerShape(4.dp))
-                .border(1.dp, gray01, RoundedCornerShape(4.dp))
-                .padding(12.dp),
+        MoiberTextField(
+            height = 124.dp,
             value = value.orEmpty(),
-            onValueChange = { text ->
-                onEvent(ReportViewEvent.OnChangeReportTxt(text))
-            },
-            decorationBox = { innerTextField ->
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    if (value.isNullOrBlank()) {
-                        Text(
-                            style = Body07,
-                            text = "직접 입력하기(공백 포함 최대 150자)",
-                            color = gray01
-                        )
-                    }
-                }
-                innerTextField()
-            }
+            placeHolder = "직접 입력하기(공백 포함 최대 150자)",
+            onValueChange = { text -> onEvent(ReportViewEvent.OnChangeReportTxt(text)) }
         )
         Spacer(modifier = Modifier.size(18.dp))
         MoiberButton(

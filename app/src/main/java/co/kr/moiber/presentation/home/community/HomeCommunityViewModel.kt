@@ -65,15 +65,19 @@ class HomeCommunityViewModel @Inject constructor(
                 openDialog(HomeCommunityDialogTag.ReportComplete)
             }
 
-            is HomeCommunityViewEvent.OnSelectReportReason -> {
-                val reportReason = event.reportReason
-                val selectedReportReasonList = state.selectedReportReasonList.toMutableList()
-                if (selectedReportReasonList.contains(reportReason)) {
-                    selectedReportReasonList.remove(reportReason)
+            is HomeCommunityViewEvent.OnSelectReportCase -> {
+                val reportCase = event.reportCase
+                val selectedReportCaseList = state.selectedReportCaseList.toMutableList()
+                if (selectedReportCaseList.contains(reportCase)) {
+                    selectedReportCaseList.remove(reportCase)
                 } else {
-                    selectedReportReasonList.add(reportReason)
+                    selectedReportCaseList.add(reportCase)
                 }
-                setState { copy(selectedReportReasonList = selectedReportReasonList) }
+                setState { copy(selectedReportCaseList = selectedReportCaseList) }
+            }
+
+            is HomeCommunityViewEvent.OnChangeReportReasonText -> {
+                setState { copy(reportReason = event.text) }
             }
 
             /** Common Modal */
