@@ -1,5 +1,6 @@
 package co.kr.moiber.presentation.home.community
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,6 +32,7 @@ import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.navigation.NavRoute
 import co.kr.moiber.shared.components.bottomsheet.BottomSheetWrapper
 import co.kr.moiber.shared.components.popup.PopUpWrapper
+import co.kr.moiber.shared.ext.collectSideEffect
 import co.kr.moiber.shared.ext.fadingEdge
 
 @Composable
@@ -37,6 +40,14 @@ fun HomeCommunityScreen(
     viewModel: HomeCommunityViewModel = hiltViewModel(),
     navController: NavController
 ) {
+    val context = LocalContext.current
+    viewModel.collectSideEffect {sideEffect->
+        when(sideEffect) {
+            is HomeCommunitySideEffect.ShowToast-> {
+                Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
     HomeCommunityScreen(
         state = viewModel.stateFlow.collectAsState().value,
         onEvent = viewModel::onEvent,

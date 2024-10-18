@@ -86,6 +86,12 @@ class HomeCommunityViewModel @Inject constructor(
                 openDialog(HomeCommunityDialogTag.ReportComplete)
             }
 
+            /** DeletePopUP */
+            is HomeCommunityViewEvent.OnClickDialogFinalDeleteBtn -> {
+                deleteMessage(event.message)
+                closeDialog()
+            }
+
             /** Common Modal */
             is HomeCommunityViewEvent.OnCloseBottomSheet -> {
                 closeBottomSheet()
@@ -113,6 +119,14 @@ class HomeCommunityViewModel @Inject constructor(
             result.onSuccess {
                 // clear
                 setState { copy(selectedReportCaseList = listOf(), reportReason = null) }
+            }
+        }
+    }
+
+    private fun deleteMessage(message: CommunityMessage) = viewModelScope.launch {
+        communityRepository.deleteMessage(message).collectLatest { result ->
+            result.onSuccess {
+                postSideEffect(HomeCommunitySideEffect.ShowToast("게시글 삭제 완료!"))
             }
         }
     }

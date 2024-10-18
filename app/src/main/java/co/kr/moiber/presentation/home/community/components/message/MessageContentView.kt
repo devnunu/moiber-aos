@@ -30,7 +30,6 @@ import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.white01
 import co.kr.moiber.shared.ui.yellow02
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MessageContentView(
     communityMessage: CommunityMessage,
@@ -38,6 +37,7 @@ fun MessageContentView(
     onLongClickMessage: (CommunityMessage) -> Unit
 ) {
     val isMyContent = communityMessage.isMyContent(userId = 0)
+    val isVanMessage = communityMessage.isVan
     val radius = if (isMyContent) {
         RoundedCornerShape(
             topStart = 12.dp,
@@ -70,19 +70,19 @@ fun MessageContentView(
             .clip(radius)
             .combinedClickableRipple(
                 onClick = {
-                    if (!communityMessage.isVan) {
+                    if (!isVanMessage) {
                         onClickMessage(communityMessage)
                     }
                 },
                 onLongClick = {
-                    if (!communityMessage.isVan) {
+                    if (!isVanMessage) {
                         onLongClickMessage(communityMessage)
                     }
                 },
             )
             .padding(vertical = 10.dp, horizontal = 14.dp),
     ) {
-        if (communityMessage.isVan) {
+        if (isVanMessage) {
             val message = if (communityMessage.van?.isMyVan == true) {
                 "※ 회원님이 신고한 게시글이에요."
             } else {

@@ -57,7 +57,7 @@ fun HomeDeleteMessagePopUp(
                 fontStyle = Body07,
                 buttonSize = ButtonSize.MEDIUM,
                 text = "네, 삭제할게요",
-                onClick = {}
+                onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogFinalDeleteBtn(message)) }
             )
             Spacer(modifier = Modifier.size(5.dp))
             MoiberButton(

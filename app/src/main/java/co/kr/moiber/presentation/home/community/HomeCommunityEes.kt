@@ -36,13 +36,16 @@ sealed interface HomeCommunityViewEvent : ViewEvent {
     data class OnSelectReportCase(val reportCase: ReportCase) : HomeCommunityViewEvent
     data class OnChangeReportReasonText(val text: String) : HomeCommunityViewEvent
 
+    /** DeletePopUp */
+    data class OnClickDialogFinalDeleteBtn(val message: CommunityMessage) : HomeCommunityViewEvent
+
     /** Common Modal */
     data object OnCloseBottomSheet : HomeCommunityViewEvent
     data object OnCloseDialog : HomeCommunityViewEvent
 }
 
 sealed interface HomeCommunitySideEffect : SideEffect {
-
+    data class ShowToast(val message: String) : HomeCommunitySideEffect
 }
 
 data class HomeCommunityState(
