@@ -23,6 +23,7 @@ import co.kr.moiber.shared.ui.Body05
 import co.kr.moiber.shared.ui.Body06
 import co.kr.moiber.shared.ui.black02
 import co.kr.moiber.shared.ui.gray01
+import co.kr.moiber.shared.ui.gray02
 import co.kr.moiber.shared.ui.white01
 
 @Composable
@@ -54,7 +55,7 @@ fun MyMessageVanView(
             Text(
                 style = Body05,
                 text = "신고된 게시글",
-                color = black02
+                color = gray02
             )
         }
         Spacer(modifier = Modifier.size(12.dp))

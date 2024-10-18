@@ -28,7 +28,7 @@ enum class ButtonSize {
 fun MoiberButton(
     modifier: Modifier = Modifier,
     enable: Boolean = true,
-    shape: Shape = RoundedCornerShape(4.dp),
+    shape: Shape = RoundedCornerShape(8.dp),
     backgroundColor: Color,
     fontColor: Color,
     fontStyle: TextStyle,

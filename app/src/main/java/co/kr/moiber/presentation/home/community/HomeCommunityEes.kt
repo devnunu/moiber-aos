@@ -44,7 +44,7 @@ data class HomeCommunityState(
     val isDay: Boolean = true,
     val isOnMyHistory: Boolean = false,
     val communityMessageList: List<CommunityMessage> = emptyList(),
-    val selectedReportReason: ReportReason = ReportReason.CASE1,
+    val selectedReportReasonList: List<ReportReason> = emptyList(),
     val dialogState: ModalState<HomeCommunityDialogTag> =
         ModalState.Closed(HomeCommunityDialogTag.Report),
     val bottomSheetState: ModalState<HomeCommunityBottomSheetTag> =

@@ -6,7 +6,6 @@ import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.model.network.onSuccess
 import co.kr.moiber.shared.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -67,7 +66,14 @@ class HomeCommunityViewModel @Inject constructor(
             }
 
             is HomeCommunityViewEvent.OnSelectReportReason -> {
-                setState { copy(selectedReportReason = event.reportReason) }
+                val reportReason = event.reportReason
+                val selectedReportReasonList = state.selectedReportReasonList.toMutableList()
+                if (selectedReportReasonList.contains(reportReason)) {
+                    selectedReportReasonList.remove(reportReason)
+                } else {
+                    selectedReportReasonList.add(reportReason)
+                }
+                setState { copy(selectedReportReasonList = selectedReportReasonList) }
             }
 
             /** Common Modal */

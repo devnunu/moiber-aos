@@ -43,6 +43,7 @@ import co.kr.moiber.shared.ui.Body09
 import co.kr.moiber.shared.ui.Title02
 import co.kr.moiber.shared.ui.black02
 import co.kr.moiber.shared.ui.gray01
+import co.kr.moiber.shared.ui.gray02
 import co.kr.moiber.shared.ui.white01
 
 @Composable
@@ -149,7 +150,7 @@ fun ReportScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(gray01, RoundedCornerShape(8.dp))
+                .background(gray02, RoundedCornerShape(8.dp))
                 .padding(vertical = 12.dp, horizontal = 13.dp)
         ) {
             Text(
