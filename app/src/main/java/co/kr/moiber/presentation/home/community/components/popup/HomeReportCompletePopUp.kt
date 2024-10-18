@@ -1,4 +1,4 @@
-package co.kr.moiber.presentation.home.components.popup
+package co.kr.moiber.presentation.home.community.components.popup
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import co.kr.moiber.presentation.home.HomeViewEvent
+import co.kr.moiber.presentation.home.community.HomeCommunityViewEvent
 import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
 import co.kr.moiber.shared.components.popup.MoiberPopUp
@@ -22,10 +22,10 @@ import co.kr.moiber.shared.ui.white01
 
 @Composable
 fun HomeReportCompletePopUp(
-    onEvent: (HomeViewEvent) -> Unit
+    onEvent: (HomeCommunityViewEvent) -> Unit
 ) {
     MoiberPopUp(
-        onDismissRequest = { onEvent(HomeViewEvent.OnCloseDialog) }
+        onDismissRequest = { onEvent(HomeCommunityViewEvent.OnCloseDialog) }
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 30.dp),
@@ -49,7 +49,7 @@ fun HomeReportCompletePopUp(
                 fontColor = white01,
                 fontStyle = Body07,
                 buttonSize = ButtonSize.MEDIUM,
-                onClick = { onEvent(HomeViewEvent.OnCloseDialog) },
+                onClick = { onEvent(HomeCommunityViewEvent.OnCloseDialog) },
                 text = "확인"
             )
         }

@@ -11,15 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.model.weather.Weather
-import co.kr.moiber.presentation.home.HomeState
-import co.kr.moiber.presentation.home.HomeViewEvent
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
 import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.home.summary.components.message.WeatherMessageView
@@ -31,9 +31,21 @@ import java.util.Date
 
 @Composable
 fun HomeSummaryScreen(
+    viewModel: HomeSummaryViewModel = hiltViewModel(),
     isVisible: Boolean,
-    state: HomeState,
-    onEvent: (HomeViewEvent) -> Unit
+) {
+    HomeSummaryScreen(
+        isVisible = isVisible,
+        state = viewModel.stateFlow.collectAsState().value,
+        onEvent = viewModel::onEvent
+    )
+}
+
+@Composable
+fun HomeSummaryScreen(
+    isVisible: Boolean,
+    state: HomeSummaryState,
+    onEvent: (HomeSummaryViewEvent) -> Unit
 ) {
     val weatherSummary = state.weatherSummary
 
@@ -135,7 +147,7 @@ fun HomeSummaryScreen(
 fun HomeScreenPreview() {
     HomeSummaryScreen(
         isVisible = true,
-        state = HomeState(
+        state = HomeSummaryState(
             weatherSummary = FakeHomeWeatherSummary.getFakeModel()
         ),
         onEvent = {}

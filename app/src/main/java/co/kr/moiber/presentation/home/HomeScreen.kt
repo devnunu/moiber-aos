@@ -10,9 +10,9 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -21,19 +21,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.presentation.home.HomeVariable.NUMBER_OF_PAGE
 import co.kr.moiber.presentation.home.community.HomeCommunityScreen
+import co.kr.moiber.presentation.home.community.HomeCommunityViewModel
 import co.kr.moiber.presentation.home.components.header.TopHeaderView
 import co.kr.moiber.presentation.home.components.indicator.PageIndicator
-import co.kr.moiber.presentation.home.components.popup.HomeLongPressPopUp
-import co.kr.moiber.presentation.home.components.popup.HomeReportCompletePopUp
-import co.kr.moiber.presentation.home.components.popup.HomeReportPopUp
-import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
+import co.kr.moiber.presentation.home.summary.HomeSummaryViewModel
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
-import co.kr.moiber.shared.components.bottomsheet.BottomSheetWrapper
-import co.kr.moiber.shared.components.popup.PopUpWrapper
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.LaunchedEffectOnce
 import co.kr.moiber.shared.ui.black02
@@ -47,24 +42,14 @@ object HomeVariable {
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel(),
-    navController: NavController
+    navController: NavController,
+    homeSummaryViewModel: HomeSummaryViewModel = hiltViewModel(),
+    homeCommunityViewModel: HomeCommunityViewModel = hiltViewModel()
 ) {
-    HomeScreen(
-        state = viewModel.stateFlow.collectAsState().value,
-        onEvent = viewModel::onEvent,
-        navController = navController,
-    )
-}
+    var isDay by remember { mutableStateOf(true) }
 
-@Composable
-private fun HomeScreen(
-    state: HomeState,
-    onEvent: (HomeViewEvent) -> Unit,
-    navController: NavController
-) {
     var isVisible by rememberSaveable { mutableStateOf(false) }
-    val bgColor = if (state.weatherSummary?.isDay == true) yellow03 else black02
+    val bgColor = if (isDay) yellow03 else black02
     val pagerState = rememberPagerState(pageCount = { NUMBER_OF_PAGE })
 
     LaunchedEffectOnce {
@@ -72,48 +57,6 @@ private fun HomeScreen(
         isVisible = true
     }
     SetStatusBarColor(color = bgColor)
-
-    PopUpWrapper(dialogState = state.dialogState) { tag ->
-        when (tag) {
-            is HomeViewDialogTag.CommunityLongPress -> {
-                HomeLongPressPopUp(
-                    onEvent = onEvent
-                )
-            }
-
-            is HomeViewDialogTag.CommunityReport -> {
-                HomeReportPopUp(
-                    state = state,
-                    onEvent = onEvent
-                )
-            }
-
-            is HomeViewDialogTag.CommunityReportComplete -> {
-                HomeReportCompletePopUp(
-                    onEvent = onEvent
-                )
-            }
-        }
-    }
-    BottomSheetWrapper(
-        viewModelSheetState = state.bottomSheetState,
-        onCloseBottomSheet = { onEvent(HomeViewEvent.OnCloseBottomSheet) }
-    ) {
-        when (state.bottomSheetState.tag) {
-            is HomeViewBottomSheetTag.CommunityWeatherDetail -> {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    WeatherContent(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 28.dp, end = 28.dp, bottom = 30.dp),
-                        weatherSummary = FakeHomeWeatherSummary.getFakeModel()
-                    )
-                }
-            }
-        }
-    }
     MoiberScaffold {
         Column(
             modifier = Modifier
@@ -127,7 +70,7 @@ private fun HomeScreen(
                 delay = 150
             ) {
                 TopHeaderView(
-                    isDay = state.weatherSummary?.isDay ?: true
+                    isDay = isDay
                 )
             }
             Box(
@@ -145,16 +88,14 @@ private fun HomeScreen(
                         0 -> {
                             HomeSummaryScreen(
                                 isVisible = isVisible,
-                                state = state,
-                                onEvent = onEvent
+                                viewModel = homeSummaryViewModel
                             )
                         }
 
                         1 -> {
                             HomeCommunityScreen(
-                                state = state,
-                                onEvent = onEvent,
-                                navController = navController
+                                navController = navController,
+                                viewModel = homeCommunityViewModel
                             )
                         }
                     }

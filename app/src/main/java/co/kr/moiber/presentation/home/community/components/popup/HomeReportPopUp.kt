@@ -1,4 +1,4 @@
-package co.kr.moiber.presentation.home.components.popup
+package co.kr.moiber.presentation.home.community.components.popup
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import co.kr.moiber.presentation.home.HomeState
-import co.kr.moiber.presentation.home.HomeViewEvent
+import co.kr.moiber.presentation.home.community.HomeCommunityState
+import co.kr.moiber.presentation.home.community.HomeCommunityViewEvent
 import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
 import co.kr.moiber.shared.components.popup.MoiberPopUp
@@ -38,11 +38,11 @@ enum class ReportReason(val reason: String) {
 
 @Composable
 fun HomeReportPopUp(
-    state: HomeState,
-    onEvent: (HomeViewEvent) -> Unit
+    state: HomeCommunityState,
+    onEvent: (HomeCommunityViewEvent) -> Unit
 ) {
     MoiberPopUp(
-        onDismissRequest = { onEvent(HomeViewEvent.OnCloseDialog) }
+        onDismissRequest = { onEvent(HomeCommunityViewEvent.OnCloseDialog) }
     ) {
         Column(
             modifier = Modifier
@@ -63,13 +63,13 @@ fun HomeReportPopUp(
                 ReportReason.entries.forEach {
                     Row(
                         modifier = Modifier.clickableNonIndication {
-                            onEvent(HomeViewEvent.OnSelectReportReason(it))
+                            onEvent(HomeCommunityViewEvent.OnSelectReportReason(it))
                         },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
                             selected = state.selectedReportReason == it,
-                            onClick = { onEvent(HomeViewEvent.OnSelectReportReason(it)) }
+                            onClick = { onEvent(HomeCommunityViewEvent.OnSelectReportReason(it)) }
                         )
                         Text(
                             style = Body07,
@@ -85,7 +85,7 @@ fun HomeReportPopUp(
                 fontColor = white01,
                 fontStyle = Body06,
                 buttonSize = ButtonSize.LARGE,
-                onClick = { onEvent(HomeViewEvent.OnClickDialogCompleteReportBtn("")) },
+                onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogCompleteReportBtn("")) },
                 text = "신고하기"
             )
             Spacer(modifier = Modifier.size(13.dp))

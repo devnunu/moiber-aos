@@ -10,28 +10,88 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import co.kr.moiber.presentation.home.HomeState
-import co.kr.moiber.presentation.home.HomeViewEvent
+import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.presentation.home.community.components.CommunityHeader
 import co.kr.moiber.presentation.home.community.components.message.MessageItem
 import co.kr.moiber.presentation.home.community.components.EditFloatingButton
+import co.kr.moiber.presentation.home.community.components.popup.HomeLongPressPopUp
+import co.kr.moiber.presentation.home.community.components.popup.HomeReportCompletePopUp
+import co.kr.moiber.presentation.home.community.components.popup.HomeReportPopUp
+import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.navigation.NavRoute
+import co.kr.moiber.shared.components.bottomsheet.BottomSheetWrapper
+import co.kr.moiber.shared.components.popup.PopUpWrapper
 import co.kr.moiber.shared.ext.fadingEdge
 
 @Composable
 fun HomeCommunityScreen(
-    state: HomeState,
-    onEvent: (HomeViewEvent) -> Unit,
+    viewModel: HomeCommunityViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val weatherSummary = state.weatherSummary
-    val isDay = weatherSummary?.isDay ?: true
+    HomeCommunityScreen(
+        state = viewModel.stateFlow.collectAsState().value,
+        onEvent = viewModel::onEvent,
+        navController = navController
+    )
+}
+
+@Composable
+private fun HomeCommunityScreen(
+    state: HomeCommunityState,
+    onEvent: (HomeCommunityViewEvent) -> Unit,
+    navController: NavController
+) {
+    val isDay = state.isDay
+
+    PopUpWrapper(dialogState = state.dialogState) { tag ->
+        when (tag) {
+            is HomeCommunityDialogTag.LongPress -> {
+                HomeLongPressPopUp(
+                    onEvent = onEvent
+                )
+            }
+
+            is HomeCommunityDialogTag.Report -> {
+                HomeReportPopUp(
+                    state = state,
+                    onEvent = onEvent
+                )
+            }
+
+            is HomeCommunityDialogTag.ReportComplete -> {
+                HomeReportCompletePopUp(
+                    onEvent = onEvent
+                )
+            }
+        }
+    }
+    BottomSheetWrapper(
+        viewModelSheetState = state.bottomSheetState,
+        onCloseBottomSheet = { onEvent(HomeCommunityViewEvent.OnCloseBottomSheet) }
+    ) {
+        when (state.bottomSheetState.tag) {
+            is HomeCommunityBottomSheetTag.WeatherDetail -> {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    WeatherContent(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 28.dp, end = 28.dp, bottom = 30.dp),
+                        weatherSummary = FakeHomeWeatherSummary.getFakeModel()
+                    )
+                }
+            }
+        }
+    }
     Box {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -46,7 +106,7 @@ fun HomeCommunityScreen(
                     isDay = isDay,
                     checked = state.isOnMyHistory,
                     onCheckedChange = { checked ->
-                        onEvent(HomeViewEvent.OnChangeCommunityMyHistory(checked))
+                        onEvent(HomeCommunityViewEvent.OnChangeCommunityMyHistory(checked))
                     }
                 )
                 Spacer(modifier = Modifier.size(12.dp))
@@ -68,10 +128,10 @@ fun HomeCommunityScreen(
                         communityContent = communityContent,
                         onClickMyVanMessage = { navController.navigate(NavRoute.Report) },
                         onClickMessage = { message ->
-                            onEvent(HomeViewEvent.OnClickMessageItem(message))
+                            onEvent(HomeCommunityViewEvent.OnClickMessageItem(message))
                         },
                         onLongClickMessage = { message ->
-                            onEvent(HomeViewEvent.OnLongClickMessageItem(message))
+                            onEvent(HomeCommunityViewEvent.OnLongClickMessageItem(message))
                         }
                     )
                     val space = if (communityContent.like != null) 10.dp else 20.dp
@@ -87,7 +147,7 @@ fun HomeCommunityScreen(
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 80.dp, end = 22.dp),
             onClick = {
-                onEvent(HomeViewEvent.OnClickEditFloatingBtn)
+                onEvent(HomeCommunityViewEvent.OnClickEditFloatingBtn)
             }
         )
     }
@@ -100,7 +160,7 @@ fun HomeCommunityScreen(
 @Composable
 fun HomeCommunityScreenPreview() {
     HomeCommunityScreen(
-        state = HomeState(),
+        state = HomeCommunityState(),
         onEvent = {},
         navController = rememberNavController()
     )

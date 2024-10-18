@@ -4,11 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import co.kr.moiber.presentation.home.HomeScreen
-import co.kr.moiber.presentation.home.SetStatusBarColor
 import co.kr.moiber.presentation.report.ReportScreen
 import co.kr.moiber.shared.ext.MoiberScreenAnim
 import co.kr.moiber.shared.ext.moiberComposable
-import co.kr.moiber.shared.ui.white01
 
 @Composable
 fun MoiberNavHost() {
