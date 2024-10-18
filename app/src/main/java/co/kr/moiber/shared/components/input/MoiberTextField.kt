@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.presentation.report.ReportViewEvent
 import co.kr.moiber.shared.ui.Body07
+import co.kr.moiber.shared.ui.Body09
 import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.gray02
 import co.kr.moiber.shared.ui.white01
@@ -40,7 +41,7 @@ fun MoiberTextField(
             Row(modifier = Modifier.fillMaxWidth()) {
                 if (value.isBlank()) {
                     Text(
-                        style = Body07,
+                        style = Body09,
                         text = placeHolder,
                         color = gray01
                     )

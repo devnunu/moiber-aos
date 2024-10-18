@@ -21,6 +21,8 @@ import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
 import co.kr.moiber.shared.ui.Body05
 import co.kr.moiber.shared.ui.Body06
+import co.kr.moiber.shared.ui.Body07
+import co.kr.moiber.shared.ui.Body08
 import co.kr.moiber.shared.ui.black02
 import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.gray02
@@ -53,14 +55,14 @@ fun MyMessageVanView(
             )
             Spacer(modifier = Modifier.size(4.dp))
             Text(
-                style = Body05,
+                style = Body07,
                 text = "신고된 게시글",
                 color = black02
             )
         }
         Spacer(modifier = Modifier.size(12.dp))
         Text(
-            style = Body06,
+            style = Body08,
             text = "내 게시글이 다수에게 신고되었어요.\n서비스 이용에 제한이 있을 수 있어요.",
             color = black02
         )
@@ -69,7 +71,7 @@ fun MyMessageVanView(
             modifier = Modifier.fillMaxWidth(),
             backgroundColor = black02,
             fontColor = white01,
-            fontStyle = Body05,
+            fontStyle = Body07,
             buttonSize = ButtonSize.SMALL,
             text = "신고 철회 요청하기",
             onClick = onClickMyVanMessage
