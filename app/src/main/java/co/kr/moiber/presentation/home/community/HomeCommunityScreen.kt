@@ -16,18 +16,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import co.kr.moiber.model.community.CommunityContent
-import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.presentation.home.HomeState
-import co.kr.moiber.presentation.home.HomeViewBottomSheetTag
 import co.kr.moiber.presentation.home.HomeViewEvent
 import co.kr.moiber.presentation.home.community.components.CommunityHeader
 import co.kr.moiber.presentation.home.community.components.message.MessageItem
 import co.kr.moiber.presentation.home.community.components.EditFloatingButton
-import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.navigation.NavRoute
-import co.kr.moiber.shared.components.bottomsheet.rememberScaffoldBottomSheetView
-import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.fadingEdge
 
 @Composable

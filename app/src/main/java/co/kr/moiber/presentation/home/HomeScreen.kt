@@ -32,7 +32,7 @@ import co.kr.moiber.presentation.home.components.popup.HomeReportPopUp
 import co.kr.moiber.presentation.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
-import co.kr.moiber.shared.components.bottomsheet.rememberScaffoldBottomSheetView
+import co.kr.moiber.shared.components.bottomsheet.BottomSheetWrapper
 import co.kr.moiber.shared.components.popup.PopUpWrapper
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.LaunchedEffectOnce
@@ -95,27 +95,26 @@ private fun HomeScreen(
             }
         }
     }
-    MoiberScaffold(
-        bottomSheetView = rememberScaffoldBottomSheetView(
-            viewModelSheetState = state.bottomSheetState,
-            onCloseBottomSheet = { onEvent(HomeViewEvent.OnCloseBottomSheet) }
-        ) {
-            when (state.bottomSheetState.tag) {
-                is HomeViewBottomSheetTag.CommunityWeatherDetail -> {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        WeatherContent(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 28.dp, end = 28.dp, bottom = 30.dp),
-                            weatherSummary = FakeHomeWeatherSummary.getFakeModel()
-                        )
-                    }
+    BottomSheetWrapper(
+        viewModelSheetState = state.bottomSheetState,
+        onCloseBottomSheet = { onEvent(HomeViewEvent.OnCloseBottomSheet) }
+    ) {
+        when (state.bottomSheetState.tag) {
+            is HomeViewBottomSheetTag.CommunityWeatherDetail -> {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    WeatherContent(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 28.dp, end = 28.dp, bottom = 30.dp),
+                        weatherSummary = FakeHomeWeatherSummary.getFakeModel()
+                    )
                 }
             }
         }
-    ) {
+    }
+    MoiberScaffold {
         Column(
             modifier = Modifier
                 .fillMaxSize()
