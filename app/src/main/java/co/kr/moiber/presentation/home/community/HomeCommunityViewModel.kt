@@ -2,9 +2,11 @@ package co.kr.moiber.presentation.home.community
 
 import androidx.lifecycle.viewModelScope
 import co.kr.moiber.data.community.repository.CommunityRepository
+import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.model.network.onSuccess
 import co.kr.moiber.shared.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,13 +19,13 @@ class HomeCommunityViewModel @Inject constructor(
 ) {
 
     init {
-        requestCommunityContentList()
+        requestCommunityMessageList()
     }
 
-    private fun requestCommunityContentList() = viewModelScope.launch {
-        communityRepository.getCommunityContentList(forcedUpdate = true).collectLatest { result ->
-            result.onSuccess { communityContentList ->
-                setState { copy(communityContentList = communityContentList ?: emptyList()) }
+    private fun requestCommunityMessageList() = viewModelScope.launch {
+        communityRepository.getMessageList(forcedUpdate = true).collectLatest { result ->
+            result.onSuccess { communityMessageList ->
+                setState { copy(communityMessageList = communityMessageList ?: emptyList()) }
             }
         }
     }
@@ -49,18 +51,17 @@ class HomeCommunityViewModel @Inject constructor(
                 openDialog(HomeCommunityDialogTag.LongPress(message = event.message))
             }
 
-            is HomeCommunityViewEvent.OnCloseBottomSheet -> {
-                closeBottomSheet()
-            }
-
-            is HomeCommunityViewEvent.OnCloseDialog -> {
-                closeDialog()
-            }
-
+            /** LongPressPopUp */
             is HomeCommunityViewEvent.OnClickDialogReportBtn -> {
                 openDialog(HomeCommunityDialogTag.Report)
             }
 
+            is HomeCommunityViewEvent.OnClickDialogLikeBtn -> {
+                postMessageLike(contentMessage = event.message)
+                closeDialog()
+            }
+
+            /** ReportPopUp */
             is HomeCommunityViewEvent.OnClickDialogCompleteReportBtn -> {
                 openDialog(HomeCommunityDialogTag.ReportComplete)
             }
@@ -68,7 +69,20 @@ class HomeCommunityViewModel @Inject constructor(
             is HomeCommunityViewEvent.OnSelectReportReason -> {
                 setState { copy(selectedReportReason = event.reportReason) }
             }
+
+            /** Common Modal */
+            is HomeCommunityViewEvent.OnCloseBottomSheet -> {
+                closeBottomSheet()
+            }
+
+            is HomeCommunityViewEvent.OnCloseDialog -> {
+                closeDialog()
+            }
         }
+    }
+
+    private fun postMessageLike(contentMessage: CommunityMessage) = viewModelScope.launch {
+        communityRepository.postMessageLike(contentMessage).collectLatest { result -> }
     }
 
     /**

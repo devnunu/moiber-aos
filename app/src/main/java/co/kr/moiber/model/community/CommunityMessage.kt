@@ -2,7 +2,7 @@ package co.kr.moiber.model.community
 
 import java.util.Date
 
-data class CommunityContent(
+data class CommunityMessage(
     val id: Long,
     val feelGood: Boolean = true,
     val userId: Long,
@@ -10,7 +10,7 @@ data class CommunityContent(
     val like: CommunityLike? = null,
     val van: CommunityVan? = null,
     val location: String? = null,
-    val message: String? = null,
+    val text: String? = null,
     val outerwear: String? = null,
     val upperWear: String? = null,
     val bottomWear: String? = null,
@@ -23,7 +23,7 @@ data class CommunityContent(
         get() = (van?.count ?: 0) >= 5 || van?.isMyVan == true
 }
 
-object FakeCommunityContent {
+object FakeCommunityMessage {
 
     fun getFakeModel(
         id: Long = 0,
@@ -39,14 +39,14 @@ object FakeCommunityContent {
         location: String = "성북구",
         insertTime: Date = Date()
     ) =
-        CommunityContent(
+        CommunityMessage(
             id = id,
             feelGood = feelGood,
             userId = userId,
             like = like,
             van = van,
             userName = userName,
-            message = message,
+            text = message,
             outerwear = outerwear,
             upperWear = upperWear,
             bottomWear = bottomWear,
@@ -57,9 +57,11 @@ object FakeCommunityContent {
     fun getFakeModelList() =
         listOf(
             getFakeModel(
+                id = 0,
                 like = CommunityLike(count = 1)
             ),
             getFakeModel(
+                id = 1,
                 userName = "쌀쌀 부추전",
                 feelGood = false,
                 like = CommunityLike(count = 2, isMyLike = true),
@@ -69,10 +71,12 @@ object FakeCommunityContent {
                 bottomWear = "청바지",
             ),
             getFakeModel(
+                id = 2,
                 userId = 0,
                 message = "공백 포함 60자 이내만 작성 가능해요 공백 포함 60자 이내만 작성 가능해요 공백 포함 60자 이내만 작성"
             ),
             getFakeModel(
+                id = 3,
                 userId = 0,
                 feelGood = false,
                 message = "",
@@ -81,6 +85,7 @@ object FakeCommunityContent {
                 bottomWear = "청바지",
             ),
             getFakeModel(
+                id = 4,
                 userId = 0,
                 feelGood = false,
                 van = CommunityVan(count = 5),
@@ -90,9 +95,11 @@ object FakeCommunityContent {
                 bottomWear = "청바지",
             ),
             getFakeModel(
+                id = 5,
                 van = CommunityVan(count = 1, isMyVan = true)
             ),
             getFakeModel(
+                id = 6,
                 userName = "쌀쌀 부추전",
                 feelGood = false,
                 van = CommunityVan(count = 5),

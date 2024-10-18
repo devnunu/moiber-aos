@@ -1,10 +1,12 @@
 package co.kr.moiber.data.community.repository
 
-import co.kr.moiber.model.community.CommunityContent
+import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.model.network.ResResult
 import kotlinx.coroutines.flow.Flow
 
 interface CommunityRepository {
 
-    fun getCommunityContentList(forcedUpdate: Boolean): Flow<ResResult<List<CommunityContent>>>
+    suspend fun getMessageList(forcedUpdate: Boolean): Flow<ResResult<List<CommunityMessage>>>
+
+    suspend fun postMessageLike(message: CommunityMessage): Flow<ResResult<Unit>>
 }

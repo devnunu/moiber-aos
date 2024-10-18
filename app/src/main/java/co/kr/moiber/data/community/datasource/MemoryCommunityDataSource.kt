@@ -1,12 +1,13 @@
 package co.kr.moiber.data.community.datasource
 
-import co.kr.moiber.model.community.CommunityContent
-import kotlinx.coroutines.flow.Flow
+import co.kr.moiber.model.community.CommunityMessage
 import kotlinx.coroutines.flow.StateFlow
 
 interface MemoryCommunityDataSource {
 
-    fun getCommunityContentList(): StateFlow<List<CommunityContent>>
+    fun getMessageList(): StateFlow<List<CommunityMessage>>
 
-    fun saveCommunityContentList(communityContentList: List<CommunityContent>)
+    fun saveMessageList(communityMessageList: List<CommunityMessage>)
+
+    fun postMessageLike(communityMessage: CommunityMessage)
 }

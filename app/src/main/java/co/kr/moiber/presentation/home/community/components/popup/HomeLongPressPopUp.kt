@@ -18,7 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
-import co.kr.moiber.model.community.CommunityContent
+import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.model.community.CommunityLike
 import co.kr.moiber.presentation.home.community.HomeCommunityViewEvent
 import co.kr.moiber.shared.components.popup.MoiberPopUp
@@ -27,11 +27,11 @@ import co.kr.moiber.shared.ui.Body05
 
 @Composable
 fun HomeLongPressPopUp(
-    message: CommunityContent,
+    message: CommunityMessage,
     onEvent: (HomeCommunityViewEvent) -> Unit
 ) {
     val isMyLike = message.like?.isMyLike ?: false
-    val hasMessage = !message.message.isNullOrBlank()
+    val hasMessage = !message.text.isNullOrBlank()
     MoiberPopUp(
         horizontalPadding = 50.dp,
         onDismissRequest = { onEvent(HomeCommunityViewEvent.OnCloseDialog) }
@@ -43,7 +43,7 @@ fun HomeLongPressPopUp(
             LongPressTextWithIcon(
                 drawableResId = R.drawable.icn_heart,
                 text = if (isMyLike) "공감 취소" else "공감하기",
-                onClick = { }
+                onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogLikeBtn(message)) }
             )
             if (hasMessage) {
                 Divider(
@@ -90,7 +90,7 @@ fun LongPressTextWithIcon(
 @Composable
 fun HomeLongPressPopUpPreview1() {
     HomeLongPressPopUp(
-        message = CommunityContent(id = 0, userId = 0),
+        message = CommunityMessage(id = 0, userId = 0),
         onEvent = {}
     )
 }
@@ -99,10 +99,10 @@ fun HomeLongPressPopUpPreview1() {
 @Composable
 fun HomeLongPressPopUpPreview2() {
     HomeLongPressPopUp(
-        message = CommunityContent(
+        message = CommunityMessage(
             id = 0,
             userId = 0,
-            message = "123",
+            text = "123",
             like = CommunityLike(count = 1, isMyLike = true)
         ),
         onEvent = {}

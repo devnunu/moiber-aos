@@ -1,11 +1,8 @@
 package co.kr.moiber.presentation.home.community.components.message
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,12 +20,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
-import co.kr.moiber.model.community.CommunityContent
-import co.kr.moiber.model.community.FakeCommunityContent
+import co.kr.moiber.model.community.CommunityMessage
+import co.kr.moiber.model.community.FakeCommunityMessage
 import co.kr.moiber.shared.ext.combinedClickableRipple
 import co.kr.moiber.shared.ui.Body06
 import co.kr.moiber.shared.ui.Body08
-import co.kr.moiber.shared.ui.Body09
 import co.kr.moiber.shared.ui.Body11
 import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.white01
@@ -37,11 +33,11 @@ import co.kr.moiber.shared.ui.yellow02
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MessageContentView(
-    communityContent: CommunityContent,
-    onClickMessage: (CommunityContent) -> Unit,
-    onLongClickMessage: (CommunityContent) -> Unit
+    communityMessage: CommunityMessage,
+    onClickMessage: (CommunityMessage) -> Unit,
+    onLongClickMessage: (CommunityMessage) -> Unit
 ) {
-    val isMyContent = communityContent.isMyContent(userId = 0)
+    val isMyContent = communityMessage.isMyContent(userId = 0)
     val radius = if (isMyContent) {
         RoundedCornerShape(
             topStart = 12.dp,
@@ -74,20 +70,20 @@ fun MessageContentView(
             .clip(radius)
             .combinedClickableRipple(
                 onClick = {
-                    if (!communityContent.isVan) {
-                        onClickMessage(communityContent)
+                    if (!communityMessage.isVan) {
+                        onClickMessage(communityMessage)
                     }
                 },
                 onLongClick = {
-                    if (!communityContent.isVan) {
-                        onLongClickMessage(communityContent)
+                    if (!communityMessage.isVan) {
+                        onLongClickMessage(communityMessage)
                     }
                 },
             )
             .padding(vertical = 10.dp, horizontal = 14.dp),
     ) {
-        if (communityContent.isVan) {
-            val message = if (communityContent.van?.isMyVan == true) {
+        if (communityMessage.isVan) {
+            val message = if (communityMessage.van?.isMyVan == true) {
                 "※ 회원님이 신고한 게시글이에요."
             } else {
                 "※ 다수에게 신고된 게시글이에요."
@@ -98,28 +94,28 @@ fun MessageContentView(
                 color = gray01
             )
         } else {
-            val hasMessage = communityContent.message?.isNotBlank() ?: false
+            val hasMessage = communityMessage.text?.isNotBlank() ?: false
             if (hasMessage) {
                 Text(
                     style = Body08,
-                    text = "${communityContent.message}"
+                    text = "${communityMessage.text}"
                 )
                 Spacer(modifier = Modifier.size(8.dp))
             }
             Row {
                 TextWithClothIcon(
                     resId = R.drawable.icn_outerwear,
-                    text = "${communityContent.outerwear}"
+                    text = "${communityMessage.outerwear}"
                 )
                 Spacer(modifier = Modifier.size(4.dp))
                 TextWithClothIcon(
                     resId = R.drawable.icn_top,
-                    text = "${communityContent.upperWear}"
+                    text = "${communityMessage.upperWear}"
                 )
                 Spacer(modifier = Modifier.size(4.dp))
                 TextWithClothIcon(
                     resId = R.drawable.icn_pants,
-                    text = "${communityContent.bottomWear}"
+                    text = "${communityMessage.bottomWear}"
                 )
             }
         }
@@ -153,7 +149,7 @@ fun TextWithClothIcon(
 @Composable
 private fun MessageContentViewPreview() {
     MessageContentView(
-        communityContent = FakeCommunityContent.getFakeModel(),
+        communityMessage = FakeCommunityMessage.getFakeModel(),
         onClickMessage = {},
         onLongClickMessage = {}
     )

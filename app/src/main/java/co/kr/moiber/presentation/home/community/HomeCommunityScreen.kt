@@ -119,14 +119,14 @@ private fun HomeCommunityScreen(
                     .padding(horizontal = 18.dp)
             ) {
                 val filteredContentList =
-                    if (state.isOnMyHistory) state.communityContentList.filter {
+                    if (state.isOnMyHistory) state.communityMessageList.filter {
                         it.isMyContent(userId = 0)
                     }
-                    else state.communityContentList
-                items(filteredContentList) { communityContent ->
+                    else state.communityMessageList
+                items(filteredContentList) { communityMessage ->
                     MessageItem(
                         isDay = isDay,
-                        communityContent = communityContent,
+                        communityMessage = communityMessage,
                         onClickMyVanMessage = { navController.navigate(NavRoute.Report) },
                         onClickMessage = { message ->
                             onEvent(HomeCommunityViewEvent.OnClickMessageItem(message))
@@ -135,7 +135,7 @@ private fun HomeCommunityScreen(
                             onEvent(HomeCommunityViewEvent.OnLongClickMessageItem(message))
                         }
                     )
-                    val space = if (communityContent.like != null) 10.dp else 20.dp
+                    val space = if (communityMessage.like != null) 10.dp else 20.dp
                     Spacer(modifier = Modifier.size(space))
                 }
                 item {

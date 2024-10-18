@@ -2,7 +2,7 @@ package co.kr.moiber.data.community.repository
 
 import co.kr.moiber.data.community.datasource.MemoryCommunityDataSource
 import co.kr.moiber.data.community.datasource.RemoteCommunityDataSource
-import co.kr.moiber.model.community.CommunityContent
+import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.model.network.ResResult
 import co.kr.moiber.model.network.asResult
 import kotlinx.coroutines.flow.Flow
@@ -18,15 +18,20 @@ class CommunityRepositoryImpl @Inject constructor(
     private val memoryMemoryCommunityDataSource: MemoryCommunityDataSource
 ) : CommunityRepository {
 
-    override fun getCommunityContentList(forcedUpdate: Boolean): Flow<ResResult<List<CommunityContent>>> =
-        memoryMemoryCommunityDataSource.getCommunityContentList().onStart {
-            val cache = memoryMemoryCommunityDataSource.getCommunityContentList().value
+    override suspend fun getMessageList(forcedUpdate: Boolean): Flow<ResResult<List<CommunityMessage>>> =
+        memoryMemoryCommunityDataSource.getMessageList().onStart {
+            val cache = memoryMemoryCommunityDataSource.getMessageList().value
             if (forcedUpdate || cache.isEmpty()) {
-                remoteRemoteCommunityDataSource.getCommunityContentList()?.let {
-                    memoryMemoryCommunityDataSource.saveCommunityContentList(it)
+                remoteRemoteCommunityDataSource.getCommunityMessageList()?.let {
+                    memoryMemoryCommunityDataSource.saveMessageList(it)
                 }
             }
         }.mapNotNull { it }
             .asResult()
 
+    override suspend fun postMessageLike(message: CommunityMessage): Flow<ResResult<Unit>> = flow {
+        // 추후 memory datasource 코드는 삭제, 결과값을 local에 업데이트 하도록 로직 변경
+        remoteRemoteCommunityDataSource.postMessageLike(message)
+        memoryMemoryCommunityDataSource.postMessageLike(message)
+    }
 }

@@ -11,11 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
-import co.kr.moiber.model.community.CommunityContent
+import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.shared.components.DayNightText
 import co.kr.moiber.shared.ext.toFormatString
-import co.kr.moiber.shared.ui.Body08
-import co.kr.moiber.shared.ui.Body09
 import co.kr.moiber.shared.ui.Body10
 import co.kr.moiber.shared.ui.Body11
 
@@ -23,9 +21,9 @@ import co.kr.moiber.shared.ui.Body11
 fun ContentMessageHeader(
     modifier: Modifier = Modifier,
     isDay: Boolean,
-    communityContent: CommunityContent
+    communityMessage: CommunityMessage
 ) {
-    val isMyContent = communityContent.isMyContent(userId = 0)
+    val isMyContent = communityMessage.isMyContent(userId = 0)
     if (isMyContent) {
         Row(
             modifier = modifier,
@@ -35,8 +33,8 @@ fun ContentMessageHeader(
             DayNightText(
                 style = Body11,
                 isDay = isDay,
-                text = "${communityContent.location} | " +
-                        "${communityContent.insertTime.toFormatString("a hh:mm")}"
+                text = "${communityMessage.location} | " +
+                        "${communityMessage.insertTime.toFormatString("a hh:mm")}"
             )
             Spacer(modifier = Modifier.size(8.dp))
             DayNightText(
@@ -45,26 +43,26 @@ fun ContentMessageHeader(
                 text = "나"
             )
             Spacer(modifier = Modifier.size(4.dp))
-            MessageFeelIcon(communityContent.feelGood)
+            MessageFeelIcon(communityMessage.feelGood)
         }
     } else {
         Row(
             modifier = modifier,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            MessageFeelIcon(communityContent.feelGood)
+            MessageFeelIcon(communityMessage.feelGood)
             Spacer(modifier = Modifier.size(4.dp))
             DayNightText(
                 style = Body10,
                 isDay = isDay,
-                text = communityContent.userName.orEmpty()
+                text = communityMessage.userName.orEmpty()
             )
             Spacer(modifier = Modifier.size(8.dp))
             DayNightText(
                 style = Body11,
                 isDay = isDay,
-                text = "${communityContent.location} | " +
-                        "${communityContent.insertTime.toFormatString("a hh:mm")}"
+                text = "${communityMessage.location} | " +
+                        "${communityMessage.insertTime.toFormatString("a hh:mm")}"
             )
         }
     }

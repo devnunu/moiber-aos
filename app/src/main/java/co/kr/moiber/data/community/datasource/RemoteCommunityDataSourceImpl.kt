@@ -1,11 +1,13 @@
 package co.kr.moiber.data.community.datasource
 
-import co.kr.moiber.model.community.CommunityContent
-import co.kr.moiber.model.community.FakeCommunityContent
+import co.kr.moiber.model.community.CommunityMessage
+import co.kr.moiber.model.community.FakeCommunityMessage
 import javax.inject.Inject
 
 class RemoteCommunityDataSourceImpl @Inject constructor() : RemoteCommunityDataSource {
 
-    override fun getCommunityContentList(): List<CommunityContent>? =
-        FakeCommunityContent.getFakeModelList()
+    override fun getCommunityMessageList(): List<CommunityMessage>? =
+        FakeCommunityMessage.getFakeModelList()
+
+    override fun postMessageLike(communityMessage: CommunityMessage) = Unit
 }

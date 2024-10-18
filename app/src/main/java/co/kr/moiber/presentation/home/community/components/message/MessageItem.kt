@@ -9,45 +9,45 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import co.kr.moiber.model.community.CommunityContent
-import co.kr.moiber.model.community.FakeCommunityContent
+import co.kr.moiber.model.community.CommunityMessage
+import co.kr.moiber.model.community.FakeCommunityMessage
 
 @Composable
 fun MessageItem(
     isDay: Boolean,
-    communityContent: CommunityContent,
+    communityMessage: CommunityMessage,
     onClickMyVanMessage: () -> Unit,
-    onClickMessage: (CommunityContent) -> Unit,
-    onLongClickMessage: (CommunityContent) -> Unit
+    onClickMessage: (CommunityMessage) -> Unit,
+    onLongClickMessage: (CommunityMessage) -> Unit
 ) {
-    val isMyContent = communityContent.isMyContent(userId = 0)
+    val isMyContent = communityMessage.isMyContent(userId = 0)
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = if (isMyContent) Alignment.End else Alignment.Start
     ) {
         ContentMessageHeader(
             isDay = isDay,
-            communityContent = communityContent
+            communityMessage = communityMessage
         )
         Spacer(modifier = Modifier.size(4.dp))
         Column(
             horizontalAlignment = if (isMyContent) Alignment.Start else Alignment.End
         ) {
-            if (communityContent.isVan && isMyContent) {
+            if (communityMessage.isVan && isMyContent) {
                 MyMessageVanView(
                     onClickMyVanMessage = onClickMyVanMessage
                 )
             } else {
                 MessageContentView(
-                    communityContent = communityContent,
+                    communityMessage = communityMessage,
                     onClickMessage = onClickMessage,
                     onLongClickMessage = onLongClickMessage,
                 )
 
-                if (communityContent.like != null) {
+                if (communityMessage.like != null) {
                     Spacer(modifier = Modifier.size(5.dp))
                     MessageLikeTag(
-                        like = communityContent.like
+                        like = communityMessage.like
                     )
                 }
             }
@@ -60,7 +60,7 @@ fun MessageItem(
 private fun MessageItemPreview() {
     MessageItem(
         isDay = true,
-        communityContent = FakeCommunityContent.getFakeModel(),
+        communityMessage = FakeCommunityMessage.getFakeModel(),
         onClickMyVanMessage = {},
         onClickMessage = {},
         onLongClickMessage = {}
