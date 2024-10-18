@@ -103,20 +103,26 @@ fun MessageContentView(
                 Spacer(modifier = Modifier.size(8.dp))
             }
             Row {
-                TextWithClothIcon(
-                    resId = R.drawable.icn_outerwear,
-                    text = "${communityMessage.outerwear}"
-                )
-                Spacer(modifier = Modifier.size(4.dp))
-                TextWithClothIcon(
-                    resId = R.drawable.icn_top,
-                    text = "${communityMessage.upperWear}"
-                )
-                Spacer(modifier = Modifier.size(4.dp))
-                TextWithClothIcon(
-                    resId = R.drawable.icn_pants,
-                    text = "${communityMessage.bottomWear}"
-                )
+                if (communityMessage.outerwear != null) {
+                    TextWithClothIcon(
+                        resId = R.drawable.icn_outerwear,
+                        text = communityMessage.outerwear.displayName
+                    )
+                    Spacer(modifier = Modifier.size(4.dp))
+                }
+                if (communityMessage.upperWear != null) {
+                    TextWithClothIcon(
+                        resId = R.drawable.icn_top,
+                        text = communityMessage.upperWear.displayName
+                    )
+                    Spacer(modifier = Modifier.size(4.dp))
+                }
+                if (communityMessage.bottomWear != null) {
+                    TextWithClothIcon(
+                        resId = R.drawable.icn_pants,
+                        text = communityMessage.bottomWear.displayName
+                    )
+                }
             }
         }
     }

@@ -1,5 +1,8 @@
 package co.kr.moiber.model.community
 
+import co.kr.moiber.model.wear.BottomWear
+import co.kr.moiber.model.wear.OuterWear
+import co.kr.moiber.model.wear.UpperWear
 import java.util.Date
 
 data class CommunityMessage(
@@ -11,9 +14,9 @@ data class CommunityMessage(
     val van: CommunityVan? = null,
     val location: String? = null,
     val text: String? = null,
-    val outerwear: String? = null,
-    val upperWear: String? = null,
-    val bottomWear: String? = null,
+    val outerwear: OuterWear? = null,
+    val upperWear: UpperWear? = null,
+    val bottomWear: BottomWear? = null,
     val insertTime: Date? = null
 ) {
     fun isMyContent(userId: Long) =
@@ -33,9 +36,9 @@ object FakeCommunityMessage {
         van: CommunityVan? = null,
         userName: String = "햅삐햅삐햅삐",
         message: String = "공백 포함 45자 이내만 작성 가능해요 공백 포함 45자 이내만 작성 가능해요 공백 포함 45자 이내만 작성 공",
-        outerwear: String = "가죽/레더 재킷",
-        upperWear: String = "나시/민소매",
-        bottomWear: String = "배기/조거팬츠",
+        outerwear: OuterWear = OuterWear.Type4,
+        upperWear: UpperWear = UpperWear.Type1,
+        bottomWear: BottomWear = BottomWear.Type4,
         location: String = "성북구",
         insertTime: Date = Date()
     ) =
@@ -66,9 +69,9 @@ object FakeCommunityMessage {
                 feelGood = false,
                 like = CommunityLike(count = 2, isMyLike = true),
                 message = "",
-                outerwear = "가디건",
-                upperWear = "반소매 티",
-                bottomWear = "청바지",
+                outerwear = OuterWear.Type2,
+                upperWear = UpperWear.Type3,
+                bottomWear = BottomWear.Type2,
             ),
             getFakeModel(
                 id = 2,
@@ -80,9 +83,9 @@ object FakeCommunityMessage {
                 userId = 0,
                 feelGood = false,
                 message = "",
-                outerwear = "가디건",
-                upperWear = "반소매 티",
-                bottomWear = "청바지",
+                outerwear = OuterWear.Type5,
+                upperWear = UpperWear.Type9,
+                bottomWear = BottomWear.Type1,
             ),
             getFakeModel(
                 id = 4,
@@ -90,9 +93,9 @@ object FakeCommunityMessage {
                 feelGood = false,
                 van = CommunityVan(count = 5),
                 message = "",
-                outerwear = "가디건",
-                upperWear = "반소매 티",
-                bottomWear = "청바지",
+                outerwear = OuterWear.Type2,
+                upperWear = UpperWear.Type1,
+                bottomWear = BottomWear.Type3,
             ),
             getFakeModel(
                 id = 5,
@@ -104,9 +107,9 @@ object FakeCommunityMessage {
                 feelGood = false,
                 van = CommunityVan(count = 5),
                 message = "",
-                outerwear = "가디건",
-                upperWear = "반소매 티",
-                bottomWear = "청바지",
+                outerwear = OuterWear.Type7,
+                upperWear = UpperWear.Type4,
+                bottomWear = BottomWear.Type1,
             ),
         )
 }
