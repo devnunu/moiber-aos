@@ -6,7 +6,9 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
@@ -62,6 +64,20 @@ fun Modifier.fadingEdge(): Modifier = this.then(
             )
         }
 )
+
+@OptIn(ExperimentalFoundationApi::class)
+fun Modifier.combinedClickableRipple(
+    bounded: Boolean = false,
+    onClick: () -> Unit,
+    onLongClick: () -> Unit,
+): Modifier = composed {
+    this.combinedClickable(
+        interactionSource = remember { MutableInteractionSource() },
+        indication = rememberRipple(bounded = bounded),
+        onClick = onClick,
+        onLongClick = onLongClick,
+    )
+}
 
 fun Modifier.clickableRipple(
     bounded: Boolean = false,

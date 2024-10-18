@@ -18,12 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
 import co.kr.moiber.model.community.CommunityContent
 import co.kr.moiber.model.community.FakeCommunityContent
+import co.kr.moiber.shared.ext.combinedClickableRipple
 import co.kr.moiber.shared.ui.Body06
 import co.kr.moiber.shared.ui.Body08
 import co.kr.moiber.shared.ui.Body09
@@ -65,7 +67,12 @@ fun MessageContentView(
                 }
             }
             .widthIn(max = 308.dp)
-            .combinedClickable(
+            .background(
+                color = if (isMyContent) yellow02 else white01,
+                shape = radius
+            )
+            .clip(radius)
+            .combinedClickableRipple(
                 onClick = {
                     if (!communityContent.isVan) {
                         onClickMessage(communityContent)
@@ -76,10 +83,6 @@ fun MessageContentView(
                         onLongClickMessage(communityContent)
                     }
                 },
-            )
-            .background(
-                color = if (isMyContent) yellow02 else white01,
-                shape = radius
             )
             .padding(vertical = 10.dp, horizontal = 14.dp),
     ) {
