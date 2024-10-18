@@ -40,21 +40,38 @@ fun HomeLongPressPopUp(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LongPressTextWithIcon(
-                drawableResId = R.drawable.icn_heart,
-                text = if (isMyLike) "공감 취소" else "공감하기",
-                onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogLikeBtn(message = message)) }
-            )
-            if (hasMessage) {
+            if (message.isMyContent(userId = 0)) {
+                LongPressTextWithIcon(
+                    drawableResId = R.drawable.icn_edit,
+                    text = "수정하기",
+                    onClick = { }
+                )
                 Divider(
                     modifier = Modifier.fillMaxWidth(),
                     color = Color(0xFFF3F3F3)
                 )
                 LongPressTextWithIcon(
-                    drawableResId = R.drawable.icn_report,
-                    text = "신고하기",
-                    onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogReportBtn(message = message)) }
+                    drawableResId = R.drawable.icn_delete,
+                    text = "삭제하기",
+                    onClick = { }
                 )
+            } else {
+                LongPressTextWithIcon(
+                    drawableResId = R.drawable.icn_heart,
+                    text = if (isMyLike) "공감 취소" else "공감하기",
+                    onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogLikeBtn(message = message)) }
+                )
+                if (hasMessage) {
+                    Divider(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Color(0xFFF3F3F3)
+                    )
+                    LongPressTextWithIcon(
+                        drawableResId = R.drawable.icn_report,
+                        text = "신고하기",
+                        onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogReportBtn(message = message)) }
+                    )
+                }
             }
         }
     }
@@ -90,7 +107,7 @@ fun LongPressTextWithIcon(
 @Composable
 fun HomeLongPressPopUpPreview1() {
     HomeLongPressPopUp(
-        message = CommunityMessage(id = 0, userId = 0),
+        message = CommunityMessage(id = 0, userId = 1),
         onEvent = {}
     )
 }
@@ -98,6 +115,20 @@ fun HomeLongPressPopUpPreview1() {
 @Preview(showBackground = true)
 @Composable
 fun HomeLongPressPopUpPreview2() {
+    HomeLongPressPopUp(
+        message = CommunityMessage(
+            id = 0,
+            userId = 1,
+            text = "123",
+            like = CommunityLike(count = 1, isMyLike = true)
+        ),
+        onEvent = {}
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeLongPressPopUpPreview3() {
     HomeLongPressPopUp(
         message = CommunityMessage(
             id = 0,

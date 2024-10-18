@@ -41,9 +41,7 @@ fun MessageItem(
                 MessageContentView(
                     communityMessage = communityMessage,
                     onClickMessage = onClickMessage,
-                    onLongClickMessage = { message ->
-                        if (isMyContent) Unit else onLongClickMessage(message)
-                    },
+                    onLongClickMessage = onLongClickMessage,
                 )
 
                 if (communityMessage.like != null) {
