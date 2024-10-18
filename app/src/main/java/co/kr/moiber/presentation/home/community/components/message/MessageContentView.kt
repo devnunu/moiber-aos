@@ -20,7 +20,9 @@ import androidx.compose.ui.unit.dp
 import co.kr.moiber.model.community.CommunityContent
 import co.kr.moiber.model.community.FakeCommunityContent
 import co.kr.moiber.shared.ui.Body06
+import co.kr.moiber.shared.ui.Body08
 import co.kr.moiber.shared.ui.Body09
+import co.kr.moiber.shared.ui.Body11
 import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.white01
 import co.kr.moiber.shared.ui.yellow02
@@ -91,7 +93,7 @@ fun MessageContentView(
             val hasMessage = communityContent.message?.isNotBlank() ?: false
             if (hasMessage) {
                 Text(
-                    style = Body06,
+                    style = Body08,
                     text = "${communityContent.message}"
                 )
                 Spacer(modifier = Modifier.size(8.dp))
@@ -106,7 +108,7 @@ fun MessageContentView(
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                     Text(
-                        style = Body09,
+                        style = Body11,
                         text = "${communityContent.outerwear}"
                     )
                 }
@@ -120,7 +122,7 @@ fun MessageContentView(
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                     Text(
-                        style = Body09,
+                        style = Body11,
                         text = "${communityContent.upperWear}"
                     )
                 }
@@ -134,7 +136,7 @@ fun MessageContentView(
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                     Text(
-                        style = Body09,
+                        style = Body11,
                         text = "${communityContent.bottomWear}"
                     )
                 }

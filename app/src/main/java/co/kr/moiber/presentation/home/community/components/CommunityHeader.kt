@@ -13,7 +13,9 @@ import androidx.compose.ui.unit.dp
 import co.kr.moiber.shared.components.DayNightText
 import co.kr.moiber.shared.ext.toFormatString
 import co.kr.moiber.shared.ui.Body06
+import co.kr.moiber.shared.ui.Body08
 import co.kr.moiber.shared.ui.Body09
+import co.kr.moiber.shared.ui.Body11
 import co.kr.moiber.shared.ui.black02
 import co.kr.moiber.shared.ui.gray01
 import java.util.Date
@@ -31,14 +33,14 @@ fun CommunityHeader(
     ) {
         val todayDateTxt = Date().toFormatString("yyyy.MM.dd").orEmpty()
         DayNightText(
-            style = Body09,
+            style = Body11,
             text = todayDateTxt,
             isDay = isDay,
             dayColor = gray01
         )
         Spacer(modifier = Modifier.weight(1f))
         DayNightText(
-            style = Body06,
+            style = Body08,
             text = "내 기록",
             isDay = isDay,
             dayColor = black02

@@ -16,6 +16,8 @@ import co.kr.moiber.shared.components.DayNightText
 import co.kr.moiber.shared.ext.toFormatString
 import co.kr.moiber.shared.ui.Body08
 import co.kr.moiber.shared.ui.Body09
+import co.kr.moiber.shared.ui.Body10
+import co.kr.moiber.shared.ui.Body11
 
 @Composable
 fun ContentMessageHeader(
@@ -31,14 +33,14 @@ fun ContentMessageHeader(
             horizontalArrangement = Arrangement.End
         ) {
             DayNightText(
-                style = Body09,
+                style = Body11,
                 isDay = isDay,
                 text = "${communityContent.location} | " +
                         "${communityContent.insertTime.toFormatString("a hh:mm")}"
             )
             Spacer(modifier = Modifier.size(8.dp))
             DayNightText(
-                style = Body08,
+                style = Body10,
                 isDay = isDay,
                 text = "나"
             )
@@ -53,13 +55,13 @@ fun ContentMessageHeader(
             MessageFeelIcon(communityContent.feelGood)
             Spacer(modifier = Modifier.size(4.dp))
             DayNightText(
-                style = Body08,
+                style = Body10,
                 isDay = isDay,
                 text = communityContent.userName.orEmpty()
             )
             Spacer(modifier = Modifier.size(8.dp))
             DayNightText(
-                style = Body09,
+                style = Body11,
                 isDay = isDay,
                 text = "${communityContent.location} | " +
                         "${communityContent.insertTime.toFormatString("a hh:mm")}"
