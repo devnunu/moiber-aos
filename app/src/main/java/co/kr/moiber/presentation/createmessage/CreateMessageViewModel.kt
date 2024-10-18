@@ -1,9 +1,6 @@
 package co.kr.moiber.presentation.createmessage
 
 import co.kr.moiber.data.community.repository.CommunityRepository
-import co.kr.moiber.presentation.home.community.HomeCommunitySideEffect
-import co.kr.moiber.presentation.home.community.HomeCommunityState
-import co.kr.moiber.presentation.home.community.HomeCommunityViewEvent
 import co.kr.moiber.shared.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -17,7 +14,25 @@ class CreateMessageViewModel @Inject constructor(
 
     override fun onEvent(event: CreateMessageViewEvent) {
         when (event) {
-            else -> Unit
+            is CreateMessageViewEvent.OnSelectUpperWear -> {
+                setState { copy(upperWear = event.upperWear) }
+            }
+
+            is CreateMessageViewEvent.OnSelectBottomWear -> {
+                setState { copy(bottomWear = event.bottomWear) }
+            }
+
+            is CreateMessageViewEvent.OnSelectOuterWear -> {
+                setState { copy(outerWear = event.outerWear) }
+            }
+
+            is CreateMessageViewEvent.OnClickFirstStepCompleteBtn -> {
+                if (state.isBtnEnable) {
+
+                } else {
+                    setState { copy(firstStepErrorMsg = "※ 상의와 하의는 필수적으로 선택해야 해요.") }
+                }
+            }
         }
     }
 }

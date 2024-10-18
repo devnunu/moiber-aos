@@ -36,13 +36,6 @@ class HomeCommunityViewModel @Inject constructor(
                 setState { copy(isOnMyHistory = !state.isOnMyHistory) }
             }
 
-            is HomeCommunityViewEvent.OnClickEditFloatingBtn -> {
-//                val weatherSummary = state.weatherSummary?.copy(
-//                    isDay = state.weatherSummary?.isDay?.not() ?: true
-//                )
-//                setState { copy(weatherSummary = weatherSummary) }
-            }
-
             is HomeCommunityViewEvent.OnClickMessageItem -> {
                 openBottomSheet(HomeCommunityBottomSheetTag.WeatherDetail)
             }

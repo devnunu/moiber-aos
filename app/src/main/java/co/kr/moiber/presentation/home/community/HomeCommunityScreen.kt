@@ -168,7 +168,7 @@ private fun HomeCommunityScreen(
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 80.dp, end = 22.dp),
             onClick = {
-                onEvent(HomeCommunityViewEvent.OnClickEditFloatingBtn)
+                navController.navigate(NavRoute.CreateMessage)
             }
         )
     }

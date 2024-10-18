@@ -20,7 +20,6 @@ sealed interface HomeCommunityBottomSheetTag {
 
 sealed interface HomeCommunityViewEvent : ViewEvent {
     data class OnChangeCommunityMyHistory(val checked: Boolean) : HomeCommunityViewEvent
-    data object OnClickEditFloatingBtn : HomeCommunityViewEvent
     data class OnClickMessageItem(val message: CommunityMessage) : HomeCommunityViewEvent
     data class OnLongClickMessageItem(val message: CommunityMessage) : HomeCommunityViewEvent
 

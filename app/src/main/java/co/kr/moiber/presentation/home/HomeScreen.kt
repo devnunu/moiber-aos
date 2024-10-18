@@ -56,7 +56,6 @@ fun HomeScreen(
         delay(150)
         isVisible = true
     }
-    SetStatusBarColor(color = bgColor)
     MoiberScaffold {
         Column(
             modifier = Modifier
@@ -112,10 +111,3 @@ fun HomeScreen(
     }
 }
 
-@Composable
-fun SetStatusBarColor(color: Color) {
-    val systemUiController = rememberSystemUiController()
-    SideEffect {
-        systemUiController.setSystemBarsColor(color)
-    }
-}
