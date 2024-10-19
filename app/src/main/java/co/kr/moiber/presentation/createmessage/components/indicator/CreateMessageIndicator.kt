@@ -1,4 +1,4 @@
-package co.kr.moiber.presentation.createmessage.components
+package co.kr.moiber.presentation.createmessage.components.indicator
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -26,12 +26,24 @@ class CreateMessageViewModel @Inject constructor(
                 setState { copy(outerWear = event.outerWear) }
             }
 
-            is CreateMessageViewEvent.OnClickFirstStepCompleteBtn -> {
-                if (state.isBtnEnable) {
+            is CreateMessageViewEvent.OnClickStep1NextBtn -> {
+                if (state.isStep1NextBtnEnable) {
                     postSideEffect(CreateMessageSideEffect.ScrollToNextPage)
                 } else {
                     setState { copy(firstStepErrorMsg = "※ 상의와 하의는 필수적으로 선택해야 해요.") }
                 }
+            }
+
+            is CreateMessageViewEvent.OnChangeTemperature -> {
+                setState { copy(temperature = event.temperature) }
+            }
+
+            is CreateMessageViewEvent.OnClickStep2PreviousBtn -> {
+                postSideEffect(CreateMessageSideEffect.ScrollToPreviousPage)
+            }
+
+            is CreateMessageViewEvent.OnClickStep2NextBtn -> {
+                postSideEffect(CreateMessageSideEffect.ScrollToNextPage)
             }
         }
     }

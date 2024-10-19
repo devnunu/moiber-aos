@@ -1,13 +1,11 @@
 package co.kr.moiber.presentation.createmessage.firststep
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,10 +13,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import co.kr.moiber.R
 import co.kr.moiber.model.wear.BottomWear
 import co.kr.moiber.model.wear.OuterWear
 import co.kr.moiber.model.wear.UpperWear
@@ -110,14 +106,14 @@ fun FirstStepView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 66.dp, start = 20.dp, end = 20.dp),
-            enable = state.isBtnEnable,
+            enable = state.isStep1NextBtnEnable,
             backgroundColor = yellow01,
             fontColor = white01,
             fontStyle = Body04,
             buttonSize = ButtonSize.LARGE,
             shape = RoundedCornerShape(100.dp),
             text = "다음",
-            onClick = { onEvent(CreateMessageViewEvent.OnClickFirstStepCompleteBtn) }
+            onClick = { onEvent(CreateMessageViewEvent.OnClickStep1NextBtn) }
         )
     }
 }

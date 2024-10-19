@@ -30,13 +30,14 @@ fun MoiberButton(
     enable: Boolean = true,
     shape: Shape = RoundedCornerShape(8.dp),
     backgroundColor: Color,
+    disableBackgroundColor: Color = gray01,
     fontColor: Color,
     fontStyle: TextStyle,
     buttonSize: ButtonSize,
     onClick: () -> Unit,
     text: String,
 ) {
-    val bgColor = if (enable) backgroundColor else gray01
+    val bgColor = if (enable) backgroundColor else disableBackgroundColor
     val textColor = if (enable) fontColor else white01
     Surface(
         modifier = modifier,
