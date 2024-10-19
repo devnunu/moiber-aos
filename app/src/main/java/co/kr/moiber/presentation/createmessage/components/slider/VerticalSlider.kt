@@ -1,5 +1,6 @@
 package co.kr.moiber.presentation.createmessage.components.slider
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
@@ -37,7 +38,7 @@ fun VerticalSlider(
     trackWidth: Float = 20f,
     activeTrackColor: Color = yellow01,
     inactiveTrackColor: Color = yellow03,
-    onChangedValue: (value: Int) -> Unit // Listener to notify the current step){}
+    onChangedValue: (value: Int) -> Unit // Listener to notify the current step
 ) {
     // Calculate slider height in px
     val sliderHeightDp = 336.dp
@@ -46,12 +47,16 @@ fun VerticalSlider(
     // Calculate step height based on steps
     val stepHeight = sliderHeightPx / steps
 
-    val sliderPosition = value * stepHeight
+    var sliderPosition by remember { mutableStateOf(value * stepHeight) }
+
+    // Create an animated value for the slider position
+    val animatedSliderPosition by animateFloatAsState(targetValue = sliderPosition)
 
     // Function to snap the position to nearest step and notify listener
     fun snapToStep(position: Float) {
         val step = (position / stepHeight).roundToInt().coerceIn(0, steps)
         onChangedValue(step) // Notify the listener with the current step
+        sliderPosition = step * stepHeight // Update slider position
     }
 
     Box(
@@ -74,7 +79,7 @@ fun VerticalSlider(
             }
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
-            val activeHeight = sliderPosition
+            val activeHeight = animatedSliderPosition // Use animated value
             val inactiveHeight = size.height - activeHeight
             val trackWidthPx = trackWidth.dp.toPx()
 
