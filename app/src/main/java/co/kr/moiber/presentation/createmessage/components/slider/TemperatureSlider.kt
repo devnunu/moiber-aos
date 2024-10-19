@@ -1,5 +1,6 @@
 package co.kr.moiber.presentation.createmessage.components.slider
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -35,10 +36,12 @@ fun TemperatureSlider(
             value = temperature,
             onChangedValue = onChangedValue
         )
-        Image(
-            painter = painterResource(id = state.tempImg),
-            contentDescription = null
-        )
+        Crossfade(targetState = state.tempImg) { imageResId ->
+            Image(
+                painter = painterResource(id = imageResId),
+                contentDescription = null
+            )
+        }
     }
 }
 

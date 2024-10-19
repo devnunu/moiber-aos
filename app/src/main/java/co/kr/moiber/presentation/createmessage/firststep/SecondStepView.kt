@@ -1,5 +1,6 @@
 package co.kr.moiber.presentation.createmessage.firststep
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -58,7 +59,8 @@ fun SecondStepView(
             Text(
                 modifier = Modifier
                     .background(yellow02, RoundedCornerShape(20.dp))
-                    .padding(horizontal = 26.dp, vertical = 10.dp),
+                    .padding(horizontal = 26.dp, vertical = 10.dp)
+                    .animateContentSize(),
                 text = state.tempText,
                 color = if (state.step2Error) red01 else black02
             )
@@ -77,7 +79,7 @@ fun SecondStepView(
                     .align(Alignment.BottomCenter)
                     .padding(end = 40.dp, bottom = 10.dp)
             ) {
-                SliderStepDivider(isSelected = state.temperature == 4)
+                SliderStepDivider(isSelected = state.temperature >= 4)
                 Spacer(modifier = Modifier.size(60.dp))
                 SliderStepDivider(isSelected = state.temperature == 3)
                 Spacer(modifier = Modifier.size(60.dp))
