@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.model.wear.BottomWear
 import co.kr.moiber.model.wear.OuterWear
@@ -33,7 +34,7 @@ import co.kr.moiber.shared.ui.white01
 import co.kr.moiber.shared.ui.yellow01
 
 @Composable
-fun FirstStepView(
+fun Step1View(
     state: CreateMessageState,
     onEvent: (CreateMessageViewEvent) -> Unit
 ) {
@@ -116,4 +117,13 @@ fun FirstStepView(
             onClick = { onEvent(CreateMessageViewEvent.OnClickStep1NextBtn) }
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun Step1ViewPreview() {
+    Step1View(
+        state = CreateMessageState(),
+        onEvent = {}
+    )
 }

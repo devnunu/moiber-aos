@@ -37,7 +37,7 @@ import co.kr.moiber.shared.ui.yellow01
 import co.kr.moiber.shared.ui.yellow02
 
 @Composable
-fun SecondStepView(
+fun Step2View(
     state: CreateMessageState,
     onEvent: (CreateMessageViewEvent) -> Unit
 ) {
@@ -125,8 +125,8 @@ fun SecondStepView(
 
 @Preview(showBackground = true)
 @Composable
-fun SecondStepViewPreview() {
-    SecondStepView(
+fun Step2ViewPreview() {
+    Step2View(
         state = CreateMessageState(),
         onEvent = {}
     )

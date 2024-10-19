@@ -20,8 +20,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import co.kr.moiber.R
 import co.kr.moiber.presentation.createmessage.components.indicator.CreateMessageIndicator
-import co.kr.moiber.presentation.createmessage.firststep.FirstStepView
-import co.kr.moiber.presentation.createmessage.firststep.SecondStepView
+import co.kr.moiber.presentation.createmessage.firststep.Step1View
+import co.kr.moiber.presentation.createmessage.firststep.Step2View
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.collectSideEffect
 
@@ -87,14 +87,14 @@ private fun CreateMessageScreen(
             ) { index ->
                 when (index) {
                     0 -> {
-                        FirstStepView(
+                        Step1View(
                             state = state,
                             onEvent = onEvent
                         )
                     }
 
                     1 -> {
-                        SecondStepView(
+                        Step2View(
                             state = state,
                             onEvent = onEvent
                         )
