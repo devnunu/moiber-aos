@@ -19,6 +19,11 @@ sealed interface CreateMessageViewEvent : ViewEvent {
     data class OnChangeTemperature(val temperature: Int) : CreateMessageViewEvent
     data object OnClickStep2PreviousBtn : CreateMessageViewEvent
     data object OnClickStep2NextBtn : CreateMessageViewEvent
+
+    /** Step3 */
+    data class OnChangeMessage(val message: String?) : CreateMessageViewEvent
+    data object OnClickStep3PreviousBtn : CreateMessageViewEvent
+    data object OnClickStep3CompleteBtn : CreateMessageViewEvent
 }
 
 sealed interface CreateMessageSideEffect : SideEffect {
@@ -34,7 +39,10 @@ data class CreateMessageState(
     val step1ErrorMsg: String? = null,
     /** step2 */
     val temperature: Int = 0,
-    val step2Error: Boolean = false
+    val step2Error: Boolean = false,
+    /** step3 */
+    val message: String? = null,
+    val step3Error: Boolean = false
 ) : ViewState {
 
     /** step1 */

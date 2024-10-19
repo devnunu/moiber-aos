@@ -11,6 +11,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.presentation.report.ReportViewEvent
@@ -23,18 +24,23 @@ import co.kr.moiber.shared.ui.white01
 @Composable
 fun MoiberTextField(
     modifier: Modifier = Modifier,
-    height: Dp,
+    height: Dp? = null,
     value: String,
     placeHolder: String,
+    padding: Dp = 12.dp,
+    radius: Dp = 4.dp,
+    backgroundColor: Color = white01,
+    borderColor: Color = gray02,
     onValueChange: (String) -> Unit
 ) {
+    val childModifier = if (height == null) modifier else modifier.height(height)
+
     BasicTextField(
-        modifier = modifier
+        modifier = childModifier
             .fillMaxWidth()
-            .height(height)
-            .background(white01, RoundedCornerShape(4.dp))
-            .border(1.dp, gray02, RoundedCornerShape(4.dp))
-            .padding(12.dp),
+            .background(backgroundColor, RoundedCornerShape(radius))
+            .border(1.dp, borderColor, RoundedCornerShape(radius))
+            .padding(padding),
         value = value,
         onValueChange = onValueChange,
         decorationBox = { innerTextField ->

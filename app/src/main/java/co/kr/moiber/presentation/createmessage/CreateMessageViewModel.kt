@@ -49,6 +49,23 @@ class CreateMessageViewModel @Inject constructor(
                     setState { copy(step2Error = true) }
                 }
             }
+
+            is CreateMessageViewEvent.OnChangeMessage -> {
+                setState { copy(message = event.message) }
+            }
+
+            is CreateMessageViewEvent.OnClickStep3PreviousBtn -> {
+                postSideEffect(CreateMessageSideEffect.ScrollToPreviousPage)
+            }
+
+            is CreateMessageViewEvent.OnClickStep3CompleteBtn -> {
+                val message = state.message
+                if (message != null && message.length >= 45) {
+                    setState { copy(step3Error = true) }
+                } else {
+
+                }
+            }
         }
     }
 }

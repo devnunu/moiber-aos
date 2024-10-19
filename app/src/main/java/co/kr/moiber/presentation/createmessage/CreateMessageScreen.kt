@@ -22,6 +22,7 @@ import co.kr.moiber.R
 import co.kr.moiber.presentation.createmessage.components.indicator.CreateMessageIndicator
 import co.kr.moiber.presentation.createmessage.firststep.Step1View
 import co.kr.moiber.presentation.createmessage.firststep.Step2View
+import co.kr.moiber.presentation.createmessage.firststep.Step3View
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.collectSideEffect
 
@@ -101,7 +102,10 @@ private fun CreateMessageScreen(
                     }
 
                     2 -> {
-
+                        Step3View(
+                            state = state,
+                            onEvent = onEvent
+                        )
                     }
                 }
             }
