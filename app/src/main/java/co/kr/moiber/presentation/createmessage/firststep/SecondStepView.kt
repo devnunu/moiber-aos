@@ -2,6 +2,7 @@ package co.kr.moiber.presentation.createmessage.firststep
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.presentation.createmessage.CreateMessageState
 import co.kr.moiber.presentation.createmessage.CreateMessageViewEvent
+import co.kr.moiber.presentation.createmessage.components.divider.SliderStepDivider
 import co.kr.moiber.presentation.createmessage.components.slider.TemperatureSlider
 import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
@@ -62,10 +64,29 @@ fun SecondStepView(
             TriangleShape()
         }
         Spacer(modifier = Modifier.size(8.dp))
-        TemperatureSlider(
-            state = state,
-            onChangedValue = { onEvent(CreateMessageViewEvent.OnChangeTemperature(it)) }
-        )
+        Box(Modifier.fillMaxWidth()) {
+            TemperatureSlider(
+                modifier = Modifier
+                    .align(Alignment.Center),
+                state = state,
+                onChangedValue = { onEvent(CreateMessageViewEvent.OnChangeTemperature(it)) }
+            )
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(end = 40.dp, bottom = 10.dp)
+            ) {
+                SliderStepDivider(isSelected = state.temperature == 4)
+                Spacer(modifier = Modifier.size(60.dp))
+                SliderStepDivider(isSelected = state.temperature == 3)
+                Spacer(modifier = Modifier.size(60.dp))
+                SliderStepDivider(isSelected = state.temperature == 2)
+                Spacer(modifier = Modifier.size(60.dp))
+                SliderStepDivider(isSelected = state.temperature == 1)
+                Spacer(modifier = Modifier.size(60.dp))
+                SliderStepDivider(isSelected = state.temperature == 0)
+            }
+        }
         Spacer(modifier = Modifier.weight(1f))
         Row(
             modifier = Modifier

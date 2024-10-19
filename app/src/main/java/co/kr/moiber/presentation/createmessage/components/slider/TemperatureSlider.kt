@@ -20,11 +20,14 @@ import co.kr.moiber.presentation.createmessage.CreateMessageState
 
 @Composable
 fun TemperatureSlider(
+    modifier: Modifier = Modifier,
     state: CreateMessageState,
     onChangedValue: (Int) -> Unit
 ) {
     val temperature = state.temperature
-    Box {
+    Box(
+        modifier = modifier
+    ) {
         VerticalSlider(
             modifier = Modifier
                 .padding(top = 44.dp)
@@ -39,26 +42,6 @@ fun TemperatureSlider(
     }
 }
 
-@Composable
-fun RoundedDivider(
-    modifier: Modifier = Modifier,
-    color: Color,
-    width: Dp = 10.dp,
-    thickness: Dp = 8.dp,
-    radius: Dp = 10.dp
-) {
-    Canvas(
-        modifier = modifier
-            .width(width)
-            .height(thickness)
-    ) {
-        drawRoundRect(
-            color = color,
-            size = size,
-            cornerRadius = CornerRadius(radius.toPx(), radius.toPx())
-        )
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
