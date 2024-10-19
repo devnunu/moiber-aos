@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
@@ -37,6 +38,7 @@ import co.kr.moiber.R
 import co.kr.moiber.model.wear.BottomWear
 import co.kr.moiber.model.wear.OuterWear
 import co.kr.moiber.model.wear.UpperWear
+import co.kr.moiber.presentation.createmessage.components.CreateMessageIndicator
 import co.kr.moiber.presentation.createmessage.components.WearListView
 import co.kr.moiber.presentation.createmessage.firststep.FirstStepView
 import co.kr.moiber.presentation.home.HomeVariable
@@ -45,6 +47,7 @@ import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.components.tab.MoiberTab
+import co.kr.moiber.shared.ext.collectSideEffect
 import co.kr.moiber.shared.ui.Body04
 import co.kr.moiber.shared.ui.Body07
 import co.kr.moiber.shared.ui.Title03
@@ -63,7 +66,21 @@ fun CreateMessageScreen(
     navController: NavController,
     viewModel: CreateMessageViewModel = hiltViewModel()
 ) {
+    val pagerState = rememberPagerState(pageCount = { CreateMessageVariable.NUMBER_OF_PAGE })
+    viewModel.collectSideEffect { sideEffect ->
+        when (sideEffect) {
+            is CreateMessageSideEffect.ScrollToNextPage -> {
+                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+            }
+
+            is CreateMessageSideEffect.ScrollToPreviousPage -> {
+                pagerState.animateScrollToPage(pagerState.currentPage - 1)
+            }
+        }
+
+    }
     CreateMessageScreen(
+        pagerState = pagerState,
         state = viewModel.stateFlow.collectAsState().value,
         onEvent = viewModel::onEvent
     )
@@ -71,15 +88,17 @@ fun CreateMessageScreen(
 
 @Composable
 private fun CreateMessageScreen(
+    pagerState: PagerState,
     state: CreateMessageState,
     onEvent: (CreateMessageViewEvent) -> Unit
 ) {
-    val pagerState = rememberPagerState(pageCount = { CreateMessageVariable.NUMBER_OF_PAGE })
+
     MoiberScaffold {
         Column {
             Spacer(modifier = Modifier.size(26.dp))
             Row(
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     modifier = Modifier.size(24.dp),
@@ -87,14 +106,17 @@ private fun CreateMessageScreen(
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.weight(1f))
-
+                CreateMessageIndicator(
+                    pagerState = pagerState
+                )
             }
         }
         HorizontalPager(
             modifier = Modifier
                 .fillMaxSize(),
             state = pagerState,
-            verticalAlignment = Alignment.Top
+            verticalAlignment = Alignment.Top,
+            userScrollEnabled = false
         ) { index ->
             when (index) {
                 0 -> {
@@ -105,7 +127,7 @@ private fun CreateMessageScreen(
                 }
 
                 1 -> {
-
+                    
                 }
 
                 2 -> {

@@ -28,7 +28,7 @@ class CreateMessageViewModel @Inject constructor(
 
             is CreateMessageViewEvent.OnClickFirstStepCompleteBtn -> {
                 if (state.isBtnEnable) {
-
+                    postSideEffect(CreateMessageSideEffect.ScrollToNextPage)
                 } else {
                     setState { copy(firstStepErrorMsg = "※ 상의와 하의는 필수적으로 선택해야 해요.") }
                 }
