@@ -3,6 +3,7 @@ package co.kr.moiber.data.community.repository
 import co.kr.moiber.data.community.datasource.MemoryCommunityDataSource
 import co.kr.moiber.data.community.datasource.RemoteCommunityDataSource
 import co.kr.moiber.model.community.CommunityMessage
+import co.kr.moiber.model.community.PostMessageRequest
 import co.kr.moiber.model.community.ReportRequest
 import co.kr.moiber.model.network.ResResult
 import co.kr.moiber.model.network.asResult
@@ -59,4 +60,11 @@ class CommunityRepositoryImpl @Inject constructor(
         memoryMemoryCommunityDataSource.deleteMessage(message = message)
         emit(Unit)
     }.asResult()
+
+    override suspend fun postMessage(postMessageRequest: PostMessageRequest): Flow<ResResult<CommunityMessage>> =
+        flow {
+            remoteRemoteCommunityDataSource.postMessage(postMessageRequest)
+            val result = memoryMemoryCommunityDataSource.postMessage(postMessageRequest)
+            emit(result)
+        }.asResult()
 }

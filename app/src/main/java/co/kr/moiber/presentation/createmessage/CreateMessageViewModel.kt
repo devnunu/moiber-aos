@@ -1,8 +1,17 @@
 package co.kr.moiber.presentation.createmessage
 
+import androidx.lifecycle.viewModelScope
 import co.kr.moiber.data.community.repository.CommunityRepository
+import co.kr.moiber.model.community.PostMessageRequest
+import co.kr.moiber.model.network.onError
+import co.kr.moiber.model.network.onSuccess
+import co.kr.moiber.model.wear.BottomWear
+import co.kr.moiber.model.wear.OuterWear
+import co.kr.moiber.model.wear.UpperWear
 import co.kr.moiber.shared.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -63,9 +72,28 @@ class CreateMessageViewModel @Inject constructor(
                 if (message != null && message.length >= 45) {
                     setState { copy(step3Error = true) }
                 } else {
-
+                    postNewMessage()
                 }
             }
         }
     }
+
+    private fun postNewMessage() = viewModelScope.launch {
+        communityRepository.postMessage(getPostMessageRequest()).collectLatest { result ->
+            result.onSuccess {
+                postSideEffect(CreateMessageSideEffect.PopBackStackWithSuccess)
+            }.onError {
+
+            }
+        }
+    }
+
+    private fun getPostMessageRequest() = PostMessageRequest(
+        userId = 0,
+        temperature = state.temperature,
+        message = state.message,
+        upperWear = state.upperWear ?: UpperWear.Type1,
+        bottomWear = state.bottomWear ?: BottomWear.Type1,
+        outerWear = state.outerWear,
+    )
 }

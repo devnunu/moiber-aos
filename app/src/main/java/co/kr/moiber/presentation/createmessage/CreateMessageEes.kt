@@ -29,6 +29,7 @@ sealed interface CreateMessageViewEvent : ViewEvent {
 sealed interface CreateMessageSideEffect : SideEffect {
     data object ScrollToNextPage : CreateMessageSideEffect
     data object ScrollToPreviousPage : CreateMessageSideEffect
+    data object PopBackStackWithSuccess : CreateMessageSideEffect
 }
 
 data class CreateMessageState(

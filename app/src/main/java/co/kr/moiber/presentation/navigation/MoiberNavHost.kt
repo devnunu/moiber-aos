@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import co.kr.moiber.presentation.createmessage.CreateMessageScreen
+import co.kr.moiber.presentation.createmessage.CreateMessageVariable.SUCCESS_MESSAGE_POST
 import co.kr.moiber.presentation.home.HomeScreen
 import co.kr.moiber.presentation.report.ReportScreen
 import co.kr.moiber.shared.ext.MoiberScreenAnim
@@ -18,8 +19,12 @@ fun MoiberNavHost() {
     ) {
         moiberComposable<NavRoute.Home>(
             screenAnim = MoiberScreenAnim.FADE_IN_OUT
-        ) {
+        ) { backStackEntry ->
+            val successMessagePost =
+                backStackEntry.getResultAndClear<Boolean>(SUCCESS_MESSAGE_POST) ?: false
+
             HomeScreen(
+                successMessagePost = successMessagePost,
                 navController = navController
             )
         }

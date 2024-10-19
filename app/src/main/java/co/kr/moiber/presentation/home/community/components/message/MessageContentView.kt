@@ -1,6 +1,5 @@
 package co.kr.moiber.presentation.home.community.components.message
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -103,10 +102,10 @@ fun MessageContentView(
                 Spacer(modifier = Modifier.size(8.dp))
             }
             Row {
-                if (communityMessage.outerwear != null) {
+                if (communityMessage.outerWear != null) {
                     TextWithClothIcon(
                         resId = R.drawable.icn_outerwear,
-                        text = communityMessage.outerwear.displayName
+                        text = communityMessage.outerWear.displayName
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                 }

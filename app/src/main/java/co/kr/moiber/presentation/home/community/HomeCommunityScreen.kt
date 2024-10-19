@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import co.kr.moiber.presentation.home.community.components.message.MessageItem
 import co.kr.moiber.presentation.home.community.components.EditFloatingButton
 import co.kr.moiber.presentation.home.community.components.popup.HomeDeleteMessagePopUp
 import co.kr.moiber.presentation.home.community.components.popup.HomeLongPressPopUp
+import co.kr.moiber.presentation.home.community.components.popup.HomePostMsgCompletePopUp
 import co.kr.moiber.presentation.home.community.components.popup.HomeReportCompletePopUp
 import co.kr.moiber.presentation.home.community.components.popup.HomeReportPopUp
 import co.kr.moiber.presentation.home.components.weather.WeatherContent
@@ -37,15 +39,21 @@ import co.kr.moiber.shared.ext.fadingEdge
 
 @Composable
 fun HomeCommunityScreen(
+    successMessagePost: Boolean,
     viewModel: HomeCommunityViewModel = hiltViewModel(),
     navController: NavController
 ) {
     val context = LocalContext.current
-    viewModel.collectSideEffect {sideEffect->
-        when(sideEffect) {
-            is HomeCommunitySideEffect.ShowToast-> {
+    viewModel.collectSideEffect { sideEffect ->
+        when (sideEffect) {
+            is HomeCommunitySideEffect.ShowToast -> {
                 Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+    LaunchedEffect(Unit) {
+        if (successMessagePost) {
+            viewModel.onEvent(HomeCommunityViewEvent.OnResultSuccessCreateMessage)
         }
     }
     HomeCommunityScreen(
@@ -89,6 +97,12 @@ private fun HomeCommunityScreen(
 
             is HomeCommunityDialogTag.ReportComplete -> {
                 HomeReportCompletePopUp(
+                    onEvent = onEvent
+                )
+            }
+
+            is HomeCommunityDialogTag.PostMessageComplete -> {
+                HomePostMsgCompletePopUp(
                     onEvent = onEvent
                 )
             }

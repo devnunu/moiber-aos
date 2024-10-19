@@ -44,6 +44,10 @@ class HomeCommunityViewModel @Inject constructor(
                 openDialog(HomeCommunityDialogTag.LongPress(message = event.message))
             }
 
+            is HomeCommunityViewEvent.OnResultSuccessCreateMessage -> {
+                openDialog(HomeCommunityDialogTag.PostMessageComplete)
+            }
+
             /** LongPressPopUp */
             is HomeCommunityViewEvent.OnClickDialogReportBtn -> {
                 openDialog(HomeCommunityDialogTag.Report(event.message))

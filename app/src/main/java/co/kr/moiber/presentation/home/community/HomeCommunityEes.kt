@@ -12,6 +12,7 @@ sealed interface HomeCommunityDialogTag {
     data class DeleteMessage(val message: CommunityMessage) : HomeCommunityDialogTag
     data class Report(val message: CommunityMessage) : HomeCommunityDialogTag
     data object ReportComplete : HomeCommunityDialogTag
+    data object PostMessageComplete : HomeCommunityDialogTag
 }
 
 sealed interface HomeCommunityBottomSheetTag {
@@ -22,6 +23,7 @@ sealed interface HomeCommunityViewEvent : ViewEvent {
     data class OnChangeCommunityMyHistory(val checked: Boolean) : HomeCommunityViewEvent
     data class OnClickMessageItem(val message: CommunityMessage) : HomeCommunityViewEvent
     data class OnLongClickMessageItem(val message: CommunityMessage) : HomeCommunityViewEvent
+    data object OnResultSuccessCreateMessage : HomeCommunityViewEvent
 
     /** LongPressPopUp */
     data class OnClickDialogLikeBtn(val message: CommunityMessage) : HomeCommunityViewEvent

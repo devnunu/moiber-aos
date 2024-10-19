@@ -19,15 +19,18 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import co.kr.moiber.R
+import co.kr.moiber.presentation.createmessage.CreateMessageVariable.SUCCESS_MESSAGE_POST
 import co.kr.moiber.presentation.createmessage.components.indicator.CreateMessageIndicator
 import co.kr.moiber.presentation.createmessage.firststep.Step1View
 import co.kr.moiber.presentation.createmessage.firststep.Step2View
 import co.kr.moiber.presentation.createmessage.firststep.Step3View
+import co.kr.moiber.presentation.navigation.setResult
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.collectSideEffect
 
 object CreateMessageVariable {
     const val NUMBER_OF_PAGE = 3
+    const val SUCCESS_MESSAGE_POST = "successMessagePost"
 }
 
 @Composable
@@ -45,8 +48,12 @@ fun CreateMessageScreen(
             is CreateMessageSideEffect.ScrollToPreviousPage -> {
                 pagerState.animateScrollToPage(pagerState.currentPage - 1)
             }
-        }
 
+            is CreateMessageSideEffect.PopBackStackWithSuccess -> {
+                navController.setResult(SUCCESS_MESSAGE_POST, true)
+                navController.popBackStack()
+            }
+        }
     }
     CreateMessageScreen(
         pagerState = pagerState,

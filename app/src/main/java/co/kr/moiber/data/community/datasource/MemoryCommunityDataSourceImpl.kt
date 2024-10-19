@@ -3,6 +3,7 @@ package co.kr.moiber.data.community.datasource
 import co.kr.moiber.model.community.CommunityLike
 import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.model.community.CommunityVan
+import co.kr.moiber.model.community.PostMessageRequest
 import co.kr.moiber.model.community.ReportRequest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,13 +14,13 @@ class MemoryCommunityDataSourceImpl @Inject constructor() : MemoryCommunityDataS
 
     private val _communityMessageList = MutableStateFlow<List<CommunityMessage>>(listOf())
 
-    override fun getMessageList(): StateFlow<List<CommunityMessage>> = _communityMessageList
+    override suspend fun getMessageList(): StateFlow<List<CommunityMessage>> = _communityMessageList
 
-    override fun saveMessageList(communityMessageList: List<CommunityMessage>) {
+    override suspend fun saveMessageList(communityMessageList: List<CommunityMessage>) {
         _communityMessageList.update { communityMessageList }
     }
 
-    override fun postMessageLike(communityMessage: CommunityMessage) {
+    override suspend fun postMessageLike(communityMessage: CommunityMessage) {
         val messageList = _communityMessageList.value.toMutableList()
         val index = messageList.indexOfFirst { it.id == communityMessage.id }
         if (index != -1) {
@@ -35,7 +36,7 @@ class MemoryCommunityDataSourceImpl @Inject constructor() : MemoryCommunityDataS
         _communityMessageList.update { messageList }
     }
 
-    override fun postMessageReport(
+    override suspend fun postMessageReport(
         communityMessage: CommunityMessage,
         reportRequest: ReportRequest
     ) {
@@ -55,5 +56,21 @@ class MemoryCommunityDataSourceImpl @Inject constructor() : MemoryCommunityDataS
         val messageList = _communityMessageList.value.toMutableList()
         messageList.remove(message)
         _communityMessageList.update { messageList }
+    }
+
+    override suspend fun postMessage(postMessageRequest: PostMessageRequest): CommunityMessage {
+        val communityMessageList = _communityMessageList.value.toMutableList()
+        val lastId = communityMessageList[communityMessageList.lastIndex].id
+        val newCommunityMessage = CommunityMessage(
+            id = lastId + 1,
+            userId = postMessageRequest.userId,
+            upperWear = postMessageRequest.upperWear,
+            bottomWear = postMessageRequest.bottomWear,
+            outerWear = postMessageRequest.outerWear,
+            text = postMessageRequest.message
+        )
+        communityMessageList.add(newCommunityMessage)
+        _communityMessageList.update { communityMessageList }
+        return newCommunityMessage
     }
 }

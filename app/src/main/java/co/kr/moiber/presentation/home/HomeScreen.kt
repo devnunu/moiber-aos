@@ -42,6 +42,7 @@ object HomeVariable {
 
 @Composable
 fun HomeScreen(
+    successMessagePost: Boolean,
     navController: NavController,
     homeSummaryViewModel: HomeSummaryViewModel = hiltViewModel(),
     homeCommunityViewModel: HomeCommunityViewModel = hiltViewModel()
@@ -93,6 +94,7 @@ fun HomeScreen(
 
                         1 -> {
                             HomeCommunityScreen(
+                                successMessagePost = successMessagePost,
                                 navController = navController,
                                 viewModel = homeCommunityViewModel
                             )
