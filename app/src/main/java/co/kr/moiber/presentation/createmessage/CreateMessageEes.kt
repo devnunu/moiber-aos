@@ -31,9 +31,10 @@ data class CreateMessageState(
     val upperWear: UpperWear? = null,
     val bottomWear: BottomWear? = null,
     val outerWear: OuterWear? = null,
-    val firstStepErrorMsg: String? = null,
+    val step1ErrorMsg: String? = null,
     /** step2 */
-    val temperature: Int = 0
+    val temperature: Int = 0,
+    val step2Error: Boolean = false
 ) : ViewState {
 
     /** step1 */

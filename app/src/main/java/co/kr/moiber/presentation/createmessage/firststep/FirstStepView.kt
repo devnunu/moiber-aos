@@ -92,11 +92,11 @@ fun FirstStepView(
                     )
                 }
             }
-            if (state.firstStepErrorMsg != null) {
+            if (state.step1ErrorMsg != null) {
                 Spacer(modifier = Modifier.size(12.dp))
                 Text(
                     style = Body09,
-                    text = state.firstStepErrorMsg,
+                    text = state.step1ErrorMsg,
                     color = red01
                 )
             }

@@ -30,12 +30,12 @@ class CreateMessageViewModel @Inject constructor(
                 if (state.isStep1NextBtnEnable) {
                     postSideEffect(CreateMessageSideEffect.ScrollToNextPage)
                 } else {
-                    setState { copy(firstStepErrorMsg = "※ 상의와 하의는 필수적으로 선택해야 해요.") }
+                    setState { copy(step1ErrorMsg = "※ 상의와 하의는 필수적으로 선택해야 해요.") }
                 }
             }
 
             is CreateMessageViewEvent.OnChangeTemperature -> {
-                setState { copy(temperature = event.temperature) }
+                setState { copy(temperature = event.temperature, step2Error = false) }
             }
 
             is CreateMessageViewEvent.OnClickStep2PreviousBtn -> {
@@ -43,7 +43,11 @@ class CreateMessageViewModel @Inject constructor(
             }
 
             is CreateMessageViewEvent.OnClickStep2NextBtn -> {
-                postSideEffect(CreateMessageSideEffect.ScrollToNextPage)
+                if (state.isStep2NextBtnEnable) {
+                    postSideEffect(CreateMessageSideEffect.ScrollToNextPage)
+                } else {
+                    setState { copy(step2Error = true) }
+                }
             }
         }
     }

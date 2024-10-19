@@ -30,6 +30,7 @@ import co.kr.moiber.shared.ui.black01
 import co.kr.moiber.shared.ui.black02
 import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.gray02
+import co.kr.moiber.shared.ui.red01
 import co.kr.moiber.shared.ui.white01
 import co.kr.moiber.shared.ui.yellow01
 import co.kr.moiber.shared.ui.yellow02
@@ -59,7 +60,7 @@ fun SecondStepView(
                     .background(yellow02, RoundedCornerShape(20.dp))
                     .padding(horizontal = 26.dp, vertical = 10.dp),
                 text = state.tempText,
-                color = black02
+                color = if (state.step2Error) red01 else black02
             )
             TriangleShape()
         }
