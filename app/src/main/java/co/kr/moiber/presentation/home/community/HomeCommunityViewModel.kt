@@ -60,6 +60,7 @@ class HomeCommunityViewModel @Inject constructor(
 
             is HomeCommunityViewEvent.OnClickDialogModifyBtn -> {
                 postSideEffect(HomeCommunitySideEffect.NavigateToCreateMessage(event.message))
+                closeDialog()
             }
 
             is HomeCommunityViewEvent.OnClickDialogDeleteBtn -> {
