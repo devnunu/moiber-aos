@@ -13,4 +13,5 @@ interface MemoryCommunityDataSource {
     suspend fun postMessageReport(communityMessage: CommunityMessage, reportRequest: ReportRequest)
     suspend fun deleteMessage(message: CommunityMessage)
     suspend fun postMessage(postMessageRequest: PostMessageRequest): CommunityMessage
+    suspend fun modifyMessage(postMessageRequest: PostMessageRequest): CommunityMessage?
 }

@@ -73,4 +73,23 @@ class MemoryCommunityDataSourceImpl @Inject constructor() : MemoryCommunityDataS
         _communityMessageList.update { communityMessageList }
         return newCommunityMessage
     }
+
+    override suspend fun modifyMessage(postMessageRequest: PostMessageRequest): CommunityMessage? {
+        val communityMessageList = _communityMessageList.value.toMutableList()
+        val index = communityMessageList.indexOfFirst { it.id == postMessageRequest.id }
+
+        if (index == -1) return null // 메시지를 찾지 못한 경우 null 반환
+
+        val targetMessage = communityMessageList[index]
+        val modifiedMessage = targetMessage.copy(
+            userId = postMessageRequest.userId,
+            upperWear = postMessageRequest.upperWear,
+            bottomWear = postMessageRequest.bottomWear,
+            outerWear = postMessageRequest.outerWear,
+            text = postMessageRequest.message
+        )
+        communityMessageList[index] = modifiedMessage
+        _communityMessageList.update { communityMessageList }
+        return modifiedMessage
+    }
 }

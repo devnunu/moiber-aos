@@ -26,4 +26,7 @@ class RemoteCommunityDataSourceImpl @Inject constructor() : RemoteCommunityDataS
 
     override suspend fun postMessage(postMessageRequest: PostMessageRequest): CommunityMessage =
         CommunityMessage(userId = 0, id = 0)
+
+    override suspend fun modifyMessage(postMessageRequest: PostMessageRequest): CommunityMessage? =
+        CommunityMessage(userId = 0, id = 0)
 }

@@ -67,4 +67,11 @@ class CommunityRepositoryImpl @Inject constructor(
             val result = memoryMemoryCommunityDataSource.postMessage(postMessageRequest)
             emit(result)
         }.asResult()
+
+    override suspend fun modifyMessage(postMessageRequest: PostMessageRequest): Flow<ResResult<CommunityMessage?>> =
+        flow {
+            remoteRemoteCommunityDataSource.modifyMessage(postMessageRequest)
+            val result = memoryMemoryCommunityDataSource.modifyMessage(postMessageRequest)
+            emit(result)
+        }.asResult()
 }

@@ -47,6 +47,7 @@ sealed interface CreateMessageSideEffect : SideEffect {
 
 data class CreateMessageState(
     val isModify: Boolean = false,
+    val messageId: Long? = null,
     /** step1 */
     val upperWear: UpperWear? = null,
     val bottomWear: BottomWear? = null,

@@ -20,4 +20,6 @@ interface CommunityRepository {
     suspend fun deleteMessage(message: CommunityMessage): Flow<ResResult<Unit>>
 
     suspend fun postMessage(postMessageRequest: PostMessageRequest): Flow<ResResult<CommunityMessage>>
+
+    suspend fun modifyMessage(postMessageRequest: PostMessageRequest): Flow<ResResult<CommunityMessage?>>
 }

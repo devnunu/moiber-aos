@@ -26,6 +26,7 @@ class CreateMessageViewModel @Inject constructor(
         setState {
             copy(
                 isModify = true,
+                messageId = communityMessage.id,
                 upperWear = communityMessage.upperWear,
                 bottomWear = communityMessage.bottomWear,
                 outerWear = communityMessage.outerWear,
@@ -82,11 +83,12 @@ class CreateMessageViewModel @Inject constructor(
             }
 
             is CreateMessageViewEvent.OnClickStep3CompleteBtn -> {
-                val message = state.message
-                if (message != null && message.length >= 45) {
-                    setState { copy(step3Error = true) }
-                } else {
-                    postNewMessage()
+                if (verifyMessage(state.message)) {
+                    if (state.isModify) {
+                        modifyMessage()
+                    } else {
+                        postNewMessage()
+                    }
                 }
             }
 
@@ -105,6 +107,14 @@ class CreateMessageViewModel @Inject constructor(
         }
     }
 
+    private fun verifyMessage(message: String?): Boolean {
+        val isVerified = message != null && message.length <= 45
+        if (!isVerified) {
+            setState { copy(step3Error = true) }
+        }
+        return isVerified
+    }
+
     private fun postNewMessage() = viewModelScope.launch {
         communityRepository.postMessage(getPostMessageRequest()).collectLatest { result ->
             result.onSuccess {
@@ -115,7 +125,18 @@ class CreateMessageViewModel @Inject constructor(
         }
     }
 
+    private fun modifyMessage() = viewModelScope.launch {
+        communityRepository.modifyMessage(getPostMessageRequest()).collectLatest { result ->
+            result.onSuccess {
+                postSideEffect(CreateMessageSideEffect.PopBackStackWithSuccess)
+            }.onError {
+
+            }
+        }
+    }
+
     private fun getPostMessageRequest() = PostMessageRequest(
+        id = state.messageId,
         userId = 0,
         temperature = state.temperature,
         message = state.message,
