@@ -3,12 +3,15 @@ package co.kr.moiber.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.presentation.createmessage.CreateMessageScreen
 import co.kr.moiber.presentation.createmessage.CreateMessageVariable.SUCCESS_MESSAGE_POST
 import co.kr.moiber.presentation.home.HomeScreen
 import co.kr.moiber.presentation.report.ReportScreen
 import co.kr.moiber.shared.ext.MoiberScreenAnim
 import co.kr.moiber.shared.ext.moiberComposable
+import kotlin.reflect.typeOf
 
 @Composable
 fun MoiberNavHost() {
@@ -36,9 +39,12 @@ fun MoiberNavHost() {
             )
         }
         moiberComposable<NavRoute.CreateMessage>(
-            screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
-        ) {
+            screenAnim = MoiberScreenAnim.VERTICAL_SLIDE,
+            typeMap = mapOf(typeOf<CommunityMessage?>() to parcelableType<CommunityMessage?>(true))
+        ) { backStackEntry ->
+            val args = backStackEntry.toRoute<NavRoute.CreateMessage>()
             CreateMessageScreen(
+                args = args,
                 navController = navController
             )
         }

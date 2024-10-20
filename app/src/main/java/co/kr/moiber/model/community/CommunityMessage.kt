@@ -1,10 +1,16 @@
 package co.kr.moiber.model.community
 
+import android.os.Parcelable
 import co.kr.moiber.model.wear.BottomWear
 import co.kr.moiber.model.wear.OuterWear
 import co.kr.moiber.model.wear.UpperWear
+import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
 import java.util.Date
 
+@Parcelize
+@Serializable
 data class CommunityMessage(
     val id: Long,
     val feelGood: Boolean = true,
@@ -18,8 +24,8 @@ data class CommunityMessage(
     val outerWear: OuterWear? = null,
     val upperWear: UpperWear? = null,
     val bottomWear: BottomWear? = null,
-    val insertTime: Date? = null
-) {
+    @Contextual val insertTime: Date? = null
+) : Parcelable {
     fun isMyContent(userId: Long) =
         this.userId == userId
 

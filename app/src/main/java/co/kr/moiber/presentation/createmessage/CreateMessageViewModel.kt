@@ -2,6 +2,7 @@ package co.kr.moiber.presentation.createmessage
 
 import androidx.lifecycle.viewModelScope
 import co.kr.moiber.data.community.repository.CommunityRepository
+import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.model.community.PostMessageRequest
 import co.kr.moiber.model.network.onError
 import co.kr.moiber.model.network.onSuccess
@@ -20,6 +21,19 @@ class CreateMessageViewModel @Inject constructor(
 ) : BaseViewModel<CreateMessageState, CreateMessageViewEvent, CreateMessageSideEffect>(
     initialState = CreateMessageState()
 ) {
+
+    fun setInitialStateWhenModify(communityMessage: CommunityMessage) {
+        setState {
+            copy(
+                isModify = true,
+                upperWear = communityMessage.upperWear,
+                bottomWear = communityMessage.bottomWear,
+                outerWear = communityMessage.outerWear,
+                temperature = communityMessage.temperature,
+                message = communityMessage.text,
+            )
+        }
+    }
 
     override fun onEvent(event: CreateMessageViewEvent) {
         when (event) {
@@ -75,6 +89,19 @@ class CreateMessageViewModel @Inject constructor(
                     postNewMessage()
                 }
             }
+
+            is CreateMessageViewEvent.OnBackPressed -> {
+                openDialog(CreateMessageDialogTag.CreateMessageBackPress)
+            }
+
+            is CreateMessageViewEvent.OnCloseDialog -> {
+                closeDialog()
+            }
+
+            is CreateMessageViewEvent.OnClickBackPressDialogFinish -> {
+                postSideEffect(CreateMessageSideEffect.PopBackStack)
+                closeDialog()
+            }
         }
     }
 
@@ -96,4 +123,16 @@ class CreateMessageViewModel @Inject constructor(
         bottomWear = state.bottomWear ?: BottomWear.Type1,
         outerWear = state.outerWear,
     )
+
+    /**
+     * Modal
+     * */
+    private fun openDialog(tag: CreateMessageDialogTag) {
+        setState { copy(dialogState = dialogState.open(tag)) }
+    }
+
+    private fun closeDialog() {
+        setState { copy(dialogState = dialogState.close()) }
+    }
+
 }

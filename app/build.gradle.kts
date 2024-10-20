@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.hiltAndroid) // Hilt 플러그인 적용
     id("kotlin-kapt")
+    id("kotlin-parcelize")
     kotlin("plugin.serialization") version "1.7.10"
 }
 
@@ -66,6 +67,7 @@ dependencies {
 
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.kotlinx.serialization)
+    implementation(libs.kotlinx.datetime)
 
     // hilt
     implementation(libs.hilt.android)

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.presentation.home.community.components.CommunityHeader
 import co.kr.moiber.presentation.home.community.components.message.MessageItem
@@ -48,6 +49,10 @@ fun HomeCommunityScreen(
         when (sideEffect) {
             is HomeCommunitySideEffect.ShowToast -> {
                 Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
+            }
+
+            is HomeCommunitySideEffect.NavigateToCreateMessage -> {
+                navController.navigate(NavRoute.CreateMessage(sideEffect.message))
             }
         }
     }
@@ -182,7 +187,7 @@ private fun HomeCommunityScreen(
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 80.dp, end = 22.dp),
             onClick = {
-                navController.navigate(NavRoute.CreateMessage)
+                navController.navigate(NavRoute.CreateMessage(communityMessage = null))
             }
         )
     }

@@ -1,5 +1,6 @@
 package co.kr.moiber.presentation.createmessage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,11 +22,15 @@ import androidx.navigation.NavController
 import co.kr.moiber.R
 import co.kr.moiber.presentation.createmessage.CreateMessageVariable.SUCCESS_MESSAGE_POST
 import co.kr.moiber.presentation.createmessage.components.indicator.CreateMessageIndicator
+import co.kr.moiber.presentation.createmessage.components.popup.CreateMessageBackPressPopUp
 import co.kr.moiber.presentation.createmessage.firststep.Step1View
 import co.kr.moiber.presentation.createmessage.firststep.Step2View
 import co.kr.moiber.presentation.createmessage.firststep.Step3View
+import co.kr.moiber.presentation.navigation.NavRoute
 import co.kr.moiber.presentation.navigation.setResult
+import co.kr.moiber.shared.components.popup.PopUpWrapper
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
+import co.kr.moiber.shared.ext.LaunchedEffectOnce
 import co.kr.moiber.shared.ext.collectSideEffect
 
 object CreateMessageVariable {
@@ -35,6 +40,7 @@ object CreateMessageVariable {
 
 @Composable
 fun CreateMessageScreen(
+    args: NavRoute.CreateMessage,
     navController: NavController,
     viewModel: CreateMessageViewModel = hiltViewModel()
 ) {
@@ -53,6 +59,15 @@ fun CreateMessageScreen(
                 navController.setResult(SUCCESS_MESSAGE_POST, true)
                 navController.popBackStack()
             }
+
+            is CreateMessageSideEffect.PopBackStack -> {
+                navController.popBackStack()
+            }
+        }
+    }
+    LaunchedEffectOnce {
+        if (args.communityMessage != null) {
+            viewModel.setInitialStateWhenModify(args.communityMessage)
         }
     }
     CreateMessageScreen(
@@ -68,7 +83,19 @@ private fun CreateMessageScreen(
     state: CreateMessageState,
     onEvent: (CreateMessageViewEvent) -> Unit
 ) {
-
+    BackHandler {
+        onEvent(CreateMessageViewEvent.OnBackPressed)
+    }
+    PopUpWrapper(dialogState = state.dialogState) { tag ->
+        when (tag) {
+            is CreateMessageDialogTag.CreateMessageBackPress -> {
+                CreateMessageBackPressPopUp(
+                    isModify = state.isModify,
+                    onEvent = onEvent
+                )
+            }
+        }
+    }
     MoiberScaffold {
         Column {
             Spacer(modifier = Modifier.size(26.dp))

@@ -7,6 +7,11 @@ import co.kr.moiber.model.wear.UpperWear
 import co.kr.moiber.shared.base.SideEffect
 import co.kr.moiber.shared.base.ViewEvent
 import co.kr.moiber.shared.base.ViewState
+import co.kr.moiber.shared.components.model.ModalState
+
+sealed interface CreateMessageDialogTag {
+    data object CreateMessageBackPress : CreateMessageDialogTag
+}
 
 sealed interface CreateMessageViewEvent : ViewEvent {
     /** Step1 */
@@ -24,15 +29,24 @@ sealed interface CreateMessageViewEvent : ViewEvent {
     data class OnChangeMessage(val message: String?) : CreateMessageViewEvent
     data object OnClickStep3PreviousBtn : CreateMessageViewEvent
     data object OnClickStep3CompleteBtn : CreateMessageViewEvent
+
+    /** modal */
+    data object OnCloseDialog : CreateMessageViewEvent
+    data object OnClickBackPressDialogFinish : CreateMessageViewEvent
+
+    /** else */
+    data object OnBackPressed : CreateMessageViewEvent
 }
 
 sealed interface CreateMessageSideEffect : SideEffect {
     data object ScrollToNextPage : CreateMessageSideEffect
     data object ScrollToPreviousPage : CreateMessageSideEffect
     data object PopBackStackWithSuccess : CreateMessageSideEffect
+    data object PopBackStack : CreateMessageSideEffect
 }
 
 data class CreateMessageState(
+    val isModify: Boolean = false,
     /** step1 */
     val upperWear: UpperWear? = null,
     val bottomWear: BottomWear? = null,
@@ -43,7 +57,10 @@ data class CreateMessageState(
     val step2Error: Boolean = false,
     /** step3 */
     val message: String? = null,
-    val step3Error: Boolean = false
+    val step3Error: Boolean = false,
+    /** modal */
+    val dialogState: ModalState<CreateMessageDialogTag> =
+        ModalState.Closed(CreateMessageDialogTag.CreateMessageBackPress)
 ) : ViewState {
 
     /** step1 */

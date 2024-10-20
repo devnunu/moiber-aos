@@ -1,5 +1,6 @@
 package co.kr.moiber.presentation.navigation
 
+import co.kr.moiber.model.community.CommunityMessage
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -15,5 +16,5 @@ sealed interface NavRoute {
 
     @Serializable
     @SerialName("CreateMessage")
-    data object CreateMessage : NavRoute
+    data class CreateMessage(val communityMessage: CommunityMessage?) : NavRoute
 }

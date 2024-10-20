@@ -62,7 +62,7 @@ fun ContentMessageHeader(
                 style = Body11,
                 isDay = isDay,
                 text = "${communityMessage.location} | " +
-                        "${communityMessage.insertTime.toFormatString("a hh:mm")}"
+                "${communityMessage.insertTime.toFormatString("a hh:mm")}"
             )
         }
     }

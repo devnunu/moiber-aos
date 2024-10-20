@@ -44,7 +44,7 @@ fun HomeLongPressPopUp(
                 LongPressTextWithIcon(
                     drawableResId = R.drawable.icn_edit,
                     text = "수정하기",
-                    onClick = { }
+                    onClick = { onEvent(HomeCommunityViewEvent.OnClickDialogModifyBtn(message = message)) }
                 )
                 Divider(
                     modifier = Modifier.fillMaxWidth(),

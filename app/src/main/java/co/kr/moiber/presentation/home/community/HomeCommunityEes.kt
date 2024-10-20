@@ -28,6 +28,7 @@ sealed interface HomeCommunityViewEvent : ViewEvent {
     /** LongPressPopUp */
     data class OnClickDialogLikeBtn(val message: CommunityMessage) : HomeCommunityViewEvent
     data class OnClickDialogReportBtn(val message: CommunityMessage) : HomeCommunityViewEvent
+    data class OnClickDialogModifyBtn(val message: CommunityMessage) : HomeCommunityViewEvent
     data class OnClickDialogDeleteBtn(val message: CommunityMessage) : HomeCommunityViewEvent
 
     /** ReportPopUp */
@@ -47,6 +48,7 @@ sealed interface HomeCommunityViewEvent : ViewEvent {
 
 sealed interface HomeCommunitySideEffect : SideEffect {
     data class ShowToast(val message: String) : HomeCommunitySideEffect
+    data class NavigateToCreateMessage(val message: CommunityMessage) : HomeCommunitySideEffect
 }
 
 data class HomeCommunityState(
