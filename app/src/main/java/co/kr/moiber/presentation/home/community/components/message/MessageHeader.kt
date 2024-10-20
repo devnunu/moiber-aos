@@ -43,14 +43,14 @@ fun ContentMessageHeader(
                 text = "나"
             )
             Spacer(modifier = Modifier.size(4.dp))
-            MessageFeelIcon(communityMessage.feelGood)
+            MessageFeelIcon(communityMessage.tempImg)
         }
     } else {
         Row(
             modifier = modifier,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            MessageFeelIcon(communityMessage.feelGood)
+            MessageFeelIcon(communityMessage.tempImg)
             Spacer(modifier = Modifier.size(4.dp))
             DayNightText(
                 style = Body10,
@@ -70,11 +70,11 @@ fun ContentMessageHeader(
 }
 
 @Composable
-fun MessageFeelIcon(feelGood: Boolean) {
+fun MessageFeelIcon(tempImg: Int) {
     Image(
         modifier = Modifier.size(28.dp),
         painter = painterResource(
-            id = if (feelGood) R.drawable.img_good else R.drawable.img_cool
+            id = tempImg
         ),
         contentDescription = null
     )
