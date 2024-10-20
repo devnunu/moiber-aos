@@ -103,19 +103,6 @@ fun Step1View(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        MoiberButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 66.dp, start = 20.dp, end = 20.dp),
-            enable = state.isStep1NextBtnEnable,
-            backgroundColor = yellow01,
-            fontColor = white01,
-            fontStyle = Body04,
-            buttonSize = ButtonSize.LARGE,
-            shape = RoundedCornerShape(100.dp),
-            text = "다음",
-            onClick = { onEvent(CreateMessageViewEvent.OnClickStep1NextBtn) }
-        )
     }
 }
 

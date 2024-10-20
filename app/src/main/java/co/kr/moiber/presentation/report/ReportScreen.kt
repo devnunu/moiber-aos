@@ -33,6 +33,7 @@ import co.kr.moiber.shared.components.MoiberButton
 import co.kr.moiber.shared.components.input.MoiberTextField
 import co.kr.moiber.shared.components.popup.MoiberPopUp
 import co.kr.moiber.shared.components.popup.PopUpWrapper
+import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.clickableRipple
 import co.kr.moiber.shared.ext.collectSideEffect
 import co.kr.moiber.shared.ui.Body02
@@ -117,125 +118,137 @@ fun ReportScreen(
             }
         }
     }
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 22.dp),
+    MoiberScaffold(
+        bottomBar = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 22.dp)
+            ) {
+                MoiberButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickableRipple(onClick = {}, bounded = true),
+                    enable = state.isBottomCtaEnable,
+                    backgroundColor = black02,
+                    fontColor = white01,
+                    fontStyle = Body04,
+                    buttonSize = ButtonSize.LARGE,
+                    text = "신고 철회 요청하기",
+                    onClick = {
+                        onEvent(ReportViewEvent.OnClickCompleteBtn)
+                    }
+                )
+                Spacer(modifier = Modifier.size(18.dp))
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    style = Body11,
+                    text = "*신고의 이유가 정당한 경우 신고가 신고가 철회되지 않을 수 있어요.",
+                    color = gray01,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.size(40.dp))
+            }
+        }
     ) {
-        Spacer(modifier = Modifier.size(8.dp))
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.End
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.icn_close),
-                contentDescription = null
-            )
-        }
-        Spacer(modifier = Modifier.size(16.dp))
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                modifier = Modifier.size(18.dp),
-                painter = painterResource(id = R.drawable.icn_caution),
-                contentDescription = null
-            )
-            Spacer(modifier = Modifier.size(6.dp))
-            Text(
-                style = Title03,
-                text = "신고 철회 요청",
-            )
-        }
-        Spacer(modifier = Modifier.size(14.dp))
-        Text(
-            style = Body09,
-            text = "타당하지 않은 이유로 신고 당한 경우 신고 철회를 요청해주세요.\n검토 후 사용자 님께 접수된 신고를 철회해 드릴 수 있어요.",
-        )
-        Spacer(modifier = Modifier.size(16.dp))
-        Divider(
-            modifier = Modifier.fillMaxWidth(),
-            color = black02
-        )
-        Spacer(modifier = Modifier.size(16.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(gray02, RoundedCornerShape(8.dp))
-                .padding(vertical = 12.dp, horizontal = 13.dp)
+                .padding(bottom = it.calculateBottomPadding())
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 22.dp),
         ) {
-            Text(
-                style = Body07,
-                text = "신고된 내 게시글"
-            )
             Spacer(modifier = Modifier.size(8.dp))
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.End
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.icn_close),
+                    contentDescription = null
+                )
+            }
+            Spacer(modifier = Modifier.size(16.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    modifier = Modifier.size(18.dp),
+                    painter = painterResource(id = R.drawable.icn_caution),
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.size(6.dp))
+                Text(
+                    style = Title03,
+                    text = "신고 철회 요청",
+                )
+            }
+            Spacer(modifier = Modifier.size(14.dp))
             Text(
                 style = Body09,
-                text = "공백 포함 45자 이내만 작성 가능해요 공백 포함 45자 이내만 작성 가능해요 공백 포함 45자 이내만 작성 공",
+                text = "타당하지 않은 이유로 신고 당한 경우 신고 철회를 요청해주세요.\n검토 후 사용자 님께 접수된 신고를 철회해 드릴 수 있어요.",
+            )
+            Spacer(modifier = Modifier.size(16.dp))
+            Divider(
+                modifier = Modifier.fillMaxWidth(),
                 color = black02
             )
-            Spacer(modifier = Modifier.size(8.dp))
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                style = Body11,
-                text = "2024.08.19 AM 08:21",
-                color = gray01,
-                textAlign = TextAlign.End
-            )
-        }
-        Spacer(modifier = Modifier.size(23.dp))
-        Column(
-            modifier = Modifier.padding(start = 10.dp, end = 5.dp)
-        ) {
-            Text(
-                style = Body08,
-                text = "※ 신고 처리 방침",
-            )
-            Spacer(modifier = Modifier.size(8.dp))
-            Text(
-                style = Body11,
-                text = "다수에게 신고 당한 게시글이 3개 이상일 시 3일 동안 커뮤니티 게시글 작성이 불가능합니다. \n" +
-                        "\n" +
-                        "다수에게 신고 당한 게시글이 5개 이상일 시 7일 동안 커뮤니티 게시글 작성이 불가능합니다.  \n" +
-                        "\n" +
-                        "다수에게 신고 당한 게시글이 10개 이상일 시 모이버의 서비스 이용이 \n" +
-                        "불가능합니다. ",
-                color = gray01
-            )
-        }
-        Spacer(modifier = Modifier.size(25.dp))
-        val value = state.reportTxt
-        MoiberTextField(
-            height = 124.dp,
-            value = value.orEmpty(),
-            placeHolder = "직접 입력하기(공백 포함 최대 150자)",
-            onValueChange = { text -> onEvent(ReportViewEvent.OnChangeReportTxt(text)) }
-        )
-        Spacer(modifier = Modifier.size(18.dp))
-        MoiberButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickableRipple(onClick = {}, bounded = true),
-            enable = state.isBottomCtaEnable,
-            backgroundColor = black02,
-            fontColor = white01,
-            fontStyle = Body04,
-            buttonSize = ButtonSize.LARGE,
-            text = "신고 철회 요청하기",
-            onClick = {
-                onEvent(ReportViewEvent.OnClickCompleteBtn)
+            Spacer(modifier = Modifier.size(16.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(gray02, RoundedCornerShape(8.dp))
+                    .padding(vertical = 12.dp, horizontal = 13.dp)
+            ) {
+                Text(
+                    style = Body07,
+                    text = "신고된 내 게시글"
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+                Text(
+                    style = Body09,
+                    text = "공백 포함 45자 이내만 작성 가능해요 공백 포함 45자 이내만 작성 가능해요 공백 포함 45자 이내만 작성 공",
+                    color = black02
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    style = Body11,
+                    text = "2024.08.19 AM 08:21",
+                    color = gray01,
+                    textAlign = TextAlign.End
+                )
             }
-        )
-        Spacer(modifier = Modifier.size(18.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            style = Body11,
-            text = "*신고의 이유가 정당한 경우 신고가 신고가 철회되지 않을 수 있어요.",
-            color = gray01,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.size(40.dp))
+            Spacer(modifier = Modifier.size(23.dp))
+            Column(
+                modifier = Modifier.padding(start = 10.dp, end = 5.dp)
+            ) {
+                Text(
+                    style = Body08,
+                    text = "※ 신고 처리 방침",
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+                Text(
+                    style = Body11,
+                    text = "다수에게 신고 당한 게시글이 3개 이상일 시 3일 동안 커뮤니티 게시글 작성이 불가능합니다. \n" +
+                            "\n" +
+                            "다수에게 신고 당한 게시글이 5개 이상일 시 7일 동안 커뮤니티 게시글 작성이 불가능합니다.  \n" +
+                            "\n" +
+                            "다수에게 신고 당한 게시글이 10개 이상일 시 모이버의 서비스 이용이 \n" +
+                            "불가능합니다. ",
+                    color = gray01
+                )
+            }
+            Spacer(modifier = Modifier.size(25.dp))
+            val value = state.reportTxt
+            MoiberTextField(
+                height = 124.dp,
+                value = value.orEmpty(),
+                placeHolder = "직접 입력하기(공백 포함 최대 150자)",
+                onValueChange = { text -> onEvent(ReportViewEvent.OnChangeReportTxt(text)) }
+            )
+            Spacer(modifier = Modifier.size(18.dp))
+        }
     }
 }
 

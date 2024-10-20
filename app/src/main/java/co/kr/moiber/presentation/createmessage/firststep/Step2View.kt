@@ -91,35 +91,6 @@ fun Step2View(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 66.dp, start = 20.dp, end = 20.dp),
-        ) {
-            MoiberButton(
-                modifier = Modifier.weight(1f),
-                backgroundColor = gray01,
-                fontColor = white01,
-                fontStyle = Body04,
-                buttonSize = ButtonSize.LARGE,
-                shape = RoundedCornerShape(100.dp),
-                text = "이전",
-                onClick = { onEvent(CreateMessageViewEvent.OnClickStep2PreviousBtn) }
-            )
-            Spacer(modifier = Modifier.size(24.dp))
-            MoiberButton(
-                modifier = Modifier.weight(1f),
-                enable = state.isStep2NextBtnEnable,
-                disableBackgroundColor = gray02,
-                backgroundColor = yellow01,
-                fontColor = white01,
-                fontStyle = Body04,
-                buttonSize = ButtonSize.LARGE,
-                shape = RoundedCornerShape(100.dp),
-                text = "다음",
-                onClick = { onEvent(CreateMessageViewEvent.OnClickStep2NextBtn) }
-            )
-        }
     }
 }
 

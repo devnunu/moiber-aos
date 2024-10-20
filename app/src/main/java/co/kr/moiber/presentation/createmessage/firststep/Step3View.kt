@@ -75,32 +75,6 @@ fun Step3View(
             )
         }
         Spacer(modifier = Modifier.weight(1f))
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
-        ) {
-            MoiberButton(
-                modifier = Modifier.fillMaxWidth(),
-                backgroundColor = yellow01,
-                fontColor = white01,
-                fontStyle = Body04,
-                buttonSize = ButtonSize.LARGE,
-                shape = RoundedCornerShape(100.dp),
-                text = "게시하기",
-                onClick = { onEvent(CreateMessageViewEvent.OnClickStep3CompleteBtn) }
-            )
-            MoiberButton(
-                modifier = Modifier.fillMaxWidth(),
-                backgroundColor = white01,
-                fontColor = gray01,
-                fontStyle = Body04,
-                buttonSize = ButtonSize.LARGE,
-                text = "이전으로",
-                onClick = { onEvent(CreateMessageViewEvent.OnClickStep2PreviousBtn) }
-            )
-        }
-        Spacer(modifier = Modifier.size(20.dp))
     }
 }
 

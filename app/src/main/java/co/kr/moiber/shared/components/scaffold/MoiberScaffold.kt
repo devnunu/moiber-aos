@@ -2,6 +2,7 @@ package co.kr.moiber.shared.components.scaffold
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.contentColorFor
@@ -23,13 +24,14 @@ fun MoiberScaffold(
 ) {
     Scaffold(
         modifier = modifier
+            .safeContentPadding()
             .statusBarsPadding()
             .navigationBarsPadding(),
+        topBar = topBar,
         bottomBar = bottomBar,
         containerColor = backgroundColor,
         contentColor = contentColor,
     ) { paddingValues ->
-        topBar()
         content(paddingValues)
     }
 }
