@@ -6,6 +6,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface NavRoute {
+
+    @Serializable
+    @SerialName("Login")
+    data object Login : NavRoute
+
     @Serializable
     @SerialName("Home")
     data object Home : NavRoute

@@ -69,6 +69,8 @@ dependencies {
     implementation(libs.kotlinx.serialization)
     implementation(libs.kotlinx.datetime)
 
+    implementation(libs.google.location)
+
     // hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)

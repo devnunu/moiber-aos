@@ -8,6 +8,7 @@ import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.presentation.createmessage.CreateMessageScreen
 import co.kr.moiber.presentation.createmessage.CreateMessageVariable.SUCCESS_MESSAGE_POST
 import co.kr.moiber.presentation.home.HomeScreen
+import co.kr.moiber.presentation.login.LoginScreen
 import co.kr.moiber.presentation.report.ReportScreen
 import co.kr.moiber.shared.ext.MoiberScreenAnim
 import co.kr.moiber.shared.ext.moiberComposable
@@ -18,8 +19,16 @@ fun MoiberNavHost() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = NavRoute.Home
+        startDestination = NavRoute.Login
     ) {
+        moiberComposable<NavRoute.Login>(
+            screenAnim = MoiberScreenAnim.FADE_IN_OUT
+        ) { backStackEntry ->
+            LoginScreen(
+                navController = navController
+            )
+        }
+
         moiberComposable<NavRoute.Home>(
             screenAnim = MoiberScreenAnim.FADE_IN_OUT
         ) { backStackEntry ->
