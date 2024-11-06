@@ -3,9 +3,12 @@ package co.kr.moiber.presentation.location
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import co.kr.moiber.R
+import co.kr.moiber.model.weather.Weather
+import co.kr.moiber.presentation.location.components.LocationInfoCard
 import co.kr.moiber.presentation.location.components.SelectLocationInput
 import co.kr.moiber.shared.ui.Body02
 import co.kr.moiber.shared.ui.Body03
@@ -42,7 +47,7 @@ private fun SelectLocationScreen(
     onEvent: (SelectLocationViewEvent) -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxSize()
     ) {
         Row(
             modifier = Modifier
@@ -68,7 +73,8 @@ private fun SelectLocationScreen(
             )
         }
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
         ) {
             Spacer(modifier = Modifier.size(11.dp))
             SelectLocationInput(
@@ -87,24 +93,42 @@ private fun SelectLocationScreen(
                 Text(
                     style = Body07,
                     text = "현재 위치",
-                    color = gray01
+                    color = black01
                 )
             }
             Spacer(modifier = Modifier.size(16.dp))
+            LocationInfoCard(
+                locationText = "서울 특별시 성북구",
+                isCurrentLocation = true,
+                isDay = true,
+                weather = Weather.SUNNY,
+                temperature = 20
+            )
+            Spacer(modifier = Modifier.size(18.dp))
 
             Row {
                 Icon(
-                    painter = painterResource(R.drawable.icn_location1),
+                    painter = painterResource(R.drawable.icn_search_l),
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.size(4.dp))
                 Text(
                     style = Body07,
                     text = "최근 검색",
-                    color = gray01
+                    color = black01
                 )
             }
             Spacer(modifier = Modifier.size(16.dp))
+            listOf(1).forEach {
+                LocationInfoCard(
+                    locationText = "서울 특별시 성북구",
+                    isCurrentLocation = false,
+                    isDay = true,
+                    weather = Weather.SUNNY,
+                    temperature = 20
+                )
+            }
+
         }
     }
 }
