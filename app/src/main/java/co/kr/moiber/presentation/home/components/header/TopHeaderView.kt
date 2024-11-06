@@ -15,12 +15,14 @@ import androidx.compose.ui.unit.dp
 import co.kr.moiber.R
 import co.kr.moiber.shared.components.DayNightIcon
 import co.kr.moiber.shared.components.DayNightText
+import co.kr.moiber.shared.ext.clickableNonIndication
 import co.kr.moiber.shared.ui.Title02
 import co.kr.moiber.shared.ui.Title03
 
 @Composable
 fun TopHeaderView(
-    isDay: Boolean
+    isDay: Boolean,
+    onClickLocation: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -28,21 +30,27 @@ fun TopHeaderView(
             .padding(horizontal = 16.dp, vertical = 18.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        DayNightIcon(
-            iconResId = R.drawable.icn_location1,
-            isDay = isDay
-        )
-        Spacer(modifier = Modifier.size(3.dp))
-        DayNightText(
-            style = Title03,
-            isDay = isDay,
-            text = "서울 성북구"
-        )
-        Spacer(modifier = Modifier.size(3.dp))
-        DayNightIcon(
-            iconResId = R.drawable.icn_drop_down1,
-            isDay = isDay
-        )
+        Row(
+            modifier = Modifier.clickableNonIndication {
+                onClickLocation()
+            }
+        ) {
+            DayNightIcon(
+                iconResId = R.drawable.icn_location1,
+                isDay = isDay
+            )
+            Spacer(modifier = Modifier.size(3.dp))
+            DayNightText(
+                style = Title03,
+                isDay = isDay,
+                text = "서울 성북구"
+            )
+            Spacer(modifier = Modifier.size(3.dp))
+            DayNightIcon(
+                iconResId = R.drawable.icn_drop_down1,
+                isDay = isDay
+            )
+        }
         Spacer(modifier = Modifier.weight(1f))
         DayNightIcon(
             iconResId = R.drawable.icn_menu1,
@@ -54,5 +62,8 @@ fun TopHeaderView(
 @Preview(showBackground = true)
 @Composable
 fun TopHeaderViewPreview() {
-    TopHeaderView(isDay = true)
+    TopHeaderView(
+        isDay = true,
+        onClickLocation = {}
+    )
 }

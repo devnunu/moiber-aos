@@ -24,6 +24,7 @@ import co.kr.moiber.R
 import co.kr.moiber.model.weather.Weather
 import co.kr.moiber.presentation.location.components.LocationInfoCard
 import co.kr.moiber.presentation.location.components.SelectLocationInput
+import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ui.Body02
 import co.kr.moiber.shared.ui.Body03
 import co.kr.moiber.shared.ui.Body07
@@ -46,89 +47,91 @@ private fun SelectLocationScreen(
     state: SelectLocationState,
     onEvent: (SelectLocationViewEvent) -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 14.dp, horizontal = 16.dp)
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.icn_close),
-                contentDescription = null,
-
-                )
-            Text(
-                modifier = Modifier.weight(1f),
-                style = Body02,
-                text = "지역 선택",
-                color = black01,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                style = Body03,
-                text = "편집",
-                color = gray01
-            )
-        }
+    MoiberScaffold {
         Column(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
-            Spacer(modifier = Modifier.size(11.dp))
-            SelectLocationInput(
-                value = state.locationText.orEmpty(),
-                onValueChange = { text ->
-                    onEvent(SelectLocationViewEvent.OnChangedLocationText(text))
-                }
-            )
-            Spacer(modifier = Modifier.size(18.dp))
-            Row {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 14.dp, horizontal = 16.dp)
+            ) {
                 Icon(
-                    painter = painterResource(R.drawable.icn_location1),
-                    contentDescription = null
-                )
-                Spacer(modifier = Modifier.size(4.dp))
-                Text(
-                    style = Body07,
-                    text = "현재 위치",
-                    color = black01
-                )
-            }
-            Spacer(modifier = Modifier.size(16.dp))
-            LocationInfoCard(
-                locationText = "서울 특별시 성북구",
-                isCurrentLocation = true,
-                isDay = true,
-                weather = Weather.SUNNY,
-                temperature = 20
-            )
-            Spacer(modifier = Modifier.size(18.dp))
+                    painter = painterResource(R.drawable.icn_close),
+                    contentDescription = null,
 
-            Row {
-                Icon(
-                    painter = painterResource(R.drawable.icn_search_l),
-                    contentDescription = null
-                )
-                Spacer(modifier = Modifier.size(4.dp))
+                    )
                 Text(
-                    style = Body07,
-                    text = "최근 검색",
-                    color = black01
+                    modifier = Modifier.weight(1f),
+                    style = Body02,
+                    text = "지역 선택",
+                    color = black01,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    style = Body03,
+                    text = "편집",
+                    color = gray01
                 )
             }
-            Spacer(modifier = Modifier.size(16.dp))
-            listOf(1).forEach {
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+            ) {
+                Spacer(modifier = Modifier.size(11.dp))
+                SelectLocationInput(
+                    value = state.locationText.orEmpty(),
+                    onValueChange = { text ->
+                        onEvent(SelectLocationViewEvent.OnChangedLocationText(text))
+                    }
+                )
+                Spacer(modifier = Modifier.size(18.dp))
+                Row {
+                    Icon(
+                        painter = painterResource(R.drawable.icn_location1),
+                        contentDescription = null
+                    )
+                    Spacer(modifier = Modifier.size(4.dp))
+                    Text(
+                        style = Body07,
+                        text = "현재 위치",
+                        color = black01
+                    )
+                }
+                Spacer(modifier = Modifier.size(16.dp))
                 LocationInfoCard(
                     locationText = "서울 특별시 성북구",
-                    isCurrentLocation = false,
+                    isCurrentLocation = true,
                     isDay = true,
                     weather = Weather.SUNNY,
                     temperature = 20
                 )
-            }
+                Spacer(modifier = Modifier.size(18.dp))
 
+                Row {
+                    Icon(
+                        painter = painterResource(R.drawable.icn_search_l),
+                        contentDescription = null
+                    )
+                    Spacer(modifier = Modifier.size(4.dp))
+                    Text(
+                        style = Body07,
+                        text = "최근 검색",
+                        color = black01
+                    )
+                }
+                Spacer(modifier = Modifier.size(16.dp))
+                listOf(1).forEach {
+                    LocationInfoCard(
+                        locationText = "서울 특별시 성북구",
+                        isCurrentLocation = false,
+                        isDay = true,
+                        weather = Weather.SUNNY,
+                        temperature = 20
+                    )
+                }
+
+            }
         }
     }
 }

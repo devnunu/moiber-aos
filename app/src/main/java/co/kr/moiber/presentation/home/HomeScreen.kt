@@ -29,6 +29,7 @@ import co.kr.moiber.presentation.home.components.indicator.PageIndicator
 import co.kr.moiber.presentation.home.summary.HomeSummaryScreen
 import co.kr.moiber.presentation.home.summary.HomeSummaryViewModel
 import co.kr.moiber.presentation.home.summary.components.animation.HomeAnimationVisibility
+import co.kr.moiber.presentation.navigation.NavRoute
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.LaunchedEffectOnce
 import co.kr.moiber.shared.ui.black02
@@ -70,7 +71,10 @@ fun HomeScreen(
                 delay = 150
             ) {
                 TopHeaderView(
-                    isDay = isDay
+                    isDay = isDay,
+                    onClickLocation = {
+                        navController.navigate(NavRoute.SelectLocation)
+                    }
                 )
             }
             Box(
