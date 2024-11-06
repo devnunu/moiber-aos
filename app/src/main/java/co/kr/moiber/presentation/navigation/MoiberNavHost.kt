@@ -8,6 +8,7 @@ import co.kr.moiber.model.community.CommunityMessage
 import co.kr.moiber.presentation.createmessage.CreateMessageScreen
 import co.kr.moiber.presentation.createmessage.CreateMessageVariable.SUCCESS_MESSAGE_POST
 import co.kr.moiber.presentation.home.HomeScreen
+import co.kr.moiber.presentation.location.SelectLocationScreen
 import co.kr.moiber.presentation.login.LoginScreen
 import co.kr.moiber.presentation.report.ReportScreen
 import co.kr.moiber.shared.ext.MoiberScreenAnim
@@ -45,6 +46,13 @@ fun MoiberNavHost() {
         ) {
             ReportScreen(
                 navController = navController
+            )
+        }
+        moiberComposable<NavRoute.SelectLocation>(
+            screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
+        ) {
+            SelectLocationScreen(
+                navController = navController,
             )
         }
         moiberComposable<NavRoute.CreateMessage>(
