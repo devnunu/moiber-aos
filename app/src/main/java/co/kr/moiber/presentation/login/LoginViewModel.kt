@@ -12,7 +12,7 @@ class LoginViewModel @Inject constructor() :
     override fun onEvent(event: LoginViewEvent) {
         when (event) {
             is LoginViewEvent.OnClickLoginBtn -> {
-                postSideEffect(LoginSideEffect.RequestPermission)
+                postSideEffect(LoginSideEffect.NavigateToNickName)
             }
         }
     }

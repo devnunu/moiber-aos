@@ -10,6 +10,7 @@ import co.kr.moiber.presentation.createmessage.CreateMessageVariable.SUCCESS_MES
 import co.kr.moiber.presentation.home.HomeScreen
 import co.kr.moiber.presentation.location.SelectLocationScreen
 import co.kr.moiber.presentation.login.LoginScreen
+import co.kr.moiber.presentation.nickname.NickNameScreen
 import co.kr.moiber.presentation.report.ReportScreen
 import co.kr.moiber.shared.ext.MoiberScreenAnim
 import co.kr.moiber.shared.ext.moiberComposable
@@ -24,8 +25,16 @@ fun MoiberNavHost() {
     ) {
         moiberComposable<NavRoute.Login>(
             screenAnim = MoiberScreenAnim.FADE_IN_OUT
-        ) { backStackEntry ->
+        ) {
             LoginScreen(
+                navController = navController
+            )
+        }
+
+        moiberComposable<NavRoute.NickName>(
+            screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
+        ) {
+            NickNameScreen(
                 navController = navController
             )
         }

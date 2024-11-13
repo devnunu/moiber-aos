@@ -48,6 +48,10 @@ fun LoginScreen(
     }
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
+            is LoginSideEffect.NavigateToNickName -> {
+                navController.navigate(NavRoute.NickName)
+            }
+
             is LoginSideEffect.RequestPermission -> {
                 checkLocationPermissionAndRequest(context, permissionLauncher) {
                     navController.navigate(NavRoute.Home)

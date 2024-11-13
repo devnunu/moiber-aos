@@ -12,8 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import co.kr.moiber.presentation.home.community.HomeCommunityViewEvent
 import co.kr.moiber.presentation.report.ReportViewEvent
 import co.kr.moiber.shared.ui.Body07
 import co.kr.moiber.shared.ui.Body09
@@ -54,6 +56,19 @@ fun MoiberTextField(
                 }
             }
             innerTextField()
+        }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MoiberTextFieldPreview() {
+    MoiberTextField(
+        height = 124.dp,
+        value = "",
+        placeHolder = "직접 입력하기(공백 포함 최대 150자)",
+        onValueChange = { text ->
+
         }
     )
 }

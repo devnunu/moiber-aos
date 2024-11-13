@@ -12,6 +12,10 @@ sealed interface NavRoute {
     data object Login : NavRoute
 
     @Serializable
+    @SerialName("NickName")
+    data object NickName : NavRoute
+
+    @Serializable
     @SerialName("Home")
     data object Home : NavRoute
 
