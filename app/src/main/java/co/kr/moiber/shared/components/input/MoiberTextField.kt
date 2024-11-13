@@ -15,9 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import co.kr.moiber.presentation.home.community.HomeCommunityViewEvent
-import co.kr.moiber.presentation.report.ReportViewEvent
-import co.kr.moiber.shared.ui.Body07
 import co.kr.moiber.shared.ui.Body09
 import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.gray02

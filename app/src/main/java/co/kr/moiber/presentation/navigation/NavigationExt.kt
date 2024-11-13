@@ -7,7 +7,7 @@ import android.os.Parcelable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavType
-import co.kr.moiber.presentation.createmessage.CreateMessageVariable
+import co.kr.moiber.presentation.feature.community.createmessage.CreateMessageVariable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
