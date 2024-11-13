@@ -16,7 +16,7 @@ class NickNameViewModel @Inject constructor() :
     override fun onEvent(event: NickNameViewEvent) {
         when (event) {
             is NickNameViewEvent.OnClickNextBtn -> {
-
+                postSideEffect(NickNameSideEffect.NavigateToTerms)
             }
 
             is NickNameViewEvent.OnChangeNickName -> {

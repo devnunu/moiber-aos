@@ -12,6 +12,7 @@ import co.kr.moiber.presentation.feature.weather.location.SelectLocationScreen
 import co.kr.moiber.presentation.feature.intro.login.LoginScreen
 import co.kr.moiber.presentation.feature.intro.nickname.NickNameScreen
 import co.kr.moiber.presentation.feature.community.report.ReportScreen
+import co.kr.moiber.presentation.feature.intro.terms.TermsScreen
 import co.kr.moiber.shared.ext.MoiberScreenAnim
 import co.kr.moiber.shared.ext.moiberComposable
 import kotlin.reflect.typeOf
@@ -35,6 +36,14 @@ fun MoiberNavHost() {
             screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
         ) {
             NickNameScreen(
+                navController = navController
+            )
+        }
+
+        moiberComposable<NavRoute.Terms>(
+            screenAnim = MoiberScreenAnim.HORIZONTAL_SLIDE
+        ) {
+            TermsScreen(
                 navController = navController
             )
         }

@@ -16,6 +16,14 @@ sealed interface NavRoute {
     data object NickName : NavRoute
 
     @Serializable
+    @SerialName("Terms")
+    data object Terms : NavRoute
+
+    @Serializable
+    @SerialName("Terms")
+    data object LocationPermission : NavRoute
+
+    @Serializable
     @SerialName("Home")
     data object Home : NavRoute
 

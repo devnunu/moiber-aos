@@ -24,6 +24,7 @@ import co.kr.moiber.presentation.feature.home.community.HomeCommunityState
 import co.kr.moiber.presentation.feature.home.community.HomeCommunityViewEvent
 import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
+import co.kr.moiber.shared.components.check.MoiberCheckBox
 import co.kr.moiber.shared.components.input.MoiberTextField
 import co.kr.moiber.shared.components.popup.MoiberPopUp
 import co.kr.moiber.shared.ext.clickableNonIndication
@@ -156,19 +157,10 @@ fun ReportSelectText(
         verticalAlignment = Alignment.CenterVertically
     ) {
         val checked = selectedReportCaseList.contains(reportCase)
-        IconToggleButton(
-            modifier = Modifier.size(18.dp),
-            checked = checked,
+        MoiberCheckBox(
+            isChecked = checked,
             onCheckedChange = { onEvent(HomeCommunityViewEvent.OnSelectReportCase(reportCase)) }
-        ) {
-            Image(
-                painter = painterResource(
-                    if (checked) R.drawable.icn_check_on
-                    else R.drawable.icn_check_off
-                ),
-                contentDescription = null,
-            )
-        }
+        )
         Spacer(modifier = Modifier.size(10.dp))
         Text(
             style = Body08,
