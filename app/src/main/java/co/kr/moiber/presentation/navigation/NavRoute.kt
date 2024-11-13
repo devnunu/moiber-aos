@@ -20,7 +20,7 @@ sealed interface NavRoute {
     data object Terms : NavRoute
 
     @Serializable
-    @SerialName("Terms")
+    @SerialName("LocationPermission")
     data object LocationPermission : NavRoute
 
     @Serializable

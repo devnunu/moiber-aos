@@ -38,24 +38,10 @@ fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val context = LocalContext.current
-    val permissionLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            navController.navigate(NavRoute.Home)
-        }
-    }
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
             is LoginSideEffect.NavigateToNickName -> {
                 navController.navigate(NavRoute.NickName)
-            }
-
-            is LoginSideEffect.RequestPermission -> {
-                checkLocationPermissionAndRequest(context, permissionLauncher) {
-                    navController.navigate(NavRoute.Home)
-                }
             }
         }
     }
@@ -105,22 +91,6 @@ private fun LoginScreen(
                 painter = painterResource(R.drawable.back_and_login),
                 contentDescription = null
             )
-        }
-    }
-}
-
-private fun checkLocationPermissionAndRequest(
-    context: android.content.Context,
-    permissionLauncher: ActivityResultLauncher<String>,
-    onAlreadyGranted: () -> Unit
-) {
-    when (PackageManager.PERMISSION_GRANTED) {
-        ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) -> {
-            onAlreadyGranted()
-        }
-
-        else -> {
-            permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 }
