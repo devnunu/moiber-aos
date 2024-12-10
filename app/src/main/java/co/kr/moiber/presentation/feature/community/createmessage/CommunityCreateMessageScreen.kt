@@ -57,7 +57,7 @@ object CreateMessageVariable {
 
 @Composable
 fun CommunityCreateMessageScreen(
-    args: NavRoute.CreateMessage,
+    args: NavRoute.CommunityCreateMessage,
     navController: NavController,
     viewModel: CommunityCreateMessageViewModel = hiltViewModel()
 ) {

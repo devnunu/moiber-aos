@@ -53,9 +53,9 @@ sealed interface NavRoute {
      * */
     @Serializable
     @SerialName("Report")
-    data object Report : NavRoute
+    data object CommunityReport : NavRoute
 
     @Serializable
     @SerialName("CreateMessage")
-    data class CreateMessage(val communityMessage: CommunityMessage?) : NavRoute
+    data class CommunityCreateMessage(val communityMessage: CommunityMessage?) : NavRoute
 }

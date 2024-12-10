@@ -52,7 +52,7 @@ fun HomeCommunityScreen(
             }
 
             is HomeCommunitySideEffect.NavigateToCreateMessage -> {
-                navController.navigate(NavRoute.CreateMessage(sideEffect.message))
+                navController.navigate(NavRoute.CommunityCreateMessage(sideEffect.message))
             }
         }
     }
@@ -172,7 +172,7 @@ private fun HomeCommunityScreen(
                     MessageItem(
                         isDay = isDay,
                         communityMessage = communityMessage,
-                        onClickMyVanMessage = { navController.navigate(NavRoute.Report) },
+                        onClickMyVanMessage = { navController.navigate(NavRoute.CommunityReport) },
                         onClickMessage = { message ->
                             onEvent(HomeCommunityViewEvent.OnClickMessageItem(message))
                         },
@@ -193,7 +193,7 @@ private fun HomeCommunityScreen(
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 80.dp, end = 22.dp),
             onClick = {
-                navController.navigate(NavRoute.CreateMessage(communityMessage = null))
+                navController.navigate(NavRoute.CommunityCreateMessage(communityMessage = null))
             }
         )
     }

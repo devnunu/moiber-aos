@@ -15,6 +15,7 @@ import co.kr.moiber.presentation.feature.community.report.CommunityReportScreen
 import co.kr.moiber.presentation.feature.intro.locationpermission.LocationPermissionScreen
 import co.kr.moiber.presentation.feature.intro.terms.TermsScreen
 import co.kr.moiber.presentation.feature.intro.welcome.WelcomeScreen
+import co.kr.moiber.presentation.feature.weather.detail.WeatherDetailScreen
 import co.kr.moiber.shared.ext.MoiberScreenAnim
 import co.kr.moiber.shared.ext.moiberComposable
 import kotlin.reflect.typeOf
@@ -26,6 +27,10 @@ fun MoiberNavHost() {
         navController = navController,
         startDestination = NavRoute.IntroLogin
     ) {
+
+        /**
+         * Intro
+         * */
         moiberComposable<NavRoute.IntroLogin>(
             screenAnim = MoiberScreenAnim.FADE_IN_OUT
         ) {
@@ -66,6 +71,9 @@ fun MoiberNavHost() {
             )
         }
 
+        /**
+         * Home
+         * */
         moiberComposable<NavRoute.Home>(
             screenAnim = MoiberScreenAnim.FADE_IN_OUT
         ) { backStackEntry ->
@@ -77,13 +85,10 @@ fun MoiberNavHost() {
                 navController = navController
             )
         }
-        moiberComposable<NavRoute.Report>(
-            screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
-        ) {
-            CommunityReportScreen(
-                navController = navController
-            )
-        }
+
+        /**
+         * Weather
+         * */
         moiberComposable<NavRoute.WeatherSelectLocation>(
             screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
         ) {
@@ -91,11 +96,31 @@ fun MoiberNavHost() {
                 navController = navController,
             )
         }
-        moiberComposable<NavRoute.CreateMessage>(
+
+        moiberComposable<NavRoute.WeatherDetail>(
+            screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
+        ) {
+            WeatherDetailScreen(
+                navController = navController,
+            )
+        }
+
+        /**
+         * Community
+         * */
+        moiberComposable<NavRoute.CommunityReport>(
+            screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
+        ) {
+            CommunityReportScreen(
+                navController = navController
+            )
+        }
+
+        moiberComposable<NavRoute.CommunityCreateMessage>(
             screenAnim = MoiberScreenAnim.VERTICAL_SLIDE,
             typeMap = mapOf(typeOf<CommunityMessage?>() to parcelableType<CommunityMessage?>(true))
         ) { backStackEntry ->
-            val args = backStackEntry.toRoute<NavRoute.CreateMessage>()
+            val args = backStackEntry.toRoute<NavRoute.CommunityCreateMessage>()
             CommunityCreateMessageScreen(
                 args = args,
                 navController = navController
