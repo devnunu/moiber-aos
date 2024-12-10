@@ -7,13 +7,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LocationPermissionViewModel @Inject constructor() :
-    BaseViewModel<LocationPermissionState, LocationPermissionViewEvent, LocationPermissionSideEffect>(
+    BaseViewModel<LocationPermissionState, LocationPermissionViewEvent, IntroLocationPermissionSideEffect>(
         initialState = LocationPermissionState()
     ) {
     override fun onEvent(event: LocationPermissionViewEvent) {
         when (event) {
             is LocationPermissionViewEvent.OnClickNextBtn -> {
-                postSideEffect(LocationPermissionSideEffect.RequestPermission)
+                postSideEffect(IntroLocationPermissionSideEffect.RequestPermission)
             }
         }
     }

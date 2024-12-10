@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,24 +15,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.presentation.feature.community.createmessage.CreateMessageState
-import co.kr.moiber.presentation.feature.community.createmessage.CreateMessageViewEvent
-import co.kr.moiber.shared.components.ButtonSize
-import co.kr.moiber.shared.components.MoiberButton
+import co.kr.moiber.presentation.feature.community.createmessage.CommunityCreateMessageViewEvent
 import co.kr.moiber.shared.components.input.MoiberTextField
-import co.kr.moiber.shared.ui.Body04
 import co.kr.moiber.shared.ui.Title03
 import co.kr.moiber.shared.ui.black01
-import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.red01
-import co.kr.moiber.shared.ui.white01
-import co.kr.moiber.shared.ui.yellow01
 import co.kr.moiber.shared.ui.yellow02
 import co.kr.moiber.shared.ui.yellow03
 
 @Composable
 fun Step3View(
     state: CreateMessageState,
-    onEvent: (CreateMessageViewEvent) -> Unit
+    onEvent: (CommunityCreateMessageViewEvent) -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -62,7 +55,7 @@ fun Step3View(
             backgroundColor = yellow03,
             value = state.message.orEmpty(),
             placeHolder = "날씨 한마디는 선택사항이에요.",
-            onValueChange = { onEvent(CreateMessageViewEvent.OnChangeMessage(it)) }
+            onValueChange = { onEvent(CommunityCreateMessageViewEvent.OnChangeMessage(it)) }
         )
         if(state.step3Error) {
             Spacer(modifier = Modifier.size(12.dp))

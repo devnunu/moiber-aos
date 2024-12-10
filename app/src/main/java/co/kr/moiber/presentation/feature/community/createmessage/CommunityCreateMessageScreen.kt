@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
@@ -57,28 +56,28 @@ object CreateMessageVariable {
 }
 
 @Composable
-fun CreateMessageScreen(
+fun CommunityCreateMessageScreen(
     args: NavRoute.CreateMessage,
     navController: NavController,
-    viewModel: CreateMessageViewModel = hiltViewModel()
+    viewModel: CommunityCreateMessageViewModel = hiltViewModel()
 ) {
     val pagerState = rememberPagerState(pageCount = { CreateMessageVariable.NUMBER_OF_PAGE })
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
-            is CreateMessageSideEffect.ScrollToNextPage -> {
+            is CommunityCreateMessageSideEffect.ScrollToNextPage -> {
                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
             }
 
-            is CreateMessageSideEffect.ScrollToPreviousPage -> {
+            is CommunityCreateMessageSideEffect.ScrollToPreviousPage -> {
                 pagerState.animateScrollToPage(pagerState.currentPage - 1)
             }
 
-            is CreateMessageSideEffect.PopBackStackWithSuccess -> {
+            is CommunityCreateMessageSideEffect.PopBackStackWithSuccess -> {
                 navController.setResult(SUCCESS_MESSAGE_POST, true)
                 navController.popBackStack()
             }
 
-            is CreateMessageSideEffect.PopBackStack -> {
+            is CommunityCreateMessageSideEffect.PopBackStack -> {
                 navController.popBackStack()
             }
         }
@@ -88,7 +87,7 @@ fun CreateMessageScreen(
             viewModel.setInitialStateWhenModify(args.communityMessage)
         }
     }
-    CreateMessageScreen(
+    CommunityCreateMessageScreen(
         pagerState = pagerState,
         state = viewModel.stateFlow.collectAsState().value,
         onEvent = viewModel::onEvent
@@ -96,18 +95,18 @@ fun CreateMessageScreen(
 }
 
 @Composable
-private fun CreateMessageScreen(
+private fun CommunityCreateMessageScreen(
     pagerState: PagerState,
     state: CreateMessageState,
-    onEvent: (CreateMessageViewEvent) -> Unit
+    onEvent: (CommunityCreateMessageViewEvent) -> Unit
 ) {
     var pageIndex by remember { mutableIntStateOf(0) }
     BackHandler {
-        onEvent(CreateMessageViewEvent.OnBackPressed)
+        onEvent(CommunityCreateMessageViewEvent.OnBackPressed)
     }
     PopUpWrapper(dialogState = state.dialogState) { tag ->
         when (tag) {
-            is CreateMessageDialogTag.CreateMessageBackPress -> {
+            is CommunityCreateMessageDialogTag.CreateMessageBackPress -> {
                 CreateMessageBackPressPopUp(
                     isModify = state.isModify,
                     onEvent = onEvent
@@ -137,7 +136,7 @@ private fun CreateMessageScreen(
                         buttonSize = ButtonSize.LARGE,
                         shape = RoundedCornerShape(100.dp),
                         text = "다음",
-                        onClick = { onEvent(CreateMessageViewEvent.OnClickStep1NextBtn) }
+                        onClick = { onEvent(CommunityCreateMessageViewEvent.OnClickStep1NextBtn) }
                     )
                 }
 
@@ -155,7 +154,7 @@ private fun CreateMessageScreen(
                             buttonSize = ButtonSize.LARGE,
                             shape = RoundedCornerShape(100.dp),
                             text = "이전",
-                            onClick = { onEvent(CreateMessageViewEvent.OnClickStep2PreviousBtn) }
+                            onClick = { onEvent(CommunityCreateMessageViewEvent.OnClickStep2PreviousBtn) }
                         )
                         Spacer(modifier = Modifier.size(24.dp))
                         MoiberButton(
@@ -168,7 +167,7 @@ private fun CreateMessageScreen(
                             buttonSize = ButtonSize.LARGE,
                             shape = RoundedCornerShape(100.dp),
                             text = "다음",
-                            onClick = { onEvent(CreateMessageViewEvent.OnClickStep2NextBtn) }
+                            onClick = { onEvent(CommunityCreateMessageViewEvent.OnClickStep2NextBtn) }
                         )
                     }
                 }
@@ -187,7 +186,7 @@ private fun CreateMessageScreen(
                             buttonSize = ButtonSize.LARGE,
                             shape = RoundedCornerShape(100.dp),
                             text = "게시하기",
-                            onClick = { onEvent(CreateMessageViewEvent.OnClickStep3CompleteBtn) }
+                            onClick = { onEvent(CommunityCreateMessageViewEvent.OnClickStep3CompleteBtn) }
                         )
                         MoiberButton(
                             modifier = Modifier.fillMaxWidth(),
@@ -196,7 +195,7 @@ private fun CreateMessageScreen(
                             fontStyle = Body04,
                             buttonSize = ButtonSize.LARGE,
                             text = "이전으로",
-                            onClick = { onEvent(CreateMessageViewEvent.OnClickStep2PreviousBtn) }
+                            onClick = { onEvent(CommunityCreateMessageViewEvent.OnClickStep2PreviousBtn) }
                         )
                         Spacer(modifier = Modifier.size(20.dp))
                     }

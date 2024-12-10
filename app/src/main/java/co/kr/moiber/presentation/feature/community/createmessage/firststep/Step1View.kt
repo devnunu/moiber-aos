@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,23 +19,18 @@ import co.kr.moiber.model.wear.BottomWear
 import co.kr.moiber.model.wear.OuterWear
 import co.kr.moiber.model.wear.UpperWear
 import co.kr.moiber.presentation.feature.community.createmessage.CreateMessageState
-import co.kr.moiber.presentation.feature.community.createmessage.CreateMessageViewEvent
+import co.kr.moiber.presentation.feature.community.createmessage.CommunityCreateMessageViewEvent
 import co.kr.moiber.presentation.feature.community.createmessage.components.WearListView
-import co.kr.moiber.shared.components.ButtonSize
-import co.kr.moiber.shared.components.MoiberButton
 import co.kr.moiber.shared.components.tab.MoiberTab
-import co.kr.moiber.shared.ui.Body04
 import co.kr.moiber.shared.ui.Body09
 import co.kr.moiber.shared.ui.Title03
 import co.kr.moiber.shared.ui.black01
 import co.kr.moiber.shared.ui.red01
-import co.kr.moiber.shared.ui.white01
-import co.kr.moiber.shared.ui.yellow01
 
 @Composable
 fun Step1View(
     state: CreateMessageState,
-    onEvent: (CreateMessageViewEvent) -> Unit
+    onEvent: (CommunityCreateMessageViewEvent) -> Unit
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     Column {
@@ -65,7 +59,7 @@ fun Step1View(
                         selectedItem = state.upperWear?.displayName,
                         onClickItem = { displayName ->
                             val upperWear = UpperWear.entries.find { displayName == it.displayName }
-                            onEvent(CreateMessageViewEvent.OnSelectUpperWear(upperWear))
+                            onEvent(CommunityCreateMessageViewEvent.OnSelectUpperWear(upperWear))
                         }
                     )
                 }
@@ -77,7 +71,7 @@ fun Step1View(
                         onClickItem = { displayName ->
                             val bottomWear =
                                 BottomWear.entries.find { displayName == it.displayName }
-                            onEvent(CreateMessageViewEvent.OnSelectBottomWear(bottomWear))
+                            onEvent(CommunityCreateMessageViewEvent.OnSelectBottomWear(bottomWear))
                         }
                     )
                 }
@@ -88,7 +82,7 @@ fun Step1View(
                         selectedItem = state.outerWear?.displayName,
                         onClickItem = { displayName ->
                             val outerWear = OuterWear.entries.find { displayName == it.displayName }
-                            onEvent(CreateMessageViewEvent.OnSelectOuterWear(outerWear))
+                            onEvent(CommunityCreateMessageViewEvent.OnSelectOuterWear(outerWear))
                         }
                     )
                 }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,26 +19,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.presentation.feature.community.createmessage.CreateMessageState
-import co.kr.moiber.presentation.feature.community.createmessage.CreateMessageViewEvent
+import co.kr.moiber.presentation.feature.community.createmessage.CommunityCreateMessageViewEvent
 import co.kr.moiber.presentation.feature.community.createmessage.components.divider.SliderStepDivider
 import co.kr.moiber.presentation.feature.community.createmessage.components.slider.TemperatureSlider
-import co.kr.moiber.shared.components.ButtonSize
-import co.kr.moiber.shared.components.MoiberButton
-import co.kr.moiber.shared.ui.Body04
 import co.kr.moiber.shared.ui.Title03
 import co.kr.moiber.shared.ui.black01
 import co.kr.moiber.shared.ui.black02
-import co.kr.moiber.shared.ui.gray01
-import co.kr.moiber.shared.ui.gray02
 import co.kr.moiber.shared.ui.red01
-import co.kr.moiber.shared.ui.white01
-import co.kr.moiber.shared.ui.yellow01
 import co.kr.moiber.shared.ui.yellow02
 
 @Composable
 fun Step2View(
     state: CreateMessageState,
-    onEvent: (CreateMessageViewEvent) -> Unit
+    onEvent: (CommunityCreateMessageViewEvent) -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -72,7 +64,7 @@ fun Step2View(
                 modifier = Modifier
                     .align(Alignment.Center),
                 state = state,
-                onChangedValue = { onEvent(CreateMessageViewEvent.OnChangeTemperature(it)) }
+                onChangedValue = { onEvent(CommunityCreateMessageViewEvent.OnChangeTemperature(it)) }
             )
             Column(
                 modifier = Modifier

@@ -7,7 +7,6 @@ import co.kr.moiber.model.community.PostMessageRequest
 import co.kr.moiber.model.network.onError
 import co.kr.moiber.model.network.onSuccess
 import co.kr.moiber.model.wear.BottomWear
-import co.kr.moiber.model.wear.OuterWear
 import co.kr.moiber.model.wear.UpperWear
 import co.kr.moiber.shared.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,9 +15,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateMessageViewModel @Inject constructor(
+class CommunityCreateMessageViewModel @Inject constructor(
     private val communityRepository: CommunityRepository,
-) : BaseViewModel<CreateMessageState, CreateMessageViewEvent, CreateMessageSideEffect>(
+) : BaseViewModel<CreateMessageState, CommunityCreateMessageViewEvent, CommunityCreateMessageSideEffect>(
     initialState = CreateMessageState()
 ) {
 
@@ -36,53 +35,53 @@ class CreateMessageViewModel @Inject constructor(
         }
     }
 
-    override fun onEvent(event: CreateMessageViewEvent) {
+    override fun onEvent(event: CommunityCreateMessageViewEvent) {
         when (event) {
-            is CreateMessageViewEvent.OnSelectUpperWear -> {
+            is CommunityCreateMessageViewEvent.OnSelectUpperWear -> {
                 setState { copy(upperWear = event.upperWear) }
             }
 
-            is CreateMessageViewEvent.OnSelectBottomWear -> {
+            is CommunityCreateMessageViewEvent.OnSelectBottomWear -> {
                 setState { copy(bottomWear = event.bottomWear) }
             }
 
-            is CreateMessageViewEvent.OnSelectOuterWear -> {
+            is CommunityCreateMessageViewEvent.OnSelectOuterWear -> {
                 setState { copy(outerWear = event.outerWear) }
             }
 
-            is CreateMessageViewEvent.OnClickStep1NextBtn -> {
+            is CommunityCreateMessageViewEvent.OnClickStep1NextBtn -> {
                 if (state.isStep1NextBtnEnable) {
-                    postSideEffect(CreateMessageSideEffect.ScrollToNextPage)
+                    postSideEffect(CommunityCreateMessageSideEffect.ScrollToNextPage)
                 } else {
                     setState { copy(step1ErrorMsg = "※ 상의와 하의는 필수적으로 선택해야 해요.") }
                 }
             }
 
-            is CreateMessageViewEvent.OnChangeTemperature -> {
+            is CommunityCreateMessageViewEvent.OnChangeTemperature -> {
                 setState { copy(temperature = event.temperature, step2Error = false) }
             }
 
-            is CreateMessageViewEvent.OnClickStep2PreviousBtn -> {
-                postSideEffect(CreateMessageSideEffect.ScrollToPreviousPage)
+            is CommunityCreateMessageViewEvent.OnClickStep2PreviousBtn -> {
+                postSideEffect(CommunityCreateMessageSideEffect.ScrollToPreviousPage)
             }
 
-            is CreateMessageViewEvent.OnClickStep2NextBtn -> {
+            is CommunityCreateMessageViewEvent.OnClickStep2NextBtn -> {
                 if (state.isStep2NextBtnEnable) {
-                    postSideEffect(CreateMessageSideEffect.ScrollToNextPage)
+                    postSideEffect(CommunityCreateMessageSideEffect.ScrollToNextPage)
                 } else {
                     setState { copy(step2Error = true) }
                 }
             }
 
-            is CreateMessageViewEvent.OnChangeMessage -> {
+            is CommunityCreateMessageViewEvent.OnChangeMessage -> {
                 setState { copy(message = event.message) }
             }
 
-            is CreateMessageViewEvent.OnClickStep3PreviousBtn -> {
-                postSideEffect(CreateMessageSideEffect.ScrollToPreviousPage)
+            is CommunityCreateMessageViewEvent.OnClickStep3PreviousBtn -> {
+                postSideEffect(CommunityCreateMessageSideEffect.ScrollToPreviousPage)
             }
 
-            is CreateMessageViewEvent.OnClickStep3CompleteBtn -> {
+            is CommunityCreateMessageViewEvent.OnClickStep3CompleteBtn -> {
                 if (verifyMessage(state.message)) {
                     if (state.isModify) {
                         modifyMessage()
@@ -92,16 +91,16 @@ class CreateMessageViewModel @Inject constructor(
                 }
             }
 
-            is CreateMessageViewEvent.OnBackPressed -> {
-                openDialog(CreateMessageDialogTag.CreateMessageBackPress)
+            is CommunityCreateMessageViewEvent.OnBackPressed -> {
+                openDialog(CommunityCreateMessageDialogTag.CreateMessageBackPress)
             }
 
-            is CreateMessageViewEvent.OnCloseDialog -> {
+            is CommunityCreateMessageViewEvent.OnCloseDialog -> {
                 closeDialog()
             }
 
-            is CreateMessageViewEvent.OnClickBackPressDialogFinish -> {
-                postSideEffect(CreateMessageSideEffect.PopBackStack)
+            is CommunityCreateMessageViewEvent.OnClickBackPressDialogFinish -> {
+                postSideEffect(CommunityCreateMessageSideEffect.PopBackStack)
                 closeDialog()
             }
         }
@@ -118,7 +117,7 @@ class CreateMessageViewModel @Inject constructor(
     private fun postNewMessage() = viewModelScope.launch {
         communityRepository.postMessage(getPostMessageRequest()).collectLatest { result ->
             result.onSuccess {
-                postSideEffect(CreateMessageSideEffect.PopBackStackWithSuccess)
+                postSideEffect(CommunityCreateMessageSideEffect.PopBackStackWithSuccess)
             }.onError {
 
             }
@@ -128,7 +127,7 @@ class CreateMessageViewModel @Inject constructor(
     private fun modifyMessage() = viewModelScope.launch {
         communityRepository.modifyMessage(getPostMessageRequest()).collectLatest { result ->
             result.onSuccess {
-                postSideEffect(CreateMessageSideEffect.PopBackStackWithSuccess)
+                postSideEffect(CommunityCreateMessageSideEffect.PopBackStackWithSuccess)
             }.onError {
 
             }
@@ -148,7 +147,7 @@ class CreateMessageViewModel @Inject constructor(
     /**
      * Modal
      * */
-    private fun openDialog(tag: CreateMessageDialogTag) {
+    private fun openDialog(tag: CommunityCreateMessageDialogTag) {
         setState { copy(dialogState = dialogState.open(tag)) }
     }
 

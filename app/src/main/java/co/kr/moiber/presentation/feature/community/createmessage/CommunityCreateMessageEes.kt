@@ -9,40 +9,40 @@ import co.kr.moiber.shared.base.ViewEvent
 import co.kr.moiber.shared.base.ViewState
 import co.kr.moiber.shared.components.model.ModalState
 
-sealed interface CreateMessageDialogTag {
-    data object CreateMessageBackPress : CreateMessageDialogTag
+sealed interface CommunityCreateMessageDialogTag {
+    data object CreateMessageBackPress : CommunityCreateMessageDialogTag
 }
 
-sealed interface CreateMessageViewEvent : ViewEvent {
+sealed interface CommunityCreateMessageViewEvent : ViewEvent {
     /** Step1 */
-    data class OnSelectUpperWear(val upperWear: UpperWear?) : CreateMessageViewEvent
-    data class OnSelectBottomWear(val bottomWear: BottomWear?) : CreateMessageViewEvent
-    data class OnSelectOuterWear(val outerWear: OuterWear?) : CreateMessageViewEvent
-    data object OnClickStep1NextBtn : CreateMessageViewEvent
+    data class OnSelectUpperWear(val upperWear: UpperWear?) : CommunityCreateMessageViewEvent
+    data class OnSelectBottomWear(val bottomWear: BottomWear?) : CommunityCreateMessageViewEvent
+    data class OnSelectOuterWear(val outerWear: OuterWear?) : CommunityCreateMessageViewEvent
+    data object OnClickStep1NextBtn : CommunityCreateMessageViewEvent
 
     /** Step2 */
-    data class OnChangeTemperature(val temperature: Int) : CreateMessageViewEvent
-    data object OnClickStep2PreviousBtn : CreateMessageViewEvent
-    data object OnClickStep2NextBtn : CreateMessageViewEvent
+    data class OnChangeTemperature(val temperature: Int) : CommunityCreateMessageViewEvent
+    data object OnClickStep2PreviousBtn : CommunityCreateMessageViewEvent
+    data object OnClickStep2NextBtn : CommunityCreateMessageViewEvent
 
     /** Step3 */
-    data class OnChangeMessage(val message: String?) : CreateMessageViewEvent
-    data object OnClickStep3PreviousBtn : CreateMessageViewEvent
-    data object OnClickStep3CompleteBtn : CreateMessageViewEvent
+    data class OnChangeMessage(val message: String?) : CommunityCreateMessageViewEvent
+    data object OnClickStep3PreviousBtn : CommunityCreateMessageViewEvent
+    data object OnClickStep3CompleteBtn : CommunityCreateMessageViewEvent
 
     /** modal */
-    data object OnCloseDialog : CreateMessageViewEvent
-    data object OnClickBackPressDialogFinish : CreateMessageViewEvent
+    data object OnCloseDialog : CommunityCreateMessageViewEvent
+    data object OnClickBackPressDialogFinish : CommunityCreateMessageViewEvent
 
     /** else */
-    data object OnBackPressed : CreateMessageViewEvent
+    data object OnBackPressed : CommunityCreateMessageViewEvent
 }
 
-sealed interface CreateMessageSideEffect : SideEffect {
-    data object ScrollToNextPage : CreateMessageSideEffect
-    data object ScrollToPreviousPage : CreateMessageSideEffect
-    data object PopBackStackWithSuccess : CreateMessageSideEffect
-    data object PopBackStack : CreateMessageSideEffect
+sealed interface CommunityCreateMessageSideEffect : SideEffect {
+    data object ScrollToNextPage : CommunityCreateMessageSideEffect
+    data object ScrollToPreviousPage : CommunityCreateMessageSideEffect
+    data object PopBackStackWithSuccess : CommunityCreateMessageSideEffect
+    data object PopBackStack : CommunityCreateMessageSideEffect
 }
 
 data class CreateMessageState(
@@ -60,8 +60,8 @@ data class CreateMessageState(
     val message: String? = null,
     val step3Error: Boolean = false,
     /** modal */
-    val dialogState: ModalState<CreateMessageDialogTag> =
-        ModalState.Closed(CreateMessageDialogTag.CreateMessageBackPress)
+    val dialogState: ModalState<CommunityCreateMessageDialogTag> =
+        ModalState.Closed(CommunityCreateMessageDialogTag.CreateMessageBackPress)
 ) : ViewState {
 
     /** step1 */

@@ -72,7 +72,7 @@ fun HomeScreen(
                     isDay = isDay,
                     onClickLocation = {
                         if (pagerState.currentPage == 0) {
-                            navController.navigate(NavRoute.SelectLocation)
+                            navController.navigate(NavRoute.WeatherSelectLocation)
                         } else {
                             homeCommunityViewModel.onEvent(HomeCommunityViewEvent.OnClickTopHeaderLocation)
                         }

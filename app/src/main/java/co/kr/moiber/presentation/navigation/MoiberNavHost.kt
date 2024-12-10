@@ -5,13 +5,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import co.kr.moiber.model.community.CommunityMessage
-import co.kr.moiber.presentation.feature.community.createmessage.CreateMessageScreen
+import co.kr.moiber.presentation.feature.community.createmessage.CommunityCreateMessageScreen
 import co.kr.moiber.presentation.feature.community.createmessage.CreateMessageVariable.SUCCESS_MESSAGE_POST
 import co.kr.moiber.presentation.feature.home.HomeScreen
-import co.kr.moiber.presentation.feature.weather.location.SelectLocationScreen
+import co.kr.moiber.presentation.feature.weather.location.WeatherSelectLocationScreen
 import co.kr.moiber.presentation.feature.intro.login.LoginScreen
 import co.kr.moiber.presentation.feature.intro.nickname.NickNameScreen
-import co.kr.moiber.presentation.feature.community.report.ReportScreen
+import co.kr.moiber.presentation.feature.community.report.CommunityReportScreen
 import co.kr.moiber.presentation.feature.intro.locationpermission.LocationPermissionScreen
 import co.kr.moiber.presentation.feature.intro.terms.TermsScreen
 import co.kr.moiber.presentation.feature.intro.welcome.WelcomeScreen
@@ -80,14 +80,14 @@ fun MoiberNavHost() {
         moiberComposable<NavRoute.Report>(
             screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
         ) {
-            ReportScreen(
+            CommunityReportScreen(
                 navController = navController
             )
         }
-        moiberComposable<NavRoute.SelectLocation>(
+        moiberComposable<NavRoute.WeatherSelectLocation>(
             screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
         ) {
-            SelectLocationScreen(
+            WeatherSelectLocationScreen(
                 navController = navController,
             )
         }
@@ -96,7 +96,7 @@ fun MoiberNavHost() {
             typeMap = mapOf(typeOf<CommunityMessage?>() to parcelableType<CommunityMessage?>(true))
         ) { backStackEntry ->
             val args = backStackEntry.toRoute<NavRoute.CreateMessage>()
-            CreateMessageScreen(
+            CommunityCreateMessageScreen(
                 args = args,
                 navController = navController
             )

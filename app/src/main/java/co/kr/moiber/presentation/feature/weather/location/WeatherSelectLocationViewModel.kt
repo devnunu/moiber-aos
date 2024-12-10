@@ -6,14 +6,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SelectLocationViewModel @Inject constructor(
+class WeatherSelectLocationViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository
-) : BaseViewModel<SelectLocationState, SelectLocationViewEvent, SelectLocationSideEffect>(
-    initialState = SelectLocationState()
+) : BaseViewModel<WeatherSelectLocationState, WeatherSelectLocationViewEvent, WeatherSelectLocationSideEffect>(
+    initialState = WeatherSelectLocationState()
 ) {
-    override fun onEvent(event: SelectLocationViewEvent) {
+    override fun onEvent(event: WeatherSelectLocationViewEvent) {
         when (event) {
-            is SelectLocationViewEvent.OnChangedLocationText -> {
+            is WeatherSelectLocationViewEvent.OnChangedLocationText -> {
                 setState { copy(locationText = event.text) }
             }
 

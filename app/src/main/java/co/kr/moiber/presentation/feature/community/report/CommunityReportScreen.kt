@@ -45,34 +45,34 @@ import co.kr.moiber.shared.ui.gray02
 import co.kr.moiber.shared.ui.white01
 
 @Composable
-fun ReportScreen(
-    viewModel: ReportViewModel = hiltViewModel(),
+fun CommunityReportScreen(
+    viewModel: CommunityReportViewModel = hiltViewModel(),
     navController: NavController
 ) {
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
-            is ReportSideEffect.PopBackStack -> {
+            is CommunityReportSideEffect.PopBackStack -> {
                 navController.popBackStack()
             }
         }
     }
-    ReportScreen(
+    CommunityReportScreen(
         state = viewModel.stateFlow.collectAsState().value,
         onEvent = viewModel::onEvent
     )
 }
 
 @Composable
-fun ReportScreen(
-    state: ReportState,
-    onEvent: (ReportViewEvent) -> Unit
+fun CommunityReportScreen(
+    state: CommunityReportState,
+    onEvent: (CommunityReportViewEvent) -> Unit
 ) {
     PopUpWrapper(dialogState = state.dialogState) { tag ->
         when (tag) {
-            is ReportDialogTag.Complete -> {
+            is CommunityReportDialogTag.Complete -> {
                 MoiberPopUp(
                     horizontalPadding = 40.dp,
-                    onDismissRequest = { onEvent(ReportViewEvent.OnClickCompleteDialogBtn) }
+                    onDismissRequest = { onEvent(CommunityReportViewEvent.OnClickCompleteDialogBtn) }
                 ) {
                     Column(
                         modifier = Modifier.padding(horizontal = 24.dp, vertical = 30.dp),
@@ -102,7 +102,7 @@ fun ReportScreen(
                             fontColor = white01,
                             fontStyle = Body07,
                             buttonSize = ButtonSize.MEDIUM,
-                            onClick = { onEvent(ReportViewEvent.OnClickCompleteDialogBtn) },
+                            onClick = { onEvent(CommunityReportViewEvent.OnClickCompleteDialogBtn) },
                             text = "확인"
                         )
                     }
@@ -128,7 +128,7 @@ fun ReportScreen(
                     buttonSize = ButtonSize.LARGE,
                     text = "신고 철회 요청하기",
                     onClick = {
-                        onEvent(ReportViewEvent.OnClickCompleteBtn)
+                        onEvent(CommunityReportViewEvent.OnClickCompleteBtn)
                     }
                 )
                 Spacer(modifier = Modifier.size(18.dp))
@@ -237,7 +237,7 @@ fun ReportScreen(
                 height = 124.dp,
                 value = value.orEmpty(),
                 placeHolder = "직접 입력하기(공백 포함 최대 150자)",
-                onValueChange = { text -> onEvent(ReportViewEvent.OnChangeReportTxt(text)) }
+                onValueChange = { text -> onEvent(CommunityReportViewEvent.OnChangeReportTxt(text)) }
             )
             Spacer(modifier = Modifier.size(18.dp))
         }
@@ -247,8 +247,8 @@ fun ReportScreen(
 @Preview(showBackground = true)
 @Composable
 fun ReportScreenPreview() {
-    ReportScreen(
-        state = ReportState(
+    CommunityReportScreen(
+        state = CommunityReportState(
         ),
         onEvent = {}
     )

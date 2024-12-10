@@ -10,8 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import co.kr.moiber.presentation.feature.community.createmessage.CreateMessageViewEvent
+import co.kr.moiber.presentation.feature.community.createmessage.CommunityCreateMessageViewEvent
 import co.kr.moiber.shared.components.ButtonSize
 import co.kr.moiber.shared.components.MoiberButton
 import co.kr.moiber.shared.components.popup.MoiberPopUp
@@ -26,11 +25,11 @@ import co.kr.moiber.shared.ui.white01
 @Composable
 fun CreateMessageBackPressPopUp(
     isModify: Boolean,
-    onEvent: (CreateMessageViewEvent) -> Unit
+    onEvent: (CommunityCreateMessageViewEvent) -> Unit
 ) {
     MoiberPopUp(
         horizontalPadding = 40.dp,
-        onDismissRequest = { onEvent(CreateMessageViewEvent.OnCloseDialog) }
+        onDismissRequest = { onEvent(CommunityCreateMessageViewEvent.OnCloseDialog) }
     ) {
         Column(
             modifier = Modifier
@@ -59,7 +58,7 @@ fun CreateMessageBackPressPopUp(
                 fontStyle = Body07,
                 buttonSize = ButtonSize.MEDIUM,
                 text = "네, 그만 쓸래요",
-                onClick = { onEvent(CreateMessageViewEvent.OnClickBackPressDialogFinish) }
+                onClick = { onEvent(CommunityCreateMessageViewEvent.OnClickBackPressDialogFinish) }
             )
             Spacer(modifier = Modifier.size(5.dp))
             MoiberButton(
@@ -69,7 +68,7 @@ fun CreateMessageBackPressPopUp(
                 fontStyle = Body07,
                 buttonSize = ButtonSize.MEDIUM,
                 text = "아니요, 계속 쓸게요",
-                onClick = { onEvent(CreateMessageViewEvent.OnCloseDialog) }
+                onClick = { onEvent(CommunityCreateMessageViewEvent.OnCloseDialog) }
             )
         }
     }

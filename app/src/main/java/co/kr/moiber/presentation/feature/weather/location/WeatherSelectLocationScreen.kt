@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,20 +30,20 @@ import co.kr.moiber.shared.ui.black01
 import co.kr.moiber.shared.ui.gray01
 
 @Composable
-fun SelectLocationScreen(
+fun WeatherSelectLocationScreen(
     navController: NavController,
-    viewModel: SelectLocationViewModel = hiltViewModel()
+    viewModel: WeatherSelectLocationViewModel = hiltViewModel()
 ) {
-    SelectLocationScreen(
+    WeatherSelectLocationScreen(
         state = viewModel.stateFlow.collectAsState().value,
         onEvent = viewModel::onEvent
     )
 }
 
 @Composable
-private fun SelectLocationScreen(
-    state: SelectLocationState,
-    onEvent: (SelectLocationViewEvent) -> Unit
+private fun WeatherSelectLocationScreen(
+    state: WeatherSelectLocationState,
+    onEvent: (WeatherSelectLocationViewEvent) -> Unit
 ) {
     MoiberScaffold {
         Column(
@@ -82,7 +80,7 @@ private fun SelectLocationScreen(
                 SelectLocationInput(
                     value = state.locationText.orEmpty(),
                     onValueChange = { text ->
-                        onEvent(SelectLocationViewEvent.OnChangedLocationText(text))
+                        onEvent(WeatherSelectLocationViewEvent.OnChangedLocationText(text))
                     }
                 )
                 Spacer(modifier = Modifier.size(18.dp))
@@ -138,9 +136,9 @@ private fun SelectLocationScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun SelectLocationScreenPreview() {
-    SelectLocationScreen(
-        state = SelectLocationState(),
+private fun WeatherSelectLocationScreenPreview() {
+    WeatherSelectLocationScreen(
+        state = WeatherSelectLocationState(),
         onEvent = {}
     )
 }
