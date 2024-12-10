@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import co.kr.moiber.presentation.feature.home.HomeVariable.NUMBER_OF_PAGE
 import co.kr.moiber.presentation.feature.home.community.HomeCommunityScreen
+import co.kr.moiber.presentation.feature.home.community.HomeCommunityViewEvent
 import co.kr.moiber.presentation.feature.home.community.HomeCommunityViewModel
 import co.kr.moiber.presentation.feature.home.components.header.TopHeaderView
 import co.kr.moiber.presentation.feature.home.components.indicator.PageIndicator
@@ -70,7 +71,12 @@ fun HomeScreen(
                 TopHeaderView(
                     isDay = isDay,
                     onClickLocation = {
-                        navController.navigate(NavRoute.SelectLocation)
+                        if (pagerState.currentPage == 0) {
+                            navController.navigate(NavRoute.SelectLocation)
+                        } else {
+                            homeCommunityViewModel.onEvent(HomeCommunityViewEvent.OnClickTopHeaderLocation)
+                        }
+
                     }
                 )
             }

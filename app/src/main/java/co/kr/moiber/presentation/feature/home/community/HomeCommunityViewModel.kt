@@ -48,6 +48,11 @@ class HomeCommunityViewModel @Inject constructor(
                 openDialog(HomeCommunityDialogTag.PostMessageComplete)
             }
 
+            /** Header */
+            is HomeCommunityViewEvent.OnClickTopHeaderLocation -> {
+                openBottomSheet(HomeCommunityBottomSheetTag.SelectLocation)
+            }
+
             /** LongPressPopUp */
             is HomeCommunityViewEvent.OnClickDialogReportBtn -> {
                 openDialog(HomeCommunityDialogTag.Report(event.message))
@@ -101,6 +106,11 @@ class HomeCommunityViewModel @Inject constructor(
 
             is HomeCommunityViewEvent.OnCloseDialog -> {
                 closeDialog()
+            }
+
+            is HomeCommunityViewEvent.OnClickSelectLocationConfirmBtn -> {
+                setState { copy(selectedLocation = event.selectedLocation) }
+                closeBottomSheet()
             }
         }
     }

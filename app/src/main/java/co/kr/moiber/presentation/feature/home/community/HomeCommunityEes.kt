@@ -17,6 +17,7 @@ sealed interface HomeCommunityDialogTag {
 
 sealed interface HomeCommunityBottomSheetTag {
     data object WeatherDetail : HomeCommunityBottomSheetTag
+    data object SelectLocation : HomeCommunityBottomSheetTag
 }
 
 sealed interface HomeCommunityViewEvent : ViewEvent {
@@ -24,6 +25,9 @@ sealed interface HomeCommunityViewEvent : ViewEvent {
     data class OnClickMessageItem(val message: CommunityMessage) : HomeCommunityViewEvent
     data class OnLongClickMessageItem(val message: CommunityMessage) : HomeCommunityViewEvent
     data object OnResultSuccessCreateMessage : HomeCommunityViewEvent
+
+    /** Header */
+    object OnClickTopHeaderLocation : HomeCommunityViewEvent
 
     /** LongPressPopUp */
     data class OnClickDialogLikeBtn(val message: CommunityMessage) : HomeCommunityViewEvent
@@ -44,6 +48,8 @@ sealed interface HomeCommunityViewEvent : ViewEvent {
     /** Common Modal */
     data object OnCloseBottomSheet : HomeCommunityViewEvent
     data object OnCloseDialog : HomeCommunityViewEvent
+    data class OnClickSelectLocationConfirmBtn(val selectedLocation: String) :
+        HomeCommunityViewEvent
 }
 
 sealed interface HomeCommunitySideEffect : SideEffect {
@@ -54,6 +60,7 @@ sealed interface HomeCommunitySideEffect : SideEffect {
 data class HomeCommunityState(
     val isDay: Boolean = true,
     val isOnMyHistory: Boolean = false,
+    val selectedLocation: String? = null,
     val communityMessageList: List<CommunityMessage> = emptyList(),
     /** 신고하기 */
     val selectedReportCaseList: List<ReportCase> = emptyList(),

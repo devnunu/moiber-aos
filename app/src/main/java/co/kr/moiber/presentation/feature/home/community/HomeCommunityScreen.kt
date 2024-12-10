@@ -25,6 +25,7 @@ import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.presentation.feature.home.community.components.CommunityHeader
 import co.kr.moiber.presentation.feature.home.community.components.message.MessageItem
 import co.kr.moiber.presentation.feature.home.community.components.EditFloatingButton
+import co.kr.moiber.presentation.feature.home.community.components.bottomsheet.SelectLocationBottomSheet
 import co.kr.moiber.presentation.feature.home.community.components.popup.HomeDeleteMessagePopUp
 import co.kr.moiber.presentation.feature.home.community.components.popup.HomeLongPressPopUp
 import co.kr.moiber.presentation.feature.home.community.components.popup.HomePostMsgCompletePopUp
@@ -128,6 +129,12 @@ private fun HomeCommunityScreen(
                         weatherSummary = FakeHomeWeatherSummary.getFakeModel()
                     )
                 }
+            }
+
+            is HomeCommunityBottomSheetTag.SelectLocation -> {
+                SelectLocationBottomSheet(
+                    onEvent = onEvent
+                )
             }
         }
     }
