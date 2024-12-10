@@ -44,7 +44,7 @@ fun NickNameScreen(
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
             is NickNameSideEffect.NavigateToTerms -> {
-                navController.navigate(NavRoute.Terms)
+                navController.navigate(NavRoute.IntroTerms)
             }
         }
     }

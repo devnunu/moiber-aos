@@ -14,6 +14,7 @@ import co.kr.moiber.presentation.feature.intro.nickname.NickNameScreen
 import co.kr.moiber.presentation.feature.community.report.ReportScreen
 import co.kr.moiber.presentation.feature.intro.locationpermission.LocationPermissionScreen
 import co.kr.moiber.presentation.feature.intro.terms.TermsScreen
+import co.kr.moiber.presentation.feature.intro.welcome.WelcomeScreen
 import co.kr.moiber.shared.ext.MoiberScreenAnim
 import co.kr.moiber.shared.ext.moiberComposable
 import kotlin.reflect.typeOf
@@ -23,9 +24,9 @@ fun MoiberNavHost() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = NavRoute.Login
+        startDestination = NavRoute.IntroLogin
     ) {
-        moiberComposable<NavRoute.Login>(
+        moiberComposable<NavRoute.IntroLogin>(
             screenAnim = MoiberScreenAnim.FADE_IN_OUT
         ) {
             LoginScreen(
@@ -33,7 +34,7 @@ fun MoiberNavHost() {
             )
         }
 
-        moiberComposable<NavRoute.NickName>(
+        moiberComposable<NavRoute.IntroNickName>(
             screenAnim = MoiberScreenAnim.VERTICAL_SLIDE
         ) {
             NickNameScreen(
@@ -41,7 +42,7 @@ fun MoiberNavHost() {
             )
         }
 
-        moiberComposable<NavRoute.Terms>(
+        moiberComposable<NavRoute.IntroTerms>(
             screenAnim = MoiberScreenAnim.HORIZONTAL_SLIDE
         ) {
             TermsScreen(
@@ -49,10 +50,18 @@ fun MoiberNavHost() {
             )
         }
 
-        moiberComposable<NavRoute.LocationPermission>(
+        moiberComposable<NavRoute.IntroLocationPermission>(
             screenAnim = MoiberScreenAnim.HORIZONTAL_SLIDE
         ) {
             LocationPermissionScreen(
+                navController = navController
+            )
+        }
+
+        moiberComposable<NavRoute.IntroWelcome>(
+            screenAnim = MoiberScreenAnim.HORIZONTAL_SLIDE
+        ) {
+            WelcomeScreen(
                 navController = navController
             )
         }

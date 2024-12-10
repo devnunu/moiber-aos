@@ -53,14 +53,14 @@ fun LocationPermissionScreen(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            navController.navigate(NavRoute.Home)
+            navController.navigate(NavRoute.IntroWelcome)
         }
     }
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
             is LocationPermissionSideEffect.RequestPermission -> {
                 checkLocationPermissionAndRequest(context, permissionLauncher) {
-                    navController.navigate(NavRoute.Home)
+                    navController.navigate(NavRoute.IntroWelcome)
                 }
             }
         }

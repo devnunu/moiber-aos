@@ -15,7 +15,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import co.kr.moiber.R
-import co.kr.moiber.presentation.feature.intro.nickname.NickNameViewEvent
 import co.kr.moiber.presentation.feature.intro.terms.components.TermsAllSelectBox
 import co.kr.moiber.presentation.feature.intro.terms.components.TermsItem
 import co.kr.moiber.presentation.navigation.NavRoute
@@ -46,7 +44,7 @@ fun TermsScreen(
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
             is TermsSideEffect.NavigateToLocationPermission -> {
-                navController.navigate(NavRoute.LocationPermission)
+                navController.navigate(NavRoute.IntroLocationPermission)
             }
         }
     }

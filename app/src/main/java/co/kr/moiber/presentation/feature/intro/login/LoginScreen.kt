@@ -1,10 +1,5 @@
 package co.kr.moiber.presentation.feature.intro.login
 
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,11 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import co.kr.moiber.R
@@ -41,7 +34,7 @@ fun LoginScreen(
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
             is LoginSideEffect.NavigateToNickName -> {
-                navController.navigate(NavRoute.NickName)
+                navController.navigate(NavRoute.IntroNickName)
             }
         }
     }
@@ -74,6 +67,7 @@ private fun LoginScreen(
                     text = "로그인",
                     onClick = { onEvent(LoginViewEvent.OnClickLoginBtn) }
                 )
+                Spacer(Modifier.size(40.dp))
             }
         }
     ) {

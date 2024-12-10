@@ -8,20 +8,24 @@ import kotlinx.serialization.Serializable
 sealed interface NavRoute {
 
     @Serializable
-    @SerialName("Login")
-    data object Login : NavRoute
+    @SerialName("IntroLogin")
+    data object IntroLogin : NavRoute
 
     @Serializable
-    @SerialName("NickName")
-    data object NickName : NavRoute
+    @SerialName("IntroNickName")
+    data object IntroNickName : NavRoute
 
     @Serializable
-    @SerialName("Terms")
-    data object Terms : NavRoute
+    @SerialName("IntroTerms")
+    data object IntroTerms : NavRoute
 
     @Serializable
-    @SerialName("LocationPermission")
-    data object LocationPermission : NavRoute
+    @SerialName("IntroLocationPermission")
+    data object IntroLocationPermission : NavRoute
+
+    @Serializable
+    @SerialName("IntroWelcome")
+    data object IntroWelcome : NavRoute
 
     @Serializable
     @SerialName("Home")
