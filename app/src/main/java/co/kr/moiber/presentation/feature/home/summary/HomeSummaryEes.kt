@@ -6,9 +6,11 @@ import co.kr.moiber.shared.base.ViewEvent
 import co.kr.moiber.shared.base.ViewState
 
 sealed interface HomeSummaryViewEvent : ViewEvent {
+    data object OnClickWeatherContent : HomeSummaryViewEvent
 }
 
 sealed interface HomeSummarySideEffect : SideEffect {
+    data object NavigateToWeatherDetail:HomeSummarySideEffect
 }
 
 data class HomeSummaryState(

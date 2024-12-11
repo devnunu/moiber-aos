@@ -19,7 +19,9 @@ import co.kr.moiber.shared.ui.Title03
 @Composable
 fun TopHeaderView(
     isDay: Boolean,
-    onClickLocation: () -> Unit
+    rightIconResId: Int = R.drawable.icn_menu1,
+    onClickLocation: () -> Unit,
+    onClickRightIcon: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -50,7 +52,10 @@ fun TopHeaderView(
         }
         Spacer(modifier = Modifier.weight(1f))
         DayNightIcon(
-            iconResId = R.drawable.icn_menu1,
+            modifier = Modifier.clickableNonIndication {
+                onClickRightIcon()
+            },
+            iconResId = rightIconResId,
             isDay = isDay
         )
     }
@@ -61,6 +66,7 @@ fun TopHeaderView(
 fun TopHeaderViewPreview() {
     TopHeaderView(
         isDay = true,
-        onClickLocation = {}
+        onClickLocation = {},
+        onClickRightIcon = {}
     )
 }

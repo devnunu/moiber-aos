@@ -30,7 +30,9 @@ class HomeSummaryViewModel @Inject constructor(
 
     override fun onEvent(event: HomeSummaryViewEvent) {
         when (event) {
-            else -> Unit
+            is HomeSummaryViewEvent.OnClickWeatherContent -> {
+                postSideEffect(HomeSummarySideEffect.NavigateToWeatherDetail)
+            }
         }
     }
 }

@@ -17,7 +17,6 @@ data class HomeWeatherSummary(
     val isDay: Boolean = true,        // 낮/밤 여부
     val weatherMessageList: List<WeatherMessage> = listOf()
 ) {
-
     val dustTxt: String
         get() = when (dustIndex) {
             in 0..30 -> "좋음"
@@ -49,20 +48,7 @@ data class HomeWeatherSummary(
 
     @get:DrawableRes
     val weatherIconResId: Int
-        get() = when (currentWeather) {
-            Weather.SUNNY -> {
-                if (isDay) R.drawable.icn_sun_l else R.drawable.icn_moon_l
-            }
-
-            Weather.SOME_CLOUDY -> {
-                if (isDay) R.drawable.icn_cloud1_l else R.drawable.icn_cloud3_l
-            }
-
-            Weather.CLOUDY -> R.drawable.icn_cloud2_l
-            Weather.RAINY -> R.drawable.icn_rain_l
-            Weather.THUNDER -> R.drawable.icn_thunder_l
-            else -> R.drawable.icn_snow_l
-        }
+        get() = currentWeather?.getWeatherIconResId(isDay) ?: R.drawable.icn_snow_l
 
     @get:DrawableRes
     val weatherBgResId: Int

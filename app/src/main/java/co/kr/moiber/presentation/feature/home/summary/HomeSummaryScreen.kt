@@ -14,16 +14,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.model.weather.Weather
 import co.kr.moiber.presentation.feature.home.summary.components.animation.HomeAnimationVisibility
 import co.kr.moiber.presentation.feature.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.feature.home.summary.components.message.WeatherMessageView
+import co.kr.moiber.presentation.navigation.NavRoute
 import co.kr.moiber.shared.components.DayNightText
+import co.kr.moiber.shared.ext.clickableNonIndication
+import co.kr.moiber.shared.ext.collectSideEffect
 import co.kr.moiber.shared.ext.toFormatString
 import co.kr.moiber.shared.ui.Body07
 import co.kr.moiber.shared.ui.white01
@@ -31,9 +36,18 @@ import java.util.Date
 
 @Composable
 fun HomeSummaryScreen(
-    viewModel: HomeSummaryViewModel = hiltViewModel(),
     isVisible: Boolean,
+    viewModel: HomeSummaryViewModel = hiltViewModel(),
+    navController: NavController
 ) {
+    val context = LocalContext.current
+    viewModel.collectSideEffect { sideEffect ->
+        when (sideEffect) {
+            is HomeSummarySideEffect.NavigateToWeatherDetail -> {
+                navController.navigate(NavRoute.WeatherDetail)
+            }
+        }
+    }
     HomeSummaryScreen(
         isVisible = isVisible,
         state = viewModel.stateFlow.collectAsState().value,
@@ -90,7 +104,11 @@ fun HomeSummaryScreen(
                             .padding(horizontal = 16.dp, vertical = 20.dp)
                     ) {
                         WeatherContent(
-                            modifier = Modifier.padding(horizontal = 16.dp),
+                            modifier = Modifier
+                                .padding(horizontal = 16.dp)
+                                .clickableNonIndication {
+                                    onEvent(HomeSummaryViewEvent.OnClickWeatherContent)
+                                },
                             weatherSummary = state.weatherSummary
                         )
                     }

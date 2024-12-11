@@ -76,6 +76,8 @@ fun HomeScreen(
                         } else {
                             homeCommunityViewModel.onEvent(HomeCommunityViewEvent.OnClickTopHeaderLocation)
                         }
+                    },
+                    onClickRightIcon = {
 
                     }
                 )
@@ -95,7 +97,8 @@ fun HomeScreen(
                         0 -> {
                             HomeSummaryScreen(
                                 isVisible = isVisible,
-                                viewModel = homeSummaryViewModel
+                                viewModel = homeSummaryViewModel,
+                                navController = navController
                             )
                         }
 
