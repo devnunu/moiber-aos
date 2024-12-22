@@ -110,3 +110,20 @@ fun Date.getCurrentHour(): Int {
     return calendar.get(Calendar.HOUR_OF_DAY)
 }
 
+fun Date.toKoreanWeekday(): String {
+    val calendar = Calendar.getInstance().apply {
+        time = this@toKoreanWeekday
+    }
+
+    return when (calendar.get(Calendar.DAY_OF_WEEK)) {
+        Calendar.SUNDAY -> "일"
+        Calendar.MONDAY -> "월"
+        Calendar.TUESDAY -> "화"
+        Calendar.WEDNESDAY -> "수"
+        Calendar.THURSDAY -> "목"
+        Calendar.FRIDAY -> "금"
+        Calendar.SATURDAY -> "토"
+        else -> throw IllegalArgumentException("잘못된 요일입니다.")
+    }
+}
+

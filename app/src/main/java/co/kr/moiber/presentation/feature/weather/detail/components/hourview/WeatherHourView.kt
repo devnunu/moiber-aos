@@ -15,12 +15,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.kr.moiber.model.weather.FakeWeatherDetail
 import co.kr.moiber.model.weather.WeatherByHour
-import co.kr.moiber.shared.ext.getHourDiff
 import co.kr.moiber.shared.ui.yellow03
-import java.util.Date
 
 @Composable
-fun WeatherHourViewView(
+fun WeatherHourView(
     weatherByHourList: List<WeatherByHour>,
 ) {
     Row(
@@ -45,7 +43,7 @@ fun WeatherHourViewView(
 @Preview(showBackground = true)
 @Composable
 fun WeatherHourViewViewPreview() {
-    WeatherHourViewView(
+    WeatherHourView(
         weatherByHourList = FakeWeatherDetail.getFakeModel().weatherByHourList
     )
 }

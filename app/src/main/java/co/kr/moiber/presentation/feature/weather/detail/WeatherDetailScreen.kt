@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,16 +22,14 @@ import androidx.navigation.NavController
 import co.kr.moiber.R
 import co.kr.moiber.model.weather.FakeHomeWeatherSummary
 import co.kr.moiber.model.weather.FakeWeatherDetail
-import co.kr.moiber.presentation.feature.home.community.HomeCommunityViewEvent
 import co.kr.moiber.presentation.feature.home.components.header.TopHeaderView
 import co.kr.moiber.presentation.feature.home.components.weather.WeatherContent
 import co.kr.moiber.presentation.feature.weather.detail.components.WeatherTagText
-import co.kr.moiber.presentation.feature.weather.detail.components.hourview.WeatherHourViewView
+import co.kr.moiber.presentation.feature.weather.detail.components.dayview.WeatherDateView
+import co.kr.moiber.presentation.feature.weather.detail.components.hourview.WeatherHourView
 import co.kr.moiber.presentation.navigation.NavRoute
 import co.kr.moiber.shared.components.scaffold.MoiberScaffold
 import co.kr.moiber.shared.ext.collectSideEffect
-import co.kr.moiber.shared.ui.Body11
-import co.kr.moiber.shared.ui.gray01
 import co.kr.moiber.shared.ui.white01
 
 @Composable
@@ -110,8 +106,12 @@ fun WeatherDetailScreen(
                         )
                     }
                     Spacer(modifier = Modifier.size(12.dp))
-                    WeatherHourViewView(
+                    WeatherHourView(
                         weatherByHourList = weatherDetailSummary?.weatherByHourList ?: emptyList()
+                    )
+                    Spacer(modifier = Modifier.size(10.dp))
+                    WeatherDateView(
+                        weatherByDateList = weatherDetailSummary?.weatherByDateList ?: emptyList()
                     )
                 }
             }
