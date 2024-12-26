@@ -37,7 +37,6 @@ fun CreateMessageBackPressPopUp(
                 .padding(start = 24.dp, end = 24.dp, top = 30.dp, bottom = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Text(
                 style = Body04,
                 text = "다음에 작성하시겠어요?",

@@ -78,7 +78,7 @@ fun HomeScreen(
                         }
                     },
                     onClickRightIcon = {
-
+                        navController.navigate(NavRoute.MyPage)
                     }
                 )
             }

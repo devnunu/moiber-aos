@@ -15,6 +15,7 @@ import co.kr.moiber.presentation.feature.community.report.CommunityReportScreen
 import co.kr.moiber.presentation.feature.intro.locationpermission.LocationPermissionScreen
 import co.kr.moiber.presentation.feature.intro.terms.TermsScreen
 import co.kr.moiber.presentation.feature.intro.welcome.WelcomeScreen
+import co.kr.moiber.presentation.feature.mypage.MyPageScreen
 import co.kr.moiber.presentation.feature.weather.detail.WeatherDetailScreen
 import co.kr.moiber.shared.ext.MoiberScreenAnim
 import co.kr.moiber.shared.ext.moiberComposable
@@ -82,6 +83,17 @@ fun MoiberNavHost() {
 
             HomeScreen(
                 successMessagePost = successMessagePost,
+                navController = navController
+            )
+        }
+
+        /**
+         * MyPage
+         * */
+        moiberComposable<NavRoute.MyPage>(
+            screenAnim = MoiberScreenAnim.FADE_IN_OUT
+        ) {
+            MyPageScreen(
                 navController = navController
             )
         }

@@ -38,6 +38,13 @@ sealed interface NavRoute {
     data object Home : NavRoute
 
     /**
+     * MyPage
+     * */
+    @Serializable
+    @SerialName("MyPage")
+    data object MyPage : NavRoute
+
+    /**
      * Home
      * */
     @Serializable
